@@ -1,11 +1,17 @@
 # Kafka by Backwards
 
-Scala module with reusable Kafka functionality (with some Java friendliness) - Example usage included while covering "beginner" to "advanced" Kafka courses.
+Scala module with reusable Kafka functionality (including some Java friendliness).<br/>
+Example usage included while covering "beginner" to "advanced" Kafka courses.
 
 ## Setup
 On Mac:
 ```
-$ brew update && brew install scala && brew install sbt && brew install kubernetes-cli && brew install kubectl && brew cask install virtualbox docker minikube
+$ brew update && \
+  brew install scala && \
+  brew install sbt && \
+  brew install kubernetes-cli && \
+  brew install kubectl && \
+  brew cask install virtualbox docker minikube
 ```
 
 ## TODO
