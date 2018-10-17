@@ -1,6 +1,6 @@
 FROM openjdk:11-jdk-sid
 
-ENV SBT_VERSION 1.2.4
+ENV SBT_VERSION 1.2.6
 
 VOLUME /tmp
 
