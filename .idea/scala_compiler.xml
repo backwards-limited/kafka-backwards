@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <profile name="Maven 1" modules="kafka-beginners-course,kafka_1220,kafka-kafka,kafka,testing,default-a8d705,kafka-backwards-kafka-backwards,kafka-backwards,kafka-backwards-root,root,backwards,beginners-course,kafka-backwards-kafka" />
+  </component>
+</project>
