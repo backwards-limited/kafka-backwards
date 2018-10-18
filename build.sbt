@@ -1,9 +1,10 @@
 import Dependencies._
 import sbt._
 
-lazy val root = project("root", file("."))
+lazy val root = project("kafka-backwards", file("."))
   .settings(
-    description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses"
+    description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses",
+    assemblyJarName in assembly := "kafka-backwards.jar"
   )
   .aggregate(
     backwards, kafka, beginnersCourse

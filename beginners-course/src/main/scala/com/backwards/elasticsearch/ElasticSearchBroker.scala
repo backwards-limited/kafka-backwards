@@ -1,32 +1,43 @@
 package com.backwards.elasticsearch
 
-import com.sksamuel.elastic4s.RefreshPolicy
-import com.sksamuel.elastic4s.http.ElasticDsl._
-import com.sksamuel.elastic4s.http.search.SearchResponse
-import com.sksamuel.elastic4s.http.{ElasticClient, ElasticProperties, Response}
-import com.backwards.config._
+import scala.concurrent.duration._
+import scala.language.postfixOps
+import jp.co.bizreach.elasticsearch4s._
+import jp.co.bizreach.elasticsearch4s.retry.{FixedBackOff, RetryConfig}
+import com.backwards.config.elasticSearchConfig
 
 class ElasticSearchBroker {
-  sys addShutdownHook close()
+  ESClient.using(
+    elasticSearchConfig.bootstrapServers,
+    retryConfig = RetryConfig(maxAttempts = 10, retryDuration = 5 seconds, backOff = FixedBackOff)
+  ) { client =>
+    val config = "twitter" / "tweet"
 
-  lazy val client = ElasticClient(ElasticProperties(elasticSearchConfig.servers.mkString))
+    // Insert
+    client.insert(config, Tweet("takezoe", "Hello World!!"))
 
-  def close(): Unit = client.close()
+    // Update
+    client.update(config, "1", Tweet("takezoe", "Hello Scala!!"))
 
+    // Update partially
+    client.updatePartially(config, "1", TweetMessage("Hello Japan!!"))
 
+    // Find one document
+    val tweet: Option[(String, Tweet)] = client.find[Tweet](config){ builder =>
+      builder.query(termQuery("_id", "1"))
+    }
 
-  // TESTING ...
-  client.execute {
-    bulk(
-      indexInto("myindex" / "mytype").fields("country" -> "Mongolia", "capital" -> "Ulaanbaatar"),
-      indexInto("myindex" / "mytype").fields("country" -> "Namibia", "capital" -> "Windhoek")
-    ).refresh(RefreshPolicy.WaitFor)
-  }.await
+    println(s"===> Find one = $tweet")
 
-  val response: Response[SearchResponse] = client.execute {
-    search("myindex").matchQuery("capital", "ulaanbaatar")
-  }.await
+    // Search documents
+    val list: ESSearchResult[Tweet] = client.list[Tweet](config){ builder =>
+      builder.query(termQuery("name", "takezoe"))
+    }
 
-  // prints out the original json
-  println(response.result.hits.hits.head.sourceAsString)
+    println(s"===> Find all = $list")
+  }
 }
+
+case class Tweet(name: String, message: String)
+
+case class TweetMessage(message: String)

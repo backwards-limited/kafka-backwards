@@ -1,3 +1,5 @@
+# This is a DEMO docker configuration that is very inefficient but more visible for learning/teaching purposes
+
 FROM openjdk:11-jdk-sid
 
 ENV SBT_VERSION 1.2.6

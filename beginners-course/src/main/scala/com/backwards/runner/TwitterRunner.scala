@@ -20,12 +20,13 @@ import com.danielasfregola.twitter4s.entities.Tweet
   *   - Query Twitter for "Scala" tweets using [[https://github.com/DanielaSfregola/twitter4s twitter4s]]
   *   - Send tweets to Kafka using [[com.backwards.kafka.Producer Producer]]
   *   - Receive said tweets from Kafka using [[com.backwards.kafka.Consumer Consumer]]
-  *   - Finally each received tweet is added to Elasticsearch
+  *   - Finally each received tweet is added to Elasticsearch using [[https://github.com/bizreach/elastic-scala-httpclient elastic-scala-httpclient]]
   */
 object TwitterRunner extends App with Serde.Implicits with Logging {
   val twitterBroker = new TwitterBroker
   val tweets: Future[Seq[Tweet]] = twitterBroker.query(NonEmptyList.of("scala")).map(_.data.statuses)
 
+  // TODO - Aquire this from application.conf/pureconfig
   val configuration: Configuration = Configuration("twitter-topic") + (BOOTSTRAP_SERVERS_CONFIG -> kafkaConfig.bootstrapServers)
 
   val producer: Producer[IO, String, String] = Producer[IO, String, String](configuration)
@@ -34,7 +35,7 @@ object TwitterRunner extends App with Serde.Implicits with Logging {
     _.map { tweet =>
       producer.send(tweet.id.toString, tweet.text)
     }.map(_.unsafeRunSync).foreach {
-      case Right(r) => info(s"Successfully published: $r")
+      case Right(r) => info(s"Published successfully: $r")
       case Left(t) => error("Publication Error", t)
     }
   }
