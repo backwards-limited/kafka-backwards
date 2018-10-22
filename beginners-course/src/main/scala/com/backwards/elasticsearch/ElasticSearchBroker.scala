@@ -6,6 +6,7 @@ import jp.co.bizreach.elasticsearch4s._
 import jp.co.bizreach.elasticsearch4s.retry.{FixedBackOff, RetryConfig}
 import com.backwards.config.elasticSearchConfig
 
+// TODO - Remove hardcoded hack which was a PoC
 class ElasticSearchBroker {
   ESClient.using(
     elasticSearchConfig.bootstrapServers,
@@ -23,14 +24,14 @@ class ElasticSearchBroker {
     client.updatePartially(config, "1", TweetMessage("Hello Japan!!"))
 
     // Find one document
-    val tweet: Option[(String, Tweet)] = client.find[Tweet](config){ builder =>
+    val tweet: Option[(String, Tweet)] = client.find[Tweet](config) { builder =>
       builder.query(termQuery("_id", "1"))
     }
 
     println(s"===> Find one = $tweet")
 
     // Search documents
-    val list: ESSearchResult[Tweet] = client.list[Tweet](config){ builder =>
+    val list: ESSearchResult[Tweet] = client.list[Tweet](config) { builder =>
       builder.query(termQuery("name", "takezoe"))
     }
 
