@@ -1,9 +1,5 @@
 # Building and Executing
 
-A small caveat: Various approaches have been taken with the use of sbt, docker and docker-compose that are not efficient.
-As a result, many things that are automated, take longer than necessary.
-These approaches have been taken for simplicity (over efficiency) purely from an educational perspective.
-
 - The project image can be build with:
 
   ```bash

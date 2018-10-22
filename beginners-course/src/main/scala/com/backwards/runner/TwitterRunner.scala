@@ -3,18 +3,14 @@ package com.backwards.runner
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.{higherKinds, postfixOps}
 import cats.data.NonEmptyList
-import cats.effect.{Effect, IO}
+import cats.effect.IO
 import cats.implicits._
-import org.apache.kafka.clients.consumer.ConsumerConfig.{AUTO_OFFSET_RESET_CONFIG, GROUP_ID_CONFIG}
 import org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG
-import org.apache.kafka.common.serialization.{Deserializer, Serializer}
 import com.backwards.config._
-import com.backwards.elasticsearch.ElasticSearchBroker
+import com.backwards.kafka.Configuration
 import com.backwards.kafka.serde.Serde
-import com.backwards.kafka.{Configuration, Consumer}
 import com.backwards.logging.Logging
-import com.backwards.twitter.{TwitterBroker, TwitterProducer}
-import scala .concurrent.duration._
+import com.backwards.twitter.{TwitterBroker, TwitterConsumer, TwitterProducer}
 
 /**
   * Demo application which shows the following:
@@ -27,45 +23,25 @@ object TwitterRunner extends App with Serde.Implicits with Logging {
   // TODO - Aquire this from application.conf/pureconfig
   val configuration: Configuration = Configuration("twitter-topic") + (BOOTSTRAP_SERVERS_CONFIG -> kafkaConfig.bootstrapServers)
 
-  val twitterProducer = TwitterProducer[IO](configuration)
+  val twitterProducer = TwitterProducer(configuration)
 
   val twitterBroker = new TwitterBroker
   twitterBroker.track(NonEmptyList.of("scala"))(twitterProducer.produce(_).unsafeRunSync)
 
-  val twitterConsumer = TwitterConsumer[IO](configuration)
+  val twitterConsumer = TwitterConsumer(configuration)
 
-  val consumeTweets: Throwable Either Seq[(String, String)] => IO[Unit] = {
+  val processTweets: Throwable Either Seq[(String, String)] => IO[Unit] = {
     case Left(t) =>
       IO(t.printStackTrace())
 
     case Right(tweets) =>
       IO(info(s"Consumed Tweets:\n${tweets.mkString("\n")}")).map { _ =>
-        twitterConsumer.consume().runAsync(consumeTweets).unsafeRunSync()
+        // TODO - Actually use instead of the hardcoded PoC inside the following class
+        // val elasticsearchBroker = new ElasticSearchBroker*/
+
+        twitterConsumer doConsume processTweets
       }
   }
 
-  twitterConsumer.consume().runAsync(consumeTweets).unsafeRunSync
-
-  /////////////
-  // TODO - Extract into a TwitterConsumer
-  /*val consumer = Consumer[IO, String, String](configuration + (GROUP_ID_CONFIG, "twitter-group") + (AUTO_OFFSET_RESET_CONFIG -> "earliest"))
-
-  val consumedTweets: Seq[(String, String)] = consumer.poll().unsafeRunSync
-  info(s"Consumed Tweets:\n${consumedTweets.mkString("\n")}")
-
-  // TODO - Actually use instead of the hardcoded PoC inside the following class
-  val elasticsearchBroker = new ElasticSearchBroker*/
-}
-
-object TwitterConsumer {
-  def apply[F[_]](configuration: Configuration)(implicit F: Effect[F], K: Deserializer[String], V: Deserializer[String]) =
-    new TwitterConsumer[F](configuration + (GROUP_ID_CONFIG, "twitter-group") + (AUTO_OFFSET_RESET_CONFIG -> "earliest"))(F, K, V)
-}
-
-class TwitterConsumer[F[_]] private(configuration: Configuration)(implicit F: Effect[F], K: Deserializer[String], V: Deserializer[String]) {
-  val consumer: Consumer[F, String, String] = Consumer[F, String, String](configuration)(F, K, V)
-
-  def consume(): F[Seq[(String, String)]] = {
-    consumer.poll(30 seconds)
-  }
+  twitterConsumer doConsume processTweets
 }

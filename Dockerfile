@@ -1,22 +1,7 @@
-# This is a DEMO docker configuration that is very inefficient but more visible for learning/teaching purposes
-
-FROM openjdk:11-jdk-sid
-
-ENV SBT_VERSION 1.2.6
+FROM openjdk:11.0.1-jre-sid
 
 VOLUME /tmp
 
-COPY . /
-
-RUN \
-  curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
-  dpkg -i sbt-$SBT_VERSION.deb && \
-  rm sbt-$SBT_VERSION.deb && \
-  apt-get update && \
-  apt-get install sbt
-
-RUN \
-  sh -c "cd /" && \
-  sh -c "sbt clean assembly"
+COPY beginners-course/target/scala-2.12/beginners-course.jar /
 
 WORKDIR /
