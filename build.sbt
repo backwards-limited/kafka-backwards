@@ -2,37 +2,19 @@ import Dependencies._
 import sbt._
 
 lazy val root = project("kafka-backwards", file("."))
-  .settings(
-    description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses",
-    assemblyJarName in assembly := "kafka-backwards.jar"
-  )
-  .aggregate(
-    backwards, kafka, beginnersCourse
-  )
+  .settings(description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses")
+  .aggregate(backwards, kafka, beginnersCourse)
 
 lazy val backwards = project("backwards") // TODO - Extract this into its own repo
-  .settings(
-    description := "Scala functionality by Backwards - reusable functionality such as testing, logging",
-    assemblyJarName in assembly := "backwards.jar"
-  )
+  .settings(description := "Scala functionality by Backwards - reusable functionality such as testing, logging")
 
 lazy val kafka = project("kafka")
-  .settings(
-    description := "Backwards Kafka functionality includes example usage in various courses",
-    assemblyJarName in assembly := "kafka.jar"
-  )
-  .dependsOn(
-    backwards % "compile->compile;test->test;it->it"
-  )
+  .settings(description := "Backwards Kafka functionality includes example usage in various courses")
+  .dependsOn(backwards % "compile->compile;test->test;it->it")
 
 lazy val beginnersCourse = project("beginners-course")
-  .settings(
-    description := "Beginners Course - Apache Kafka Series",
-    assemblyJarName in assembly := "beginners-course.jar"
-  )
-  .dependsOn(
-    kafka % "compile->compile;test->test;it->it"
-  )
+  .settings(description := "Beginners Course - Apache Kafka Series")
+  .dependsOn(kafka % "compile->compile;test->test;it->it")
 
 def project(id: String): Project = project(id, file(id))
 
@@ -54,7 +36,8 @@ def project(id: String, base: File): Project =
       fork in Test := true,
       fork in IntegrationTest := true,
       fork in run := true,
-      scalacOptions in (Compile,doc) ++= Seq("-groups", "-implicits"),
+      scalacOptions in (Compile, doc) ++= Seq("-groups", "-implicits"),
+      assemblyJarName in assembly := s"$id.jar",
       assemblyMergeStrategy in assembly := {
         case PathList("javax", "servlet", xs @ _*)          => MergeStrategy.first
         case PathList(ps @ _*) if ps.last endsWith ".html"  => MergeStrategy.first
