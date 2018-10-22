@@ -42,7 +42,7 @@ class TwitterBrokerITSpec extends WordSpec with MustMatchers with ScalaFutures w
       twitterConsumer.poll().unsafeRunSync mustEqual Seq(tweetKey -> tweet)
     }
 
-    "query tweets from Twitter" in {
+    /*"query tweets from Twitter" in {
       val twitterBroker = new TwitterBroker
 
       whenReady(twitterBroker.query(NonEmptyList.of("scala"))) { ratedData =>
@@ -67,10 +67,12 @@ class TwitterBrokerITSpec extends WordSpec with MustMatchers with ScalaFutures w
       }
 
       publishedTweets.map(_.unsafeRunSync()).count(_.isRight) mustEqual tweets.size
-    }
+    }*/
 
     "track a term" ignore {
+      val twitterBroker = new TwitterBroker
 
+      twitterBroker.
     }
   }
 }

@@ -22,6 +22,7 @@ import com.danielasfregola.twitter4s.entities.Tweet
   *   - Receive said tweets from Kafka using [[com.backwards.kafka.Consumer Consumer]]
   *   - Finally each received tweet is added to Elasticsearch using [[https://github.com/bizreach/elastic-scala-httpclient elastic-scala-httpclient]]
   */
+/*
 object TwitterRunner extends App with Serde.Implicits with Logging {
   val twitterBroker = new TwitterBroker
   val tweets: Future[Seq[Tweet]] = twitterBroker.query(NonEmptyList.of("scala")).map(_.data.statuses)
@@ -46,4 +47,4 @@ object TwitterRunner extends App with Serde.Implicits with Logging {
   info(s"Consumed Tweets:\n${consumedTweets.mkString("\n")}")
 
   val elasticsearchBroker = new ElasticSearchBroker
-}
+}*/
