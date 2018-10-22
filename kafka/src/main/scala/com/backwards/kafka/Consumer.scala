@@ -21,7 +21,7 @@ class Consumer[F[_]: Applicative, K, V] private (configuration: Configuration) {
     consumer
   }
 
-  def poll(duration: Duration = 10000 milliseconds): F[Seq[(K, V)]] = {
+  def poll(duration: Duration = 10 seconds): F[Seq[(K, V)]] = {
     val consumerRecords = consumer.poll(JDuration.ofMillis(duration.toMillis))
 
     consumerRecords.iterator().asScala.map { consumerRecord =>

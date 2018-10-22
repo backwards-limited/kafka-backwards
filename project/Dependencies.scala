@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
-      airframe, scalatest, configuration, testcontainers, cats, monocle, http4s, scalaUri, kafka, twitter, elasticsearch
+      airframe, scalatest, pprint, configuration, testcontainers, cats, monocle, http4s, scalaUri, kafka, twitter, elasticsearch
     ).flatten
 
   lazy val airframe: Seq[ModuleID] = Seq(
@@ -12,6 +12,10 @@ object Dependencies {
 
   lazy val scalatest: Seq[ModuleID] = Seq(
     "org.scalatest" %% "scalatest" % "3.0.5" % "test, it"
+  )
+
+  lazy val pprint: Seq[ModuleID] = Seq(
+    "com.lihaoyi" %% "pprint" % "0.5.3" % "test, it"
   )
 
   lazy val configuration: Seq[ModuleID] = {

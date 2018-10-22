@@ -29,7 +29,8 @@ sbt module/test
   sbt beginners-course/it:test
   ```
     
-- Application
+- Run Application
+  As mentioned, run everything from the root of this project as there is only one top-level **build.sbt**
     
   ```bash
   docker-compose up --build
