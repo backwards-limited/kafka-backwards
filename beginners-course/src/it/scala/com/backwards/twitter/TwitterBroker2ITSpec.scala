@@ -12,7 +12,7 @@ import com.backwards.logging.Logging
   * Example of showing "container for each".
   * Note the gimmick "ignore" parameter, to avoid running this spec - it is only here for example purposes.
   */
-class TwitterBroker2Spec(ignore: String) extends WordSpec with MustMatchers with ContainerFixture with ForEachContainerLifecycle with OneInstancePerTest with Logging {
+class TwitterBroker2ITSpec(ignore: String) extends WordSpec with MustMatchers with ContainerFixture with ForEachContainerLifecycle with OneInstancePerTest with Logging {
   lazy val zookeeperContainer = ZookeeperContainer()
   lazy val kafkaContainer = KafkaContainer(zookeeperContainer)
 

@@ -16,7 +16,7 @@ import com.backwards.kafka._
 import com.backwards.kafka.serde.Serde
 import com.backwards.logging.Logging
 
-class TwitterBrokerSpec extends WordSpec with MustMatchers with ScalaFutures with ContainerFixture with ForAllContainerLifecycle with Serde.Implicits with Logging {
+class TwitterBrokerITSpec extends WordSpec with MustMatchers with ScalaFutures with ContainerFixture with ForAllContainerLifecycle with Serde.Implicits with Logging {
   lazy val zookeeperContainer = ZookeeperContainer()
   lazy val kafkaContainer = KafkaContainer(zookeeperContainer)
 
@@ -42,7 +42,7 @@ class TwitterBrokerSpec extends WordSpec with MustMatchers with ScalaFutures wit
       twitterConsumer.poll().unsafeRunSync mustEqual Seq(tweetKey -> tweet)
     }
 
-    "query tweets from Twitter" ignore {
+    "query tweets from Twitter" in {
       val twitterBroker = new TwitterBroker
 
       whenReady(twitterBroker.query(NonEmptyList.of("scala"))) { ratedData =>
@@ -67,6 +67,10 @@ class TwitterBrokerSpec extends WordSpec with MustMatchers with ScalaFutures wit
       }
 
       publishedTweets.map(_.unsafeRunSync()).count(_.isRight) mustEqual tweets.size
+    }
+
+    "track a term" ignore {
+
     }
   }
 }
