@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
-      airframe, scalatest, pprint, configuration, testcontainers, cats, monocle, http4s, scalaUri, kafka, twitter, elasticsearch
+      airframe, scalatest, pprint, configuration, betterFiles, testcontainers, cats, monocle, http4s, scalaUri, kafka, twitter, elasticsearch
     ).flatten
 
   lazy val airframe: Seq[ModuleID] = Seq(
@@ -26,6 +26,10 @@ object Dependencies {
       "com.github.pureconfig" %% "pureconfig-http4s"
     ).map(_ % version)
   }
+
+  lazy val betterFiles: Seq[ModuleID] = Seq(
+    "com.github.pathikrit" %% "better-files" % "3.6.0"
+  )
 
   lazy val testcontainers: Seq[ModuleID] = Seq(
     "org.testcontainers" % "testcontainers" % "1.9.1" % "test, it"

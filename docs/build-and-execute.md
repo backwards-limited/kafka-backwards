@@ -1,5 +1,7 @@
 # Building and Executing
 
+Some modules will require a (hidden) **.credentials** properties file, just to avoid keeping credentials in configurations that are held in **Git**.
+
 - The project image can be build with:
 
   ```bash
@@ -38,4 +40,15 @@
   sbt dockerComposeUp
 
   sbt dockerComposeDown
+  ```
+  
+  If you simply want to use the ubiquitous (noting that we indicate the desired module because as mentioned this is a multi module project):
+  
+  ```bash
+  sbt <module>/run
+  ```
+  
+  you will still need necessary third party services up and running which you can have by executing:
+  ```bash
+  docker-compose -f docker-compose-services.yml up
   ```

@@ -13,9 +13,9 @@ services:
     environment:
       hostname: kafka
       KAFKA_BROKER_ID: 1
-      KAFKA_ADVERTISED_HOST_NAME: "kafka"
+      KAFKA_ADVERTISED_HOST_NAME: "127.0.0.1"
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://127.0.0.1:9092"
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       LOG4J_LOGGER_KAFKA_AUTHORIZER_LOGGER: ERROR
       KAFKA_LOG4J_ROOT_LOGLEVEL: ERROR
@@ -34,14 +34,3 @@ services:
       - 9200:9200
       - 9300:9300
     privileged: true
-
-  twitter-backwards:
-    build: . # OR image: backwards/kafka:latest AFTER docker build -t backwards/kafka .
-    environment:
-      _JAVA_OPTIONS: "-DKAFKA_BOOTSTRAP_SERVERS.0=kafka:9092 -DELASTIC_SEARCH_SERVERS.0=http://elasticsearch:9200"
-    entrypoint: ["java", "-cp", "/beginners-course.jar", "com.backwards.twitter.TwitterRunner"]
-    restart: on-failure
-    depends_on:
-      - zookeeper
-      - kafka
-      - elasticsearch

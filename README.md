@@ -20,5 +20,5 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
 
 - [Modules](docs/modules.md)
 
-- Courses
+- Courses (module per course)
   - [Beginners Course](beginners-course/README.md)

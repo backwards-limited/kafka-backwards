@@ -1,20 +1,16 @@
-package com.backwards.runner
+package com.backwards.twitter
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.language.{higherKinds, postfixOps}
 import cats.data.NonEmptyList
 import cats.effect.IO
-import cats.implicits._
 import org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG
 import com.backwards.config._
 import com.backwards.kafka.Configuration
 import com.backwards.kafka.serde.Serde
 import com.backwards.logging.Logging
-import com.backwards.twitter.{TwitterBroker, TwitterConsumer, TwitterProducer}
 
 /**
   * Demo application which shows the following:
-  *   - Query Twitter for "Scala" tweets using [[https://github.com/DanielaSfregola/twitter4s twitter4s]]
+  *   - Query Twitter for "scala" tweets using [[https://github.com/DanielaSfregola/twitter4s twitter4s]]
   *   - Send tweets to Kafka using [[com.backwards.kafka.Producer Producer]]
   *   - Receive said tweets from Kafka using [[com.backwards.kafka.Consumer Consumer]]
   *   - Finally each received tweet is added to Elasticsearch using [[https://github.com/bizreach/elastic-scala-httpclient elastic-scala-httpclient]]

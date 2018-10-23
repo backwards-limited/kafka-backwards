@@ -9,5 +9,5 @@ object BuildProperties {
     p
   }
 
-  def apply(property: String): String = properties.getProperty(property)
+  def apply(property: String): String = properties getProperty property
 }

@@ -18,5 +18,5 @@ class TwitterConsumer private(configuration: Configuration) extends Serde.Implic
   def consume(): IO[Seq[(String, String)]] = consumer.poll()
 
   def doConsume(callback: Throwable Either Seq[(String, String)] => IO[Unit]): Unit =
-    consume().runAsync(callback).unsafeRunSync()
+    consume() runAsync callback unsafeRunSync()
 }
