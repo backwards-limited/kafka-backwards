@@ -1,5 +1,6 @@
 package com.backwards
 
+import com.backwards.kafka.config.KafkaConfig
 import com.backwards.logging.Logging
 
 package object config extends ConfigOps with Logging {

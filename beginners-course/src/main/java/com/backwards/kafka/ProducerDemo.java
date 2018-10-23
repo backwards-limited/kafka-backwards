@@ -1,38 +1,47 @@
 package com.backwards.kafka;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import scala.collection.Seq;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static org.apache.kafka.clients.producer.ProducerConfig.*;
+import com.backwards.kafka.config.BootstrapConfig;
+import com.backwards.kafka.config.KafkaConfig;
+import io.lemonlabs.uri.Uri;
+import io.lemonlabs.uri.Uri$;
+import static java.util.Collections.singletonList;
+import static org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG;
+import static org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG;
+import static scala.collection.JavaConverters.asScalaBuffer;
 
 public class ProducerDemo {
     private static final Logger logger = LoggerFactory.getLogger(ProducerDemo.class);
 
-    public static void main(String[] args) {
-        produce(configuration());
+    public static void main(String[] args) throws URISyntaxException {
+        produce("first_topic", config());
     }
 
-    private static Configuration configuration() {
-        String bootStrapServers = "localhost:9092";
-        String topic = "first_topic";
+    private static KafkaConfig config() throws URISyntaxException {
+        Seq<Uri> bootStrapServers = asScalaBuffer(singletonList(Uri$.MODULE$.apply(new URI("localhost:9092")))).toSeq();
 
-        return Configuration.apply(topic).add(BOOTSTRAP_SERVERS_CONFIG, bootStrapServers)
-                                         .add(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName())
-                                         .add(VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        return KafkaConfig.apply(new BootstrapConfig(bootStrapServers))
+                .add(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName())
+                .add(VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
     }
 
-    private static void produce(Configuration configuration) {
-        System.out.println(configuration.toProperties());
+    private static void produce(String topic, KafkaConfig config) {
+        System.out.println(config.toProperties());
 
-        KafkaProducer<String, String> producer = new KafkaProducer<>(configuration.toProperties());
+        KafkaProducer<String, String> producer = new KafkaProducer<>(config.toProperties());
 
         for (int i = 0; i < 10; i++) {
             String key = "id_" + i;
             String value = "hello world " + i;
 
-            final ProducerRecord<String, String> record = new ProducerRecord<>(configuration.topic(), key, value);
+            final ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
 
             // The following is asynchronous - if we do not flush or flush and close, then this app can end before data is actually sent.
             producer.send(record, (recordMetadata, e) -> {

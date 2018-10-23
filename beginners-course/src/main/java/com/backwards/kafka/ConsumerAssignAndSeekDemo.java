@@ -1,7 +1,10 @@
 package com.backwards.kafka;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
+import scala.collection.Seq;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -10,9 +13,13 @@ import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.backwards.kafka.config.BootstrapConfig;
+import com.backwards.kafka.config.KafkaConfig;
+import io.lemonlabs.uri.Uri;
+import io.lemonlabs.uri.Uri$;
 import static java.util.Collections.singletonList;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
-import static org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG;
+import static scala.collection.JavaConverters.asScalaBuffer;
 
 /**
  * Assign and seek are mostly used to replay data or fetch a specific message.
@@ -21,9 +28,9 @@ import static org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS
 public class ConsumerAssignAndSeekDemo {
     private static final Logger logger = LoggerFactory.getLogger(ConsumerAssignAndSeekDemo.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException {
         CountDownLatch latch = new CountDownLatch(1);
-        final Consumer consumer = consume(latch, configuration());
+        final Consumer consumer = consume("first_topic", config(), latch);
 
         Runtime.getRuntime().addShutdownHook(new Thread(consumer::shutdown));
 
@@ -36,18 +43,17 @@ public class ConsumerAssignAndSeekDemo {
         }
     }
 
-    private static Configuration configuration() {
-        String bootStrapServers = "localhost:9092";
-        String topic = "first_topic";
+    private static KafkaConfig config() throws URISyntaxException {
+        Seq<Uri> bootStrapServers = asScalaBuffer(singletonList(Uri$.MODULE$.apply(new URI("localhost:9092")))).toSeq();
 
-        return Configuration.apply(topic).add(BOOTSTRAP_SERVERS_CONFIG, bootStrapServers)
-                                         .add(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
-                                         .add(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
-                                         .add(AUTO_OFFSET_RESET_CONFIG, "latest");
+        return KafkaConfig.apply(new BootstrapConfig(bootStrapServers))
+                .add(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+                .add(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+                .add(AUTO_OFFSET_RESET_CONFIG, "latest");
     }
 
-    private static Consumer consume(CountDownLatch latch, Configuration configuration) {
-        return new Consumer(latch, configuration);
+    private static Consumer consume(String topic, KafkaConfig config, CountDownLatch latch) {
+        return new Consumer(topic, config, latch);
     }
 
     static class Consumer implements Runnable {
@@ -55,12 +61,12 @@ public class ConsumerAssignAndSeekDemo {
         private final CountDownLatch latch;
         private final KafkaConsumer<String, String> consumer;
 
-        Consumer(CountDownLatch latch, Configuration configuration) {
+        Consumer(String topic, KafkaConfig config, CountDownLatch latch) {
             this.latch = latch;
-            consumer = new KafkaConsumer<>(configuration.toProperties());
+            consumer = new KafkaConsumer<>(config.toProperties());
 
             // Assign
-            TopicPartition topicPartition = new TopicPartition(configuration.topic(), 0);
+            TopicPartition topicPartition = new TopicPartition(topic, 0);
             consumer.assign(singletonList(topicPartition));
 
             // Seek

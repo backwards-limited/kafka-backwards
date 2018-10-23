@@ -2,9 +2,6 @@ package com.backwards.twitter
 
 import cats.data.NonEmptyList
 import cats.effect.IO
-import org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG
-import com.backwards.config._
-import com.backwards.kafka.Configuration
 import com.backwards.logging.Logging
 
 /**
@@ -17,15 +14,12 @@ import com.backwards.logging.Logging
 object TwitterRunner extends App with Logging {
   val tracking = "scala"
 
-  // TODO - Aquire this from application.conf/pureconfig
-  val configuration: Configuration = Configuration("twitter-topic") + (BOOTSTRAP_SERVERS_CONFIG -> kafkaConfig.bootstrapServers)
-
-  val twitterProducer = TwitterProducer(configuration)
+  val twitterProducer = TwitterProducer("twitter-topic")
 
   val twitterBroker = new TwitterBroker
   twitterBroker.track(NonEmptyList.of(tracking))(twitterProducer.produce(_).unsafeRunSync)
 
-  val twitterConsumer = TwitterConsumer(configuration)
+  val twitterConsumer = TwitterConsumer("twitter-topic")
 
   val processTweets: Throwable Either Seq[(String, String)] => IO[Unit] = {
     case Left(t) =>

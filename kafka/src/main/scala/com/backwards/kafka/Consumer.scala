@@ -8,16 +8,18 @@ import cats.Applicative
 import cats.implicits._
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.Deserializer
+import com.backwards.kafka.config.{KafkaConfig, KafkaConfigOps}
 
-object Consumer extends ConfigurationOps {
-  def apply[F[_]: Applicative, K, V](configuration: Configuration)(implicit K: Deserializer[K], V: Deserializer[V]) =
-    new Consumer[F, K, V](configuration + keyDeserializerProperty[K] + valueDeserializerProperty[V])
+object Consumer extends KafkaConfigOps {
+  // TODO - Maybe we should pass in........ config: KafkaConfig with Topic
+  def apply[F[_]: Applicative, K, V](topic: String, config: KafkaConfig)(implicit K: Deserializer[K], V: Deserializer[V]) =
+    new Consumer[F, K, V](topic, config + keyDeserializerProperty[K] + valueDeserializerProperty[V])
 }
 
-class Consumer[F[_]: Applicative, K, V] private (configuration: Configuration) {
+class Consumer[F[_]: Applicative, K, V] private(topic: String, config: KafkaConfig) {
   lazy val consumer: KafkaConsumer[K, V] = {
-    val consumer = new KafkaConsumer[K, V](configuration)
-    consumer.subscribe(Seq(configuration.topic).asJava)
+    val consumer = new KafkaConsumer[K, V](config)
+    consumer.subscribe(Seq(topic).asJava)
     sys addShutdownHook consumer.close()
     consumer
   }

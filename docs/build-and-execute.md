@@ -1,7 +1,5 @@
 # Building and Executing
 
-Some modules will require a (hidden) **.credentials** properties file, just to avoid keeping credentials in configurations that are held in **Git**.
-
 - The project image can be build with:
 
   ```bash
@@ -54,7 +52,7 @@ Some modules will require a (hidden) **.credentials** properties file, just to a
   docker-compose -f docker-compose-services.yml up
   ```
   
-  and there is an assocated sbt task for this as well:
+  where there is also an assocated sbt task for this as well:
   
   ```bash
   sbt dockerComposeServicesUp

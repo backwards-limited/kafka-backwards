@@ -22,7 +22,7 @@ class TwitterBrokerITSpec extends WordSpec with MustMatchers with ScalaFutures {
       twitterBroker.track(NonEmptyList.of(track))(promise.success)
 
       whenReady(promise.future) { tweet =>
-        tweet.toString must include(track)
+        tweet.toString.toLowerCase must include(track)
       }
     }
   }

@@ -6,18 +6,18 @@ import cats.implicits._
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.kafka.clients.producer.RecordMetadata
 import com.backwards.Or
+import com.backwards.config.kafkaConfig
+import com.backwards.kafka.Producer
 import com.backwards.kafka.serde.Serde
-import com.backwards.kafka.{Configuration, Producer}
 import com.backwards.logging.Logging
 import com.danielasfregola.twitter4s.entities.Tweet
 
 object TwitterProducer {
-  def apply(configuration: Configuration) =
-    new TwitterProducer(configuration)
+  def apply(topic: String) = new TwitterProducer(topic)
 }
 
-class TwitterProducer private(configuration: Configuration) extends Serde.Implicits with Logging {
-  val producer: Producer[IO, String, String] = Producer[IO, String, String](configuration)
+class TwitterProducer private(topic: String) extends Serde.Implicits with Logging {
+  val producer: Producer[IO, String, String] = Producer[IO, String, String](topic, kafkaConfig)
 
   val produce: Tweet => IO[Throwable Or RecordMetadata] = { tweet =>
     producer.send(tweet.id.toString, tweet.text).map {

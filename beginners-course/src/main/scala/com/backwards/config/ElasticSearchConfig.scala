@@ -1,3 +1,9 @@
 package com.backwards.config
 
-case class ElasticSearchConfig(bootstrap: BootstrapConfig) extends BootstrapConfig.Bootstrap
+import io.lemonlabs.uri.Uri
+
+case class ElasticSearchConfig(bootstrap: BootstrapConfig) {
+  lazy val bootstrapServers: String = bootstrap.servers.map(_.toStringRaw).mkString(",")
+}
+
+case class BootstrapConfig(servers: Seq[Uri])
