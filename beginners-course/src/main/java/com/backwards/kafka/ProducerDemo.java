@@ -25,7 +25,7 @@ public class ProducerDemo {
     }
 
     private static KafkaConfig config() throws URISyntaxException {
-        Seq<Uri> bootStrapServers = asScalaBuffer(singletonList(Uri$.MODULE$.apply(new URI("localhost:9092")))).toSeq();
+        Seq<Uri> bootStrapServers = asScalaBuffer(singletonList(Uri$.MODULE$.apply(new URI("http://127.0.0.1:9092")))).toSeq();
 
         return KafkaConfig.apply(new BootstrapConfig(bootStrapServers))
                 .add(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName())

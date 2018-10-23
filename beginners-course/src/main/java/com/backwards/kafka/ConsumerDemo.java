@@ -25,6 +25,10 @@ public class ConsumerDemo {
 
     public static void main(String[] args) throws URISyntaxException {
         CountDownLatch latch = new CountDownLatch(1);
+
+        KafkaConfig c = config();
+        System.out.println(c);
+
         final Consumer consumer = consume("first_topic", config(), latch);
 
         Runtime.getRuntime().addShutdownHook(new Thread(consumer::shutdown));
@@ -39,13 +43,13 @@ public class ConsumerDemo {
     }
 
     private static KafkaConfig config() throws URISyntaxException {
-        Seq<Uri> bootStrapServers = asScalaBuffer(singletonList(Uri$.MODULE$.apply(new URI("localhost:9092")))).toSeq();
+        Seq<Uri> bootStrapServers = asScalaBuffer(singletonList(Uri$.MODULE$.apply(new URI("http://127.0.0.1:9092")))).toSeq();
 
         return KafkaConfig.apply(new BootstrapConfig(bootStrapServers))
                 .add(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
                 .add(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
                 .add(GROUP_ID_CONFIG, "my-sixth-application")
-                .add(AUTO_OFFSET_RESET_CONFIG, "latest");
+                .add(AUTO_OFFSET_RESET_CONFIG, "earliest");
     }
 
     private static Consumer consume(String topic, KafkaConfig config, CountDownLatch latch) {
