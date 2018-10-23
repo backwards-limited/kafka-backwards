@@ -14,7 +14,11 @@ object Producer extends ConfigurationOps {
 }
 
 class Producer[F[_]: Effect, K, V] private (configuration: Configuration) {
-  lazy val producer: KafkaProducer[K, V] = new KafkaProducer[K, V](configuration)
+  lazy val producer: KafkaProducer[K, V] = {
+    val producer = new KafkaProducer[K, V](configuration)
+    sys addShutdownHook producer.close()
+    producer
+  }
 
   lazy val record: (K, V) => ProducerRecord[K, V] =
     (key, value) => new ProducerRecord[K, V](configuration.topic, key, value)

@@ -8,6 +8,12 @@ dockerComposeUp := {
   "docker-compose up --build".!
 }
 
+lazy val dockerComposeServicesUp = taskKey[Unit]("Docker Compose Services Up")
+
+dockerComposeServicesUp := {
+  "docker-compose -f docker-compose-services.yml up".!
+}
+
 lazy val dockerComposeDown = taskKey[Unit]("Docker Compose Down")
 
 dockerComposeDown := {

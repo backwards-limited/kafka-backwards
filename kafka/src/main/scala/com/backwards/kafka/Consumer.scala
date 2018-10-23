@@ -18,6 +18,7 @@ class Consumer[F[_]: Applicative, K, V] private (configuration: Configuration) {
   lazy val consumer: KafkaConsumer[K, V] = {
     val consumer = new KafkaConsumer[K, V](configuration)
     consumer.subscribe(Seq(configuration.topic).asJava)
+    sys addShutdownHook consumer.close()
     consumer
   }
 

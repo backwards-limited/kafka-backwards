@@ -3,6 +3,7 @@ package com.backwards.twitter
 import scala.language.higherKinds
 import cats.effect.IO
 import cats.implicits._
+import org.apache.commons.lang3.builder.ToStringBuilder
 import org.apache.kafka.clients.producer.RecordMetadata
 import com.backwards.Or
 import com.backwards.kafka.serde.Serde
@@ -21,7 +22,7 @@ class TwitterProducer private(configuration: Configuration) extends Serde.Implic
   val produce: Tweet => IO[Throwable Or RecordMetadata] = { tweet =>
     producer.send(tweet.id.toString, tweet.text).map {
       case r @ Right(record) =>
-        info(s"Published successfully: $record")
+        info(s"Published tweet ${tweet.id}: ${ToStringBuilder.reflectionToString(record)}")
         r
 
       case l @ Left(t) =>

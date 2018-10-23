@@ -3,15 +3,19 @@ import sbt._
 object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
-      airframe, scalatest, pprint, configuration, betterFiles, testcontainers, cats, monocle, http4s, scalaUri, kafka, twitter, elasticsearch
+      scalatest, testcontainers, airframe, pprint, configuration, betterFiles, apacheCommons, cats, monocle, http4s, scalaUri, kafka, twitter, elasticsearch
     ).flatten
-
-  lazy val airframe: Seq[ModuleID] = Seq(
-    "org.wvlet.airframe" %% "airframe-log" % "0.69"
-  )
 
   lazy val scalatest: Seq[ModuleID] = Seq(
     "org.scalatest" %% "scalatest" % "3.0.5" % "test, it"
+  )
+
+  lazy val testcontainers: Seq[ModuleID] = Seq(
+    "org.testcontainers" % "testcontainers" % "1.9.1" % "test, it"
+  )
+
+  lazy val airframe: Seq[ModuleID] = Seq(
+    "org.wvlet.airframe" %% "airframe-log" % "0.69"
   )
 
   lazy val pprint: Seq[ModuleID] = Seq(
@@ -30,9 +34,9 @@ object Dependencies {
   lazy val betterFiles: Seq[ModuleID] = Seq(
     "com.github.pathikrit" %% "better-files" % "3.6.0"
   )
-
-  lazy val testcontainers: Seq[ModuleID] = Seq(
-    "org.testcontainers" % "testcontainers" % "1.9.1" % "test, it"
+  
+  lazy val apacheCommons: Seq[ModuleID] = Seq(
+    "org.apache.commons" % "commons-lang3" % "3.8.1"
   )
 
   lazy val cats: Seq[ModuleID] = {

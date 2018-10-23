@@ -49,6 +49,13 @@ Some modules will require a (hidden) **.credentials** properties file, just to a
   ```
   
   you will still need necessary third party services up and running which you can have by executing:
+  
   ```bash
   docker-compose -f docker-compose-services.yml up
+  ```
+  
+  and there is an assocated sbt task for this as well:
+  
+  ```bash
+  sbt dockerComposeServicesUp
   ```
