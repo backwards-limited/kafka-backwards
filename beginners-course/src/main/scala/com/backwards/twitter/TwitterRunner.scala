@@ -11,25 +11,20 @@ import com.backwards.logging.Logging
   *   - Finally each received tweet is added to Elasticsearch using [[https://github.com/bizreach/elastic-scala-httpclient elastic-scala-httpclient]]
   */
 object TwitterRunner extends App with Logging {
-  val tracking = NonEmptyList.of("scala", "bitcoin", "politics", "sport")
-
   val twitterProducer = TwitterProducer("twitter-topic")
 
   val twitterBroker = new TwitterBroker
-  twitterBroker.track(tracking)(twitterProducer.produce(_).unsafeRunSync)
+  twitterBroker.track(NonEmptyList.of("scala", "bitcoin", "politics", "sport"))(twitterProducer.produce(_).unsafeRunSync)
 
   val twitterConsumer = TwitterConsumer("twitter-topic")
 
-  val processTweets: Seq[(String, String)] => Unit =
-    tweets => if (tweets.isEmpty) {
-      info(s"No available tweets matching: $tracking")
-    } else {
-      info(s"Consumed Tweets:\n${tweets.mkString("\n")}")
-      // TODO - Actually use instead of the hardcoded PoC inside the following class
-      // val elasticsearchBroker = new ElasticSearchBroker
-    }
+  val tweeted: Seq[(String, String)] => Unit = tweets => {
+    info(s"Consumed Tweets:\n${tweets.mkString("\n")}")
+    // TODO - Actually use instead of the hardcoded PoC inside the following class
+    // val elasticsearchBroker = new ElasticSearchBroker
+  }
 
-  twitterConsumer.doConsume(processTweets)(_.unsafeRunSync)
+  twitterConsumer.doConsume(tweeted)(_.unsafeRunSync)
 
   info("... and I'm spent!")
 }

@@ -23,12 +23,16 @@ class TwitterConsumer private(topic: String, config: KafkaConfig) extends Serde.
   /**
     * Here is a good example of a naive approach (appropriate for this beginners course) - in a more advanced module we shall discover the likes of FS2 with Kafka.
     * @param callback Seq[(String, String)] => Unit
-    * @param run IO[Seq[(String, String)]] => Seq[(String, String)]
+    * @param run IO[Seq[(String, String)] ] => Seq[(String, String)]
     */
   def doConsume(callback: Seq[(String, String)] => Unit)(run: IO[Seq[(String, String)]] => Seq[(String, String)]): Unit = {
+    val tweeted: Seq[(String, String)] => Unit = tweets =>
+      if (tweets.isEmpty) info("No available tweets at this moment in time.....")
+      else callback(tweets)
+
     @tailrec
     def go(): Unit = {
-      callback(run(consume))
+      tweeted(run(consume))
       go()
     }
 
