@@ -21,17 +21,17 @@ class TwitterConsumer private(topic: String, config: KafkaConfig) extends Serde.
   def consume: IO[Seq[(String, String)]] = consumer.poll()
 
   /**
-    * Hate to say this, but here we could argue that this consumer could well be an Actor (though it could be a Scalaz Actor).
+    * Here is a good example of a naive approach (appropriate for this beginners course) - in a more advanced module we shall discover the likes of FS2 with Kafka.
     * @param callback Seq[(String, String)] => Unit
     * @return IO[Unit]
     */
   def doConsume(callback: Seq[(String, String)] => Unit): IO[Unit] = {
     @tailrec
-    def go(f: => IO[Seq[(String, String)]]): Unit = {
-      callback(f.unsafeRunSync)
-      go(consume)
+    def go(): Unit = {
+      callback(consume.unsafeRunSync)
+      go()
     }
 
-    IO(go(consume))
+    IO(go())
   }
 }
