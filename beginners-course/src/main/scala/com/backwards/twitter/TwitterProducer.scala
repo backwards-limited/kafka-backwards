@@ -4,6 +4,7 @@ import scala.language.higherKinds
 import cats.effect.IO
 import cats.implicits._
 import org.apache.commons.lang3.builder.ToStringBuilder
+import org.apache.kafka.clients.producer.ProducerConfig._
 import org.apache.kafka.clients.producer.RecordMetadata
 import com.backwards.Or
 import com.backwards.config.kafkaConfig
@@ -18,12 +19,13 @@ object TwitterProducer {
 }
 
 class TwitterProducer private(topic: String) extends Serde.Implicits with Transform.Implicits with Logging {
-  val producer: Producer[IO, String, String] = Producer[IO, String, String](topic, kafkaConfig)
+  val producer: Producer[IO, String, String] =
+    Producer[IO, String, String](topic, kafkaConfig + (COMPRESSION_TYPE_CONFIG, "snappy") + (LINGER_MS_CONFIG, 20) + (BATCH_SIZE_CONFIG, 32 * 1024))
 
   val produce: Tweet => IO[Throwable Or RecordMetadata] = { tweet =>
     producer.send(tweet.id.toString, tweet.text).map {
       case r @ Right(record) =>
-        info(s"Published tweet ${tweet.id}: ${ToStringBuilder.reflectionToString(record)}")
+        debug(s"Published tweet ${tweet.id}: ${ToStringBuilder.reflectionToString(record)}")
         r
 
       case l @ Left(t) =>

@@ -1,5 +1,6 @@
 package com.backwards.twitter
 
+import scala.annotation.tailrec
 import scala.language.{higherKinds, postfixOps}
 import cats.effect.IO
 import org.apache.kafka.clients.consumer.ConsumerConfig.{AUTO_OFFSET_RESET_CONFIG, GROUP_ID_CONFIG}
@@ -15,10 +16,22 @@ object TwitterConsumer {
 }
 
 class TwitterConsumer private(topic: String, config: KafkaConfig) extends Serde.Implicits with Logging {
-  val consumer: Consumer[IO, String, String] = Consumer[IO, String, String](topic, config)
+  val consumer: Consumer[IO, String, String] = Consumer[IO, String, String](topic, config) // TODO - config: max.poll.records
 
-  def consume(): IO[Seq[(String, String)]] = consumer.poll()
+  def consume: IO[Seq[(String, String)]] = consumer.poll()
 
-  def doConsume(callback: Throwable Either Seq[(String, String)] => IO[Unit]): Unit =
-    consume() runAsync callback unsafeRunSync()
+  /**
+    * Hate to say this, but here we could argue that this consumer could well be an Actor (though it could be a Scalaz Actor).
+    * @param callback Seq[(String, String)] => Unit
+    * @return IO[Unit]
+    */
+  def doConsume(callback: Seq[(String, String)] => Unit): IO[Unit] = {
+    @tailrec
+    def go(f: => IO[Seq[(String, String)]]): Unit = {
+      callback(f.unsafeRunSync)
+      go(consume)
+    }
+
+    IO(go(consume))
+  }
 }
