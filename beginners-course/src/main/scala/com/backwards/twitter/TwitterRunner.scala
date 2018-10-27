@@ -29,7 +29,7 @@ object TwitterRunner extends App with Logging {
       // val elasticsearchBroker = new ElasticSearchBroker
     }
 
-  twitterConsumer.doConsume(processTweets).unsafeRunSync()
+  twitterConsumer.doConsume(processTweets)(_.unsafeRunSync)
 
   info("... and I'm spent!")
 }
