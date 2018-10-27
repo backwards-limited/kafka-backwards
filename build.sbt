@@ -24,14 +24,16 @@ def project(id: String, base: File): Project =
     .settings(Defaults.itSettings)
     .settings(
       resolvers ++= Seq(
-        "Confluent Platform Maven" at "http://packages.confluent.io/maven/",
+        Resolver.sonatypeRepo("releases"),
         Resolver.bintrayRepo("cakesolutions", "maven"),
-        "jitpack" at "https://jitpack.io"
+        "jitpack" at "https://jitpack.io",
+        "Confluent Platform Maven" at "http://packages.confluent.io/maven/"
       ),
       scalaVersion := BuildProperties("scala.version"),
       sbtVersion := BuildProperties("sbt.version"),
       organization := "com.backwards",
       name := id,
+      addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.8"),
       libraryDependencies ++= dependencies,
       fork in Test := true,
       fork in IntegrationTest := true,

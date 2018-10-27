@@ -18,7 +18,10 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
 
 - [Elasticsearch](docs/elasticsearch.md)
 
-- [Modules](docs/modules.md)
+- Modules
+
+  - [Kafka](kafka/README.md)
 
 - Courses (module per course)
+
   - [Beginners Course](beginners-course/README.md)

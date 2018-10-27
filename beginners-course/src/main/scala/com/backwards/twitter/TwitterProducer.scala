@@ -10,13 +10,14 @@ import com.backwards.config.kafkaConfig
 import com.backwards.kafka.Producer
 import com.backwards.kafka.serde.Serde
 import com.backwards.logging.Logging
+import com.backwards.transform.Transform
 import com.danielasfregola.twitter4s.entities.Tweet
 
 object TwitterProducer {
   def apply(topic: String) = new TwitterProducer(topic)
 }
 
-class TwitterProducer private(topic: String) extends Serde.Implicits with Logging {
+class TwitterProducer private(topic: String) extends Serde.Implicits with Transform.Implicits with Logging {
   val producer: Producer[IO, String, String] = Producer[IO, String, String](topic, kafkaConfig)
 
   val produce: Tweet => IO[Throwable Or RecordMetadata] = { tweet =>
