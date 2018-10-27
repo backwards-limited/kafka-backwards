@@ -27,6 +27,7 @@ Note that this module is within a multi-module project and that there is only on
   ```
     
 - Run Application
+
   As mentioned, run everything from the root of this project as there is only one top-level **build.sbt**
     
   ```bash
