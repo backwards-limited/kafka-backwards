@@ -17,9 +17,7 @@ object KafkaConfig {
   *
   * @param bootstrap BootstrapConfig
   * @param properties Map[String, String]
-  * Note that the "+" operation uses overloading instead of typeclass. Why?
-  * Because a typeclass instance that converts some type to a String can generate any String which could throw a runtime error.
-  * Also note that the "+" operation given a Tuple pair cannot be overloaded due to erasure.
+  * Included the Java friendly operation [[add]].
   */
 case class KafkaConfig(bootstrap: BootstrapConfig, properties: Map[String, String] = Map.empty[String, String]) {
   lazy val bootstrapServers: String = bootstrap.servers.map(_.toStringRaw).mkString(",")
@@ -30,32 +28,14 @@ case class KafkaConfig(bootstrap: BootstrapConfig, properties: Map[String, Strin
       p
     }
 
-  def + (kv: (String, String)): KafkaConfig =
-    this.lens(_.properties).modify(_ + kv)
+  def +[A: KafkaConfigValue](key: String, value: A): KafkaConfig =
+    this.lens(_.properties).modify(_ + (key -> KafkaConfigValue[A].asValue(value)))
 
-  def + (key: String, value: String): KafkaConfig =
-    this + (key -> value)
-
-  def + (key: String, value: Int): KafkaConfig =
-    this + (key -> value.toString)
-
-  def + (key: String, value: Double): KafkaConfig =
-    this + (key -> value.toString)
-
-  def + (key: String, value: Boolean): KafkaConfig =
-    this + (key -> value.toString)
+  def +[A: KafkaConfigValue](kv: (String, A)): KafkaConfig =
+    this + (kv._1, kv._2)
 
   def add(key: String, value: String): KafkaConfig =
-    this + (key -> value)
-
-  def add(key: String, value: Int): KafkaConfig =
-    this + (key -> value.toString)
-
-  def add(key: String, value: Double): KafkaConfig =
-    this + (key -> value.toString)
-
-  def add(key: String, value: Boolean): KafkaConfig =
-    this + (key -> value.toString)
+    this + (key, value)
 }
 
 case class BootstrapConfig(servers: Seq[Uri])
