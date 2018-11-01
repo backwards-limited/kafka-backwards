@@ -6,8 +6,9 @@ import scala.language.postfixOps
 import cats.{Id, ~>}
 import io.lemonlabs.uri.Uri
 import org.scalatest.{MustMatchers, WordSpec}
+import com.backwards.config.BootstrapConfig
 import com.backwards.container.{Container, ContainerFixture, ForAllContainerLifecycle}
-import com.backwards.kafka.config.{BootstrapConfig, KafkaConfig}
+import com.backwards.kafka.config.KafkaConfig
 import com.backwards.kafka.serde.Serde
 
 // TODO - Remove this PoC once ProducerSpec is complete, that shows the use of ID as the effect monad and also has proven "laws"

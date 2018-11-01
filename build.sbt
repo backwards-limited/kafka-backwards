@@ -37,7 +37,6 @@ def project(id: String, base: File): Project =
       libraryDependencies ++= dependencies,
       fork in Test := true,
       fork in IntegrationTest := true,
-      fork in run := true,
       scalacOptions in (Compile, doc) ++= Seq("-groups", "-implicits"),
       assemblyJarName in assembly := s"$id.jar",
       assemblyMergeStrategy in assembly := {

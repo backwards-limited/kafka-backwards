@@ -8,7 +8,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.backwards.kafka.config.BootstrapConfig;
+import com.backwards.config.BootstrapConfig;
 import com.backwards.kafka.config.KafkaConfig;
 import io.lemonlabs.uri.Uri;
 import io.lemonlabs.uri.Uri$;
@@ -20,8 +20,10 @@ import static scala.collection.JavaConverters.asScalaBuffer;
 public class ProducerDemo {
     private static final Logger logger = LoggerFactory.getLogger(ProducerDemo.class);
 
+    private static final String topic = "first_topic";
+
     public static void main(String[] args) throws URISyntaxException {
-        produce("first_topic", config());
+        produce(config());
     }
 
     private static KafkaConfig config() throws URISyntaxException {
@@ -32,9 +34,7 @@ public class ProducerDemo {
                 .add(VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
     }
 
-    private static void produce(String topic, KafkaConfig config) {
-        System.out.println(config.toProperties());
-
+    private static void produce(KafkaConfig config) {
         KafkaProducer<String, String> producer = new KafkaProducer<>(config.toProperties());
 
         for (int i = 0; i < 10; i++) {

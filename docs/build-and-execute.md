@@ -40,13 +40,13 @@
   sbt dockerComposeDown
   ```
   
-  If you simply want to use the ubiquitous (noting that we indicate the desired module because as mentioned this is a multi module project):
+  If you simply want to use the ubiquitous **run** (noting that we indicate the desired module because as mentioned this is a multi module project):
   
   ```bash
   sbt <module>/run
   ```
   
-  you will still need necessary third party services up and running which you can have by executing:
+  Note that you will still need necessary third party services up and running which you can have by executing:
   
   ```bash
   docker-compose -f docker-compose-services.yml up
@@ -57,3 +57,13 @@
   ```bash
   sbt dockerComposeServicesUp
   ```
+  
+- Run Extras 
+
+  You can also provide your **environment** e.g.:
+    
+  ```bash
+  sbt -Denvironment=.environment beginners-course/run
+  ``` 
+  
+  The environment file is a hidden file not to be pushed to **Git** (obviously) - use [.environment-example](../.environment-example) as a template, and **module beginners-course** shows example usage.

@@ -97,7 +97,16 @@ object Dependencies {
     "com.twitter" % "hbc-core" % "2.2.0"
   )
 
-  lazy val elasticsearch: Seq[ModuleID] = Seq(
-    "jp.co.bizreach" %% "elastic-scala-httpclient" % "3.2.4"
-  )
+  lazy val elasticsearch: Seq[ModuleID] = {
+    val version = "6.3.7"
+
+    Seq(
+      "com.sksamuel.elastic4s" %% "elastic4s-testkit",
+      "com.sksamuel.elastic4s" %% "elastic4s-embedded"
+    ).map(_ % version % "test, it") ++ Seq(
+      "com.sksamuel.elastic4s" %% "elastic4s-core",
+      "com.sksamuel.elastic4s" %% "elastic4s-http",
+      "com.sksamuel.elastic4s" %% "elastic4s-http-streams"
+    ).map(_ % version)
+  }
 }

@@ -4,6 +4,7 @@ import java.util.Properties
 import io.lemonlabs.uri.Uri
 import org.apache.kafka.clients.CommonClientConfigs._
 import org.scalatest.{MustMatchers, WordSpec}
+import com.backwards.config.BootstrapConfig
 
 class KafkaConfigSpec extends WordSpec with MustMatchers {
   "Kafka Config" should {

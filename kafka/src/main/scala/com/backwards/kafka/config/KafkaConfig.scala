@@ -4,6 +4,7 @@ import java.util.Properties
 import scala.language.implicitConversions
 import monocle.macros.syntax.lens._
 import org.apache.kafka.clients.CommonClientConfigs._
+import com.backwards.config.BootstrapConfig
 
 object KafkaConfig {
   implicit def toProperties(c: KafkaConfig): Properties = c.toProperties
@@ -46,10 +47,8 @@ object KafkaConfig {
 case class KafkaConfig(bootstrap: BootstrapConfig, properties: Map[String, String] = Map.empty[String, String]) {
   import KafkaConfig._
 
-  lazy val bootstrapServers: String = bootstrap.servers.map(_.toStringRaw).mkString(",")
-
   lazy val toProperties: Properties =
-    (new Properties /: (properties + (BOOTSTRAP_SERVERS_CONFIG -> bootstrapServers))) { case (p, (k, v)) =>
+    (new Properties /: (properties + (BOOTSTRAP_SERVERS_CONFIG -> bootstrap.bootstrapServers))) { case (p, (k, v)) =>
       p.put(k, v)
       p
     }

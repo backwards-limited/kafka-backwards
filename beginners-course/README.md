@@ -53,3 +53,22 @@ Note that this module is within a multi-module project and that there is only on
 
   sbt dockerComposeDown
   ```
+  
+- Run Applciation with a Given Environment
+
+  An example of an **environment** file (a hidden file) to interact with managed Elasticsearch on [Bonsai](https://bonsai.io):
+  
+  ```properties
+  ELASTIC_SEARCH_BOOTSTRAP_SERVERS.0 = https://<host>:443
+  ELASTIC_SEARCH_CREDENTIALS_USER = <user>
+  ELASTIC_SEARCH_CREDENTIALS_PASSWORD = <password>
+  ```
+  
+  To use said environment for the running application, provide the system property **environment** upon running:
+  
+  ```bash
+  sbt -Denvironment=.environment beginners-course/run
+  ```
+  
+  where the **.environment** file must be in the root of the running module.
+ 

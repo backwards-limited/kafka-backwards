@@ -13,7 +13,7 @@ import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.backwards.kafka.config.BootstrapConfig;
+import com.backwards.config.BootstrapConfig;
 import com.backwards.kafka.config.KafkaConfig;
 import io.lemonlabs.uri.Uri;
 import io.lemonlabs.uri.Uri$;
@@ -28,9 +28,11 @@ import static scala.collection.JavaConverters.asScalaBuffer;
 public class ConsumerAssignAndSeekDemo {
     private static final Logger logger = LoggerFactory.getLogger(ConsumerAssignAndSeekDemo.class);
 
+    private static final String topic = "first_topic";
+
     public static void main(String[] args) throws URISyntaxException {
         CountDownLatch latch = new CountDownLatch(1);
-        final Consumer consumer = consume("first_topic", config(), latch);
+        final Consumer consumer = consume(config(), latch);
 
         Runtime.getRuntime().addShutdownHook(new Thread(consumer::shutdown));
 
@@ -52,8 +54,8 @@ public class ConsumerAssignAndSeekDemo {
                 .add(AUTO_OFFSET_RESET_CONFIG, "latest");
     }
 
-    private static Consumer consume(String topic, KafkaConfig config, CountDownLatch latch) {
-        return new Consumer(topic, config, latch);
+    private static Consumer consume(KafkaConfig config, CountDownLatch latch) {
+        return new Consumer(config, latch);
     }
 
     static class Consumer implements Runnable {
@@ -61,7 +63,7 @@ public class ConsumerAssignAndSeekDemo {
         private final CountDownLatch latch;
         private final KafkaConsumer<String, String> consumer;
 
-        Consumer(String topic, KafkaConfig config, CountDownLatch latch) {
+        Consumer(KafkaConfig config, CountDownLatch latch) {
             this.latch = latch;
             consumer = new KafkaConsumer<>(config.toProperties());
 

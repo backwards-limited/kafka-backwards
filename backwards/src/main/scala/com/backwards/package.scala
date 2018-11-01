@@ -1,5 +1,7 @@
 package com
 
 package object backwards {
-  type Or[Bad, Good] = Bad Either Good
+  type Or[Left, Right] = Left Either Right
+
+  type |:[Left, Right] = Or[Left, Right]
 }
