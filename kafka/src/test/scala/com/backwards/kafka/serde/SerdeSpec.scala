@@ -19,7 +19,7 @@ class SerdeSpec extends WordSpec with MustMatchers with Serde {
       foo mustEqual spec.foo
     }
 
-    /*"serialize and deserialize via function application" in {
+    "serialize and deserialize via function application" in {
       val bytes = serializer[Foo].serialize(topic, spec.foo)
 
       val foo = deserializer[Foo].deserialize(topic, bytes)
@@ -33,6 +33,6 @@ class SerdeSpec extends WordSpec with MustMatchers with Serde {
       val foo = deserialize[Foo](topic, bytes)
 
       foo mustEqual spec.foo
-    }*/
+    }
   }
 }
