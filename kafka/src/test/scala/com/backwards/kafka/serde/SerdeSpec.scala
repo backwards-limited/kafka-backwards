@@ -7,6 +7,8 @@ class SerdeSpec extends WordSpec with MustMatchers with Serde {
 
   case class Foo(data: String, more: String)
 
+  case class Bar(length: Int)
+
   val topic = "topic"
   val foo = Foo("scooby", "doo")
 
@@ -28,11 +30,18 @@ class SerdeSpec extends WordSpec with MustMatchers with Serde {
     }
 
     "serialize and deserialize via direct functions" in {
-      val bytes = serialize(topic, spec.foo)
+      val bytes = serialize[Foo](topic, spec.foo)
 
       val foo = deserialize[Foo](topic, bytes)
 
       foo mustEqual spec.foo
+    }
+
+    "serialize and deserialize something else" in {
+      val bar = Bar(length = 66)
+      val bytes = serialize[Bar](topic, bar)
+
+      deserialize[Bar](topic, bytes) mustEqual bar
     }
   }
 }

@@ -2,14 +2,16 @@ package com.backwards.kafka.serde
 
 import java.util
 import shapeless._
-import org.apache.kafka.common.serialization.{Deserializer, Serializer, StringDeserializer, StringSerializer}
-import org.apache.kafka.common.serialization.{Serde => ApacheSerde}
+import org.apache.kafka.common.serialization.{Deserializer, Serializer, StringDeserializer, StringSerializer, Serde => ApacheSerde}
 
 object Serde extends Serde
 
 trait Serde {
   implicit val stringSerializer: Serializer[String] = new StringSerializer
   implicit val stringDeserializer: Deserializer[String] = new StringDeserializer
+
+  implicit val intSerializer: Serializer[Int] = new IntSerializer
+  implicit val intDeserializer: Deserializer[Int] = new IntDeserializer
 
   implicit def hnilSerializer: Serializer[HNil] = new Serializer[HNil] {
     def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()

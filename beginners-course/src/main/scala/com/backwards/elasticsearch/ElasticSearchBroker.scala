@@ -73,7 +73,3 @@ class ElasticSearchBroker {
     resp foreach (search => println(s"There were ${search.totalHits} total hits"))*/
   }
 }
-
-case class Tweet(name: String, message: String)
-
-case class TweetMessage(message: String)
