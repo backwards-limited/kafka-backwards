@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
-      scalatest, testcontainers, airframe, logging, pprint, configuration, betterFiles, apacheCommons, cats, monocle, http4s, scalaUri, kafka, twitter, elasticsearch
+      scalatest, testcontainers, airframe, logging, pprint, configuration, betterFiles, apacheCommons, cats, monocle, shapeless, http4s, scalaUri, kafka, twitter, elasticsearch
     ).flatten
 
   lazy val scalatest: Seq[ModuleID] = Seq(
@@ -68,6 +68,10 @@ object Dependencies {
       "com.github.julien-truffaut" %% "monocle-generic"
     ).map(_ % version)
   }
+
+  lazy val shapeless: Seq[ModuleID] = Seq(
+    "com.chuusai" %% "shapeless" % "2.3.3"
+  )
 
   lazy val http4s: Seq[ModuleID] = {
     val version = "0.19.0"
