@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
-      scalatest, testcontainers, airframe, logging, pprint, configuration, betterFiles, apacheCommons, cats, monocle, shapeless, http4s, scalaUri, kafka, twitter, elasticsearch
+      scalatest, testcontainers, airframe, logging, pprint, configuration, betterFiles, apacheCommons, cats, monocle, shapeless, http4s, scalaUri, kafka, avro4s, twitter, elasticsearch
     ).flatten
 
   lazy val scalatest: Seq[ModuleID] = Seq(
@@ -94,6 +94,10 @@ object Dependencies {
 
   lazy val kafka: Seq[ModuleID] = Seq(
     "org.apache.kafka" % "kafka-clients" % "2.0.0"
+  )
+  
+  lazy val avro4s: Seq[ModuleID] = Seq(
+    "com.sksamuel.avro4s" %% "avro4s-core" % "2.0.2"
   )
 
   lazy val twitter: Seq[ModuleID] = Seq(
