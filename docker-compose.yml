@@ -37,6 +37,8 @@ services:
 
   twitter-backwards:
     build: . # OR image: backwards/kafka:latest AFTER docker build -t backwards/kafka .
+    env_file:
+      - .env
     environment:
       _JAVA_OPTIONS: "-DKAFKA_BOOTSTRAP_SERVERS.0=kafka:9092 -DELASTIC_SEARCH_BOOTSTRAP_SERVERS.0=http://elasticsearch:9200"
     entrypoint: ["java", "-cp", "/beginners-course.jar", "com.backwards.twitter.TwitterRunner"]

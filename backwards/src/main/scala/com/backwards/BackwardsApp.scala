@@ -6,7 +6,7 @@ import scala.collection.JavaConverters._
 import com.backwards.logging.Logging
 
 trait BackwardsApp extends App with Logging {
-  Option(System getProperty "environment") foreach { env =>
+  Option(System getProperty "ENV") foreach { env =>
     info("Loading given environment into JVM's system properties...")
 
     val properties = new Properties

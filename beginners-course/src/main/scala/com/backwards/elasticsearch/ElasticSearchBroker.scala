@@ -29,7 +29,7 @@ class ElasticSearchBroker {
   val client: ElasticClient = ElasticClient fromRestClient restClientBuilder.build
 
 
-  println(s"================================> SLEEPING.......... this is ridiculous, but without it we get a connection refused exception")
+  println(s"================================> ELASTIC SLEEPING.......... this is ridiculous, but without it we get a connection refused exception")
   TimeUnit.SECONDS.sleep(30)
 
   ///////////////////////////////////////// TODO - Remove below

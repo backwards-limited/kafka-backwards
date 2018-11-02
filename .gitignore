@@ -89,7 +89,7 @@ buildNumber.properties
 hs_err_pid*
 
 .credentials
-beginners-course/.environment
+.env
 .java-version
 
 beginners-course/course

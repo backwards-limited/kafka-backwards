@@ -1,5 +1,9 @@
 # Building and Executing
 
+- Environment
+
+  Any environment variables that should not be saved in **Git** should be in a **.env** file - a hidden file, where [.env-example](../.env-example) can be used as a template.
+
 - The project image can be build with:
 
   ```bash
@@ -46,6 +50,12 @@
   sbt <module>/run
   ```
   
+  and an example showing a desired environment:
+  
+  ```bash
+  sbt -DENV=.env beginners-course/run
+  ```
+  
   Note that you will still need necessary third party services up and running which you can have by executing:
   
   ```bash
@@ -57,13 +67,3 @@
   ```bash
   sbt dockerComposeServicesUp
   ```
-  
-- Run Extras 
-
-  You can also provide your **environment** e.g.:
-    
-  ```bash
-  sbt -Denvironment=.environment beginners-course/run
-  ``` 
-  
-  The environment file is a hidden file not to be pushed to **Git** (obviously) - use [.environment-example](../.environment-example) as a template, and **module beginners-course** shows example usage.
