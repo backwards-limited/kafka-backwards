@@ -1,7 +1,4 @@
-import java.io.FileInputStream
-import java.util.Properties
-import scala.collection.JavaConverters.propertiesAsScalaMap
-import scala.util.Try
+import BuildProperties._
 import Dependencies._
 import sbt._
 
@@ -41,14 +38,7 @@ def project(id: String, base: File): Project =
       libraryDependencies ++= dependencies,
       fork in Test := true,
       fork in IntegrationTest := true,
-      javaOptions in IntegrationTest ++= {
-        Try(new FileInputStream(".env")).map { env =>
-          val properties = new Properties
-          properties load env
-
-          propertiesAsScalaMap(properties).map { case (key, value) => s"-D$key=$value" }.toSeq
-        }
-      }.getOrElse(Nil),
+      javaOptions in IntegrationTest ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
       scalacOptions in (Compile, doc) ++= Seq("-groups", "-implicits"),
       assemblyJarName in assembly := s"$id.jar",
       assemblyMergeStrategy in assembly := {

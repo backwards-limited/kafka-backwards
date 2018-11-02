@@ -26,49 +26,55 @@ class ElasticSearchBroker {
 
   val restClientBuilder: RestClientBuilder = RestClient.builder(httpHosts: _*).setHttpClientConfigCallback(httpClientConfigCallback)
 
-  val client: ElasticClient = ElasticClient fromRestClient restClientBuilder.build
+  val client: ElasticClient = {
+    val client = ElasticClient fromRestClient restClientBuilder.build
+    sys addShutdownHook client.close()
 
-
-  println(s"================================> ELASTIC SLEEPING.......... this is ridiculous, but without it we get a connection refused exception")
-  TimeUnit.SECONDS.sleep(30)
-
-  ///////////////////////////////////////// TODO - Remove below
-  client.execute {
-    createIndex("artists").mappings(
-      mapping("modern").fields(
-        textField("name")
-      )
-    )
-  }.await
-
-  // Next we index a single document which is just the name of an Artist.
-  // The RefreshPolicy.Immediate means that we want this document to flush to the disk immediately.
-  // see the section on Eventual Consistency.
-  client.execute {
-    indexInto("artists" / "modern").fields("name" -> "L.S. Lowry").refresh(RefreshPolicy.Immediate)
-  }.await
-
-  // now we can search for the document we just indexed
-  val resp = client.execute {
-    search("artists") query "lowry"
-  }.await
-
-  // resp is a Response[+U] ADT consisting of either a RequestFailure containing the
-  // Elasticsearch error details, or a RequestSuccess[U] that depends on the type of request.
-  // In this case it is a RequestSuccess[SearchResponse]
-
-  println("---- Search Results ----")
-  resp match {
-    case failure: RequestFailure => println("We failed " + failure.error)
-    case results: RequestSuccess[SearchResponse] => println(results.result.hits.hits.toList)
-    case results: RequestSuccess[_] => println(results.result)
+    client
   }
 
-  // Response also supports familiar combinators like map / flatMap / foreach:
-  resp foreach (search => println(s"There were ${search.totalHits} total hits"))
+  def blah() = {
+    println(s"================================> ELASTIC SLEEPING.......... this is ridiculous, but without it we get a connection refused exception")
+    TimeUnit.SECONDS.sleep(30)
+
+    ///////////////////////////////////////// TODO - Remove below
+    client.execute {
+      createIndex("artists").mappings(
+        mapping("modern").fields(
+          textField("name")
+        )
+      )
+    }.await
+
+    // Next we index a single document which is just the name of an Artist.
+    // The RefreshPolicy.Immediate means that we want this document to flush to the disk immediately.
+    // see the section on Eventual Consistency.
+    client.execute {
+      indexInto("artists" / "modern").fields("name" -> "L.S. Lowry").refresh(RefreshPolicy.Immediate)
+    }.await
+
+    // now we can search for the document we just indexed
+    val resp = client.execute {
+      search("artists") query "lowry"
+    }.await
+
+    // resp is a Response[+U] ADT consisting of either a RequestFailure containing the
+    // Elasticsearch error details, or a RequestSuccess[U] that depends on the type of request.
+    // In this case it is a RequestSuccess[SearchResponse]
+
+    println("---- Search Results ----")
+    resp match {
+      case failure: RequestFailure => println("We failed " + failure.error)
+      case results: RequestSuccess[SearchResponse] => println(results.result.hits.hits.toList)
+      case results: RequestSuccess[_] => println(results.result)
+    }
+
+    // Response also supports familiar combinators like map / flatMap / foreach:
+    resp foreach (search => println(s"There were ${search.totalHits} total hits"))
 
 
-  client.close()
+    client.close()
+  }
 }
 
 case class Tweet(name: String, message: String)

@@ -90,6 +90,7 @@ hs_err_pid*
 
 .credentials
 .env
+.env-*
 .java-version
 
 beginners-course/course

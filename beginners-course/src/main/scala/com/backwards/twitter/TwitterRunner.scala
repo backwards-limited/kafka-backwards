@@ -21,12 +21,17 @@ object TwitterRunner extends BackwardsApp {
 
   var first = true
 
-  val tweeted: Seq[(String, String)] => Unit = tweets => {
-    info(s"Consumed Tweets:\n${tweets.mkString("\n")}")
-    // TODO - Actually use instead of the hardcoded PoC inside the following class
-    if (first) {
-      val elasticsearchBroker = new ElasticSearchBroker
-      first = false
+  val tweeted: Seq[(String, String)] => Unit = {
+    println(s"======> ELASTIC SEARCH BROKER")
+    val elasticsearchBroker = new ElasticSearchBroker
+
+    tweets => {
+      info(s"Consumed Tweets:\n${tweets.mkString("\n")}")
+      // TODO - Actually use instead of the hardcoded PoC inside the following class
+      if (first) {
+        elasticsearchBroker.blah()
+        first = false
+      }
     }
   }
 

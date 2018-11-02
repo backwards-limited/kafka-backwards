@@ -2,7 +2,8 @@
 
 - Environment
 
-  Any environment variables that should not be saved in **Git** should be in a **.env** file - a hidden file, where [.env-example](../.env-example) can be used as a template.
+  Any environment variables that should not be saved in **Git** should be in a **.env** file - a hidden file, where [.env example](../.env example) can be used as a template.
+  If necessary, you may need other **environments** such as **.env-local** and **.env-dev** etc.
 
 - The project image can be build with:
 
