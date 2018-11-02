@@ -35,10 +35,10 @@ class ElasticSearchBroker {
 
   def blah() = {
     println(s"================================> ELASTIC SLEEPING.......... this is ridiculous, but without it we get a connection refused exception")
-    TimeUnit.SECONDS.sleep(30)
+    //TimeUnit.SECONDS.sleep(30)
 
     ///////////////////////////////////////// TODO - Remove below
-    client.execute {
+    /*client.execute {
       createIndex("artists").mappings(
         mapping("modern").fields(
           textField("name")
@@ -70,10 +70,7 @@ class ElasticSearchBroker {
     }
 
     // Response also supports familiar combinators like map / flatMap / foreach:
-    resp foreach (search => println(s"There were ${search.totalHits} total hits"))
-
-
-    client.close()
+    resp foreach (search => println(s"There were ${search.totalHits} total hits"))*/
   }
 }
 

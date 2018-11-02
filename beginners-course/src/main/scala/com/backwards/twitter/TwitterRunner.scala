@@ -15,23 +15,39 @@ object TwitterRunner extends BackwardsApp {
   val twitterProducer = TwitterProducer("twitter-topic")
 
   val twitterBroker = new TwitterBroker
-  twitterBroker.track(NonEmptyList.of("scala","bitcoin"))(twitterProducer.produce(_).unsafeRunSync)
+  twitterBroker.track(NonEmptyList.of("scala"))(twitterProducer.produce(_).unsafeRunSync)
 
   val twitterConsumer = TwitterConsumer("twitter-topic")
 
-  var first = true
-
   val tweeted: Seq[(String, String)] => Unit = {
-    println(s"======> ELASTIC SEARCH BROKER")
+    import com.sksamuel.elastic4s.http.ElasticDsl._
+
     val elasticsearchBroker = new ElasticSearchBroker
+
+    try {
+      elasticsearchBroker.client.execute {
+        info("===> Creating twitter index")
+        createIndex("twitter")
+      }.await
+    } catch {
+      case t: Throwable =>
+        warn(s"===> Twitter index creation: ${t.getMessage}") // Maybe index already exists
+    }
 
     tweets => {
       info(s"Consumed Tweets:\n${tweets.mkString("\n")}")
-      // TODO - Actually use instead of the hardcoded PoC inside the following class
-      if (first) {
-        elasticsearchBroker.blah()
-        first = false
+
+      tweets.foreach { case (k, v) =>
+        val response = elasticsearchBroker.client.execute {
+          indexInto("twitter" / "tweets").doc(s"""{ "tweet": "TODO" }""")
+        }.await
+
+        println(s"===> Elastic search response = $response")
       }
+
+      /*elasticsearchBroker.client.execute {
+        indexInto("twitter" / "tweets").doc(jonsnow)
+      }*/
     }
   }
 
