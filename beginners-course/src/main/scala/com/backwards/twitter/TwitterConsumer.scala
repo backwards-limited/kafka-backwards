@@ -15,7 +15,7 @@ object TwitterConsumer {
     new TwitterConsumer(topic, kafkaConfig + (GROUP_ID_CONFIG, "twitter-group") + (AUTO_OFFSET_RESET_CONFIG -> "earliest"))
 }
 
-class TwitterConsumer private(topic: String, config: KafkaConfig) extends Serde.Implicits with Logging {
+class TwitterConsumer private(topic: String, config: KafkaConfig) extends Serde with Logging {
   val consumer: Consumer[IO, String, String] = Consumer[IO, String, String](topic, config) // TODO - config: max.poll.records
 
   def consume: IO[Seq[(String, String)]] = consumer.poll()

@@ -18,12 +18,12 @@ object TwitterProducer {
   def apply(topic: String) = new TwitterProducer(topic)
 }
 
-class TwitterProducer private(topic: String) extends Serde.Implicits with Transform.Implicits with Logging {
-  val producer: Producer[IO, String, Tweet] =
-    Producer[IO, String, Tweet](topic, kafkaConfig + (COMPRESSION_TYPE_CONFIG -> "snappy") + (LINGER_MS_CONFIG -> 20) + (BATCH_SIZE_CONFIG -> 32 * 1024))
+class TwitterProducer private(topic: String) extends Serde with Transform with Logging {
+  val producer: Producer[IO, String, String] =
+    Producer[IO, String, String](topic, kafkaConfig + (COMPRESSION_TYPE_CONFIG -> "snappy") + (LINGER_MS_CONFIG -> 20) + (BATCH_SIZE_CONFIG -> 32 * 1024))
 
   val produce: Tweet => IO[Throwable Or RecordMetadata] = { tweet =>
-    producer.send(tweet.id.toString, tweet).map {
+    producer.send(tweet.id.toString, tweet.text).map {
       case r @ Right(record) =>
         debug(s"Published tweet ${tweet.id}: ${reflectionToString(record)}")
         r

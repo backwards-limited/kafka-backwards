@@ -9,7 +9,7 @@ import com.backwards.kafka.config.KafkaConfig
 import com.backwards.kafka.serde.Serde
 import com.backwards.transform.Transform
 
-trait ProducerITSpec extends WordSpec with MustMatchers with Serde.Implicits with Transform.Implicits {
+trait ProducerITSpec extends WordSpec with MustMatchers with Serde with Transform {
   this: ContainerFixture =>
 
   lazy val zookeeperContainer = ZookeeperContainer()

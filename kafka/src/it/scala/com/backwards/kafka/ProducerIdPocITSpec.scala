@@ -12,7 +12,7 @@ import com.backwards.kafka.config.KafkaConfig
 import com.backwards.kafka.serde.Serde
 
 // TODO - Remove this PoC once ProducerSpec is complete, that shows the use of ID as the effect monad and also has proven "laws"
-class ProducerIdPocITSpec extends WordSpec with MustMatchers with ContainerFixture with ForAllContainerLifecycle with Serde.Implicits {
+class ProducerIdPocITSpec extends WordSpec with MustMatchers with ContainerFixture with ForAllContainerLifecycle with Serde {
   implicit val `future ~> Id`: ~>[Future, Id] = new (Future ~> Id) {
     override def apply[A](future: Future[A]): Id[A] =
       Await.result(future, 30 seconds)

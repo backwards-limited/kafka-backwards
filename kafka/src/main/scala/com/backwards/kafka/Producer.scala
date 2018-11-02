@@ -15,7 +15,7 @@ object Producer extends KafkaConfigOps {
     new Producer[F, K, V](topic, config + keySerializerProperty[K] + valueSerializerProperty[V])
 }
 
-class Producer[F[_]: Monad, K, V] private(topic: String, config: KafkaConfig) extends Transform.Implicits {
+class Producer[F[_]: Monad, K, V] private(topic: String, config: KafkaConfig) extends Transform {
   lazy val producer: KafkaProducer[K, V] = {
     val producer = new KafkaProducer[K, V](config)
     sys addShutdownHook producer.close()
