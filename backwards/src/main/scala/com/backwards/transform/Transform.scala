@@ -1,9 +1,10 @@
 package com.backwards.transform
 
-import scala.concurrent.Future
-import scala.language.higherKinds
+import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
+import scala.language.{higherKinds, postfixOps}
 import cats.effect.IO
-import cats.~>
+import cats.{Id, ~>}
 
 object Transform extends Transform
 
@@ -12,7 +13,12 @@ trait Transform {
     def liftTo[Y[_]](implicit transform: X ~> Y): Y[A] = transform(x)
   }
 
-  implicit val `future ~> IO`: ~>[Future, IO] = new (Future ~> IO) {
+  implicit val `Future ~> Id`: Future ~> Id = new (Future ~> Id) {
+    def apply[A](future: Future[A]): Id[A] =
+      Await.result(future, 30 seconds) // TODO - Hardcoded duration ??
+  }
+
+  implicit val `Future ~> IO`: Future ~> IO = new (Future ~> IO) {
     override def apply[A](future: Future[A]): IO[A] =
       IO fromFuture IO(future)
   }

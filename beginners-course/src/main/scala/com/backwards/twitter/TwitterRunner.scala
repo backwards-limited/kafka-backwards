@@ -1,10 +1,13 @@
 package com.backwards.twitter
 
 import cats.data.NonEmptyList
+import cats.effect.IO
 import com.backwards.BackwardsApp
 import com.backwards.elasticsearch.ElasticSearchBroker
 import io.circe.generic.auto._
 import io.circe.syntax._
+import com.backwards.transform.Transform
+import com.danielasfregola.twitter4s.entities.Tweet
 
 /**
   * Demo application which shows the following:
@@ -13,15 +16,17 @@ import io.circe.syntax._
   *   - Receive said tweets from Kafka using [[com.backwards.kafka.Consumer Consumer]]
   *   - Finally each received tweet is added to Elasticsearch using [[https://github.com/bizreach/elastic-scala-httpclient elastic-scala-httpclient]]
   */
-object TwitterRunner extends BackwardsApp {
-  val twitterProducer = TwitterProducer("twitter-topic")
+object TwitterRunner extends BackwardsApp with Transform {
+  val topic = "twitter-topic"
+
+  val twitterProducer = TwitterProducer[IO](topic)
 
   val twitterBroker = new TwitterBroker
   twitterBroker.track(NonEmptyList.of("scala"))(twitterProducer.produce(_).unsafeRunSync)
 
-  val twitterConsumer = TwitterConsumer("twitter-topic")
+  val twitterConsumer = TwitterConsumer[IO](topic)
 
-  val tweeted: Seq[(String, String)] => Unit = {
+  val tweeted: Seq[(String, Tweet)] => Unit = {
     import com.sksamuel.elastic4s.http.ElasticDsl._
 
     val elasticsearchBroker = new ElasticSearchBroker
@@ -41,7 +46,7 @@ object TwitterRunner extends BackwardsApp {
 
       tweets.foreach { case (k, v) =>
         val response = elasticsearchBroker.client.execute {
-          indexInto("twitter" / "tweets").doc(s"""{ "tweet": "${new String(v)}" }""")
+          indexInto("twitter" / "tweets").doc(s"""{ "tweet": "${v.toString}" }""")
         }.await
 
         println(s"===> Elastic search response = ${response.result.id}")

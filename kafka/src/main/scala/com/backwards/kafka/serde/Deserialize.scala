@@ -49,4 +49,8 @@ trait Deserialize {
 
     def close(): Unit = ()
   }
+
+  def apply[A: Deserializer]: Deserializer[A] = implicitly[Deserializer[A]]
+
+  def deserialize[A: Deserializer](topic: String, data: Array[Byte]): A = apply[A].deserialize(topic, data)
 }

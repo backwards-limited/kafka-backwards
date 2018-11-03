@@ -46,4 +46,8 @@ trait Serialize {
 
     def close(): Unit = ()
   }
+
+  def apply[A: Serializer]: Serializer[A] = implicitly[Serializer[A]]
+
+  def serialize[A: Serializer](topic: String, a: A): Array[Byte] = apply[A].serialize(topic, a)
 }

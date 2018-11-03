@@ -2,26 +2,27 @@ package com.backwards.kafka
 
 import scala.concurrent.{Future, Promise}
 import scala.language.higherKinds
-import cats.{Monad, _}
 import cats.implicits._
-import org.apache.kafka.clients.producer.{Callback, KafkaProducer, ProducerRecord, RecordMetadata}
+import cats.{Monad, _}
+import org.apache.kafka.clients.producer.{Callback, ProducerRecord, RecordMetadata, KafkaProducer => KafkaProducerImpl, Producer => KafkaProducer}
 import org.apache.kafka.common.serialization.Serializer
 import com.backwards._
 import com.backwards.kafka.config.{KafkaConfig, KafkaConfigOps}
 import com.backwards.transform.Transform
 
 object Producer extends KafkaConfigOps {
-  def apply[F[_]: Monad, K, V](topic: String, config: KafkaConfig)(implicit K: Serializer[K], V: Serializer[V]) =
-    new Producer[F, K, V](topic, config + keySerializerProperty[K] + valueSerializerProperty[V])
+  def apply[F[_]: Monad, K, V](topic: String, config: KafkaConfig)(implicit K: Serializer[K], V: Serializer[V]): Producer[F, K, V] = {
+    lazy val producer: KafkaProducer[K, V] = {
+      val producer = new KafkaProducerImpl[K, V](config + keySerializerProperty[K] + valueSerializerProperty[V])
+      sys addShutdownHook producer.close()
+      producer
+    }
+
+    new Producer[F, K, V](topic, producer)
+  }
 }
 
-class Producer[F[_]: Monad, K, V] private(topic: String, config: KafkaConfig) extends Transform {
-  lazy val producer: KafkaProducer[K, V] = {
-    val producer = new KafkaProducer[K, V](config)
-    sys addShutdownHook producer.close()
-    producer
-  }
-
+class Producer[F[_]: Monad, K, V](topic: String, producer: => KafkaProducer[K, V]) extends Transform {
   lazy val record: (K, V) => ProducerRecord[K, V] =
     (key, value) => new ProducerRecord[K, V](topic, key, value)
 
