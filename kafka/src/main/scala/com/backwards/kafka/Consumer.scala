@@ -28,6 +28,8 @@ class Consumer[F[_]: Applicative, K, V](topic: String, consumer: => KafkaConsume
     val consumerRecords = consumer.poll(JDuration.ofMillis(duration.toMillis))
 
     consumerRecords.iterator.asScala.map { consumerRecord =>
+      // TODO - Code that calls "poll" oftens needs to be "idempotent" and to help we could generate a unique key that makes sure duplicate messages are handled the same.
+      // TODO - Instead of providing "consumerRecored.key", we could provide: val id = s"${record.topic}-${record.partition}-${record.offset}"
       (consumerRecord.key, consumerRecord.value)
     }.toSeq.pure[F]
   }

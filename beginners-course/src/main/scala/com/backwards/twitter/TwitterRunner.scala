@@ -9,6 +9,7 @@ import com.backwards.BackwardsApp
 import com.backwards.elasticsearch.ElasticSearchBroker
 import com.backwards.transform.Transform
 import com.danielasfregola.twitter4s.entities.Tweet
+import com.sksamuel.elastic4s.http.ElasticDsl._
 
 /**
   * Demo application which shows the following:
@@ -18,6 +19,8 @@ import com.danielasfregola.twitter4s.entities.Tweet
   *   - Finally each received tweet is added to Elasticsearch using [[https://github.com/bizreach/elastic-scala-httpclient elastic-scala-httpclient]]
   */
 object TwitterRunner extends BackwardsApp with Transform {
+  implicit val jsonFormats: Formats = Serialization formats NoTypeHints
+
   val topic = "twitter-topic"
 
   val twitterProducer = TwitterProducer[IO](topic)
@@ -28,37 +31,17 @@ object TwitterRunner extends BackwardsApp with Transform {
   val twitterConsumer = TwitterConsumer[IO](topic)
 
   val tweeted: Seq[(String, Tweet)] => Unit = {
-    import com.sksamuel.elastic4s.http.ElasticDsl._
-
     val elasticsearchBroker = new ElasticSearchBroker
-
-    try {
-      elasticsearchBroker.client.execute {
-        info("===> Creating twitter index")
-        createIndex("twitter")
-      }.await
-    } catch {
-      case t: Throwable =>
-        warn(s"===> Twitter index creation: ${t.getMessage}") // Maybe index already exists
-    }
+    elasticsearchBroker.index("twitter").await
 
     tweets => {
-      info(s"Consumed Tweets:\n${tweets.mkString("\n")}")
-
-      tweets.foreach { case (k, v) =>
+      tweets.foreach { case (key, tweet) =>
         val response = elasticsearchBroker.client.execute {
-          implicit val formats: Formats = Serialization formats NoTypeHints
-
-          indexInto("twitter" / "tweets").doc(write(v))
-
+          indexInto("twitter" / "tweets") id tweet.id_str doc write(tweet)
         }.await
 
-        println(s"===> Elastic search response = ${response.result.id}")
+        info(s"Elastic search response = ${response.result.id}")
       }
-
-      /*elasticsearchBroker.client.execute {
-        indexInto("twitter" / "tweets").doc(jonsnow)
-      }*/
     }
   }
 

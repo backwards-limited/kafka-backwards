@@ -31,8 +31,12 @@ class TwitterConsumer[F[_]: Applicative](topic: String) extends Serde with Loggi
     */
   def doConsume(callback: Seq[(String, Tweet)] => Unit)(run: F[Seq[(String, Tweet)]] => Seq[(String, Tweet)]): Unit = {
     val tweeted: Seq[(String, Tweet)] => Unit = tweets =>
-      if (tweets.isEmpty) info("No available tweets at this moment in time.....")
-      else callback(tweets)
+      if (tweets.isEmpty) {
+        info("No available tweets at this moment in time.....")
+      } else {
+        info(s"Consumed Tweets: ${tweets.map(_._2.id).mkString(", ")}")
+        callback(tweets)
+      }
 
     @tailrec
     def go(): Unit = {

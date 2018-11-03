@@ -4,7 +4,6 @@ import scala.concurrent.Future
 import scala.language.higherKinds
 import cats.implicits._
 import cats.{Monad, ~>}
-import org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString
 import org.apache.kafka.clients.producer.ProducerConfig._
 import org.apache.kafka.clients.producer.RecordMetadata
 import com.backwards.Or
@@ -26,9 +25,9 @@ class TwitterProducer[F[_]: Monad](topic: String) extends Serde with Logging {
     Producer[F, String, Tweet](topic, kafkaConfig + (COMPRESSION_TYPE_CONFIG -> "snappy") + (LINGER_MS_CONFIG -> 20) + (BATCH_SIZE_CONFIG -> 32 * 1024))
 
   def produce(tweet: Tweet)(implicit transform: Future ~> F): F[Throwable Or RecordMetadata] =
-    producer.send(tweet.id.toString, tweet).map {
+    producer.send(tweet.id_str, tweet).map {
       case r @ Right(record) =>
-        info(s"Published tweet ${tweet.id}: ${reflectionToString(record)}")
+        info(s"Published tweet ${tweet.id}") // could include reflectionToString(record)
         r
 
       case l @ Left(t) =>

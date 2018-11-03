@@ -1,6 +1,6 @@
 package com.backwards.elasticsearch
 
-import java.util.concurrent.TimeUnit
+import scala.concurrent.Future
 import scala.language.postfixOps
 import org.apache.http.HttpHost
 import org.apache.http.auth.{AuthScope, UsernamePasswordCredentials}
@@ -8,12 +8,12 @@ import org.apache.http.impl.client.BasicCredentialsProvider
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder
 import org.elasticsearch.client.{RestClient, RestClientBuilder}
 import com.backwards.config.elasticSearchConfig
-import com.sksamuel.elastic4s.RefreshPolicy
+import com.backwards.logging.Logging
+import com.sksamuel.elastic4s.http.{ElasticClient, Response}
 import com.sksamuel.elastic4s.http.ElasticDsl._
-import com.sksamuel.elastic4s.http.search.SearchResponse
-import com.sksamuel.elastic4s.http.{bulk => _, search => _, _}
+import com.sksamuel.elastic4s.http.index.CreateIndexResponse
 
-class ElasticSearchBroker {
+class ElasticSearchBroker extends Logging {
   val httpClientConfigCallback: RestClientBuilder.HttpClientConfigCallback = (httpClientBuilder: HttpAsyncClientBuilder) => {
     val credentialsProvider = new BasicCredentialsProvider
     credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(elasticSearchConfig.credentials.user, elasticSearchConfig.credentials.password))
@@ -31,6 +31,23 @@ class ElasticSearchBroker {
     sys addShutdownHook client.close()
 
     client
+  }
+
+  def index(name: String): Future[Response[CreateIndexResponse]] = {
+    info(s"Creating index: $name")
+
+    client.execute {
+      createIndex("twitter")
+    }
+
+    /*try {
+      client.execute {
+        createIndex("twitter")
+      }.await
+    } catch {
+      case t: Throwable =>
+        warn(s"===> Twitter index creation: ${t.getMessage}") // Maybe index already exists
+    }*/
   }
 
   def blah() = {
