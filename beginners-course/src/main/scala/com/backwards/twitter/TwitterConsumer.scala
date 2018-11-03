@@ -3,13 +3,14 @@ package com.backwards.twitter
 import scala.annotation.tailrec
 import scala.language.{higherKinds, postfixOps}
 import cats.Applicative
+import cats.implicits._
 import org.apache.kafka.clients.consumer.ConsumerConfig.{AUTO_OFFSET_RESET_CONFIG, GROUP_ID_CONFIG}
 import com.backwards.config.kafkaConfig
 import com.backwards.kafka.Consumer
 import com.backwards.kafka.serde.Serde
 import com.backwards.logging.Logging
+import com.backwards.twitter.TweetSerde.TweetDeserializer
 import com.danielasfregola.twitter4s.entities.Tweet
-import cats.implicits._
 
 object TwitterConsumer {
   def apply[F[_]: Applicative](topic: String) = new TwitterConsumer[F](topic)

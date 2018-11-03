@@ -12,8 +12,8 @@ import com.backwards.config.kafkaConfig
 import com.backwards.kafka.Producer
 import com.backwards.kafka.serde.Serde
 import com.backwards.logging.Logging
+import com.backwards.twitter.TweetSerde.TweetSerializer
 import com.danielasfregola.twitter4s.entities.Tweet
-import monocle.macros.syntax.lens._
 
 object TwitterProducer {
   def apply[F[_]: Monad](topic: String) = new TwitterProducer[F](topic)

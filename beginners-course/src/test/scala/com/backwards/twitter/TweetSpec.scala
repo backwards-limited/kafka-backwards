@@ -4,6 +4,7 @@ import java.util.Date
 import org.apache.commons.lang3.SerializationUtils
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.kafka.serde.{Deserialize, Serialize}
+import com.backwards.twitter.TweetSerde.{TweetDeserializer, TweetSerializer}
 import com.danielasfregola.twitter4s.entities._
 
 class TweetSpec extends WordSpec with MustMatchers with Serialize with Deserialize {

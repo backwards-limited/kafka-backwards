@@ -2,13 +2,11 @@ package com.backwards.twitter
 
 import cats.data.NonEmptyList
 import cats.effect.IO
-import com.backwards.BackwardsApp
-import com.backwards.elasticsearch.ElasticSearchBroker
-import io.circe.generic.auto._
-import io.circe.syntax._
-import org.json4s.{Formats, NoTypeHints}
 import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
+import org.json4s.{Formats, NoTypeHints}
+import com.backwards.BackwardsApp
+import com.backwards.elasticsearch.ElasticSearchBroker
 import com.backwards.transform.Transform
 import com.danielasfregola.twitter4s.entities.Tweet
 

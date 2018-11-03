@@ -4,6 +4,9 @@ import java.util
 import java.util.Date
 import shapeless._
 import org.apache.kafka.common.serialization.{Deserializer, StringDeserializer}
+import com.backwards.kafka.serde.BooleanSerde.BooleanDeserializer
+import com.backwards.kafka.serde.DateSerde.DateDeserializer
+import com.backwards.kafka.serde.IntSerde.IntDeserializer
 
 trait Deserialize {
   implicit val stringDeserializer: Deserializer[String] = new StringDeserializer
