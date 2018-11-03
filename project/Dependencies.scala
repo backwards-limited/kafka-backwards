@@ -4,7 +4,7 @@ object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
       scalatest, testcontainers, airframe, logging, pprint, configuration, betterFiles, apacheCommons,
-      avro4s, circe,
+      avro4s, circe, json4s,
       cats, monocle, shapeless, http4s, scalaUri, kafka, twitter, elasticsearch
     ).flatten
 
@@ -61,6 +61,15 @@ object Dependencies {
       "io.circe" %% "circe-generic",
       "io.circe" %% "circe-generic-extras",
       "io.circe" %% "circe-parser"
+    ).map(_ % version)
+  }
+
+  lazy val json4s: Seq[ModuleID] = {
+    val version = "3.6.2"
+      
+    Seq(
+      "org.json4s" %% "json4s-jackson",
+      "org.json4s" %% "json4s-ext"
     ).map(_ % version)
   }
 

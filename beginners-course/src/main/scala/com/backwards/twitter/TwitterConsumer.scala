@@ -9,6 +9,7 @@ import com.backwards.kafka.Consumer
 import com.backwards.kafka.serde.Serde
 import com.backwards.logging.Logging
 import com.danielasfregola.twitter4s.entities.Tweet
+import cats.implicits._
 
 object TwitterConsumer {
   def apply[F[_]: Applicative](topic: String) = new TwitterConsumer[F](topic)
@@ -18,7 +19,7 @@ class TwitterConsumer[F[_]: Applicative](topic: String) extends Serde with Loggi
   implicit val tweetDeserializer: TweetDeserializer = new TweetDeserializer
 
   val consumer: Consumer[F, String, Tweet] =
-    Consumer[F, String, Tweet](topic, kafkaConfig + (GROUP_ID_CONFIG, "twitter-group") + (AUTO_OFFSET_RESET_CONFIG -> "earliest")) // TODO - config: max.poll.records
+    Consumer[F, String, Tweet](topic, kafkaConfig + (GROUP_ID_CONFIG, "twitter-group-1") + (AUTO_OFFSET_RESET_CONFIG -> "latest")) // TODO - config: max.poll.records
 
   def consume: F[Seq[(String, Tweet)]] = consumer.poll()
 

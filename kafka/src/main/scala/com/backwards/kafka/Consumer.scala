@@ -27,7 +27,7 @@ class Consumer[F[_]: Applicative, K, V](topic: String, consumer: => KafkaConsume
   def poll(duration: Duration = 10 seconds): F[Seq[(K, V)]] = {
     val consumerRecords = consumer.poll(JDuration.ofMillis(duration.toMillis))
 
-    consumerRecords.iterator().asScala.map { consumerRecord =>
+    consumerRecords.iterator.asScala.map { consumerRecord =>
       (consumerRecord.key, consumerRecord.value)
     }.toSeq.pure[F]
   }

@@ -13,6 +13,7 @@ import com.backwards.kafka.Producer
 import com.backwards.kafka.serde.Serde
 import com.backwards.logging.Logging
 import com.danielasfregola.twitter4s.entities.Tweet
+import monocle.macros.syntax.lens._
 
 object TwitterProducer {
   def apply[F[_]: Monad](topic: String) = new TwitterProducer[F](topic)
@@ -27,7 +28,7 @@ class TwitterProducer[F[_]: Monad](topic: String) extends Serde with Logging {
   def produce(tweet: Tweet)(implicit transform: Future ~> F): F[Throwable Or RecordMetadata] =
     producer.send(tweet.id.toString, tweet).map {
       case r @ Right(record) =>
-        debug(s"Published tweet ${tweet.id}: ${reflectionToString(record)}")
+        info(s"Published tweet ${tweet.id}: ${reflectionToString(record)}")
         r
 
       case l @ Left(t) =>

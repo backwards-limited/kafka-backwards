@@ -22,7 +22,6 @@ class TweetSpec extends WordSpec with MustMatchers with Serialize with Deseriali
 
       val topic = "topic"
 
-      val tweet = Tweet(created_at = new Date, id = 6, id_str = "blah", source = "blahblah", text = "something")
       val bytes = serialize[Tweet](topic, tweet)
 
       deserialize[Tweet](topic, bytes) mustEqual tweet

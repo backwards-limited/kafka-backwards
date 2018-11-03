@@ -6,6 +6,9 @@ import com.backwards.BackwardsApp
 import com.backwards.elasticsearch.ElasticSearchBroker
 import io.circe.generic.auto._
 import io.circe.syntax._
+import org.json4s.{Formats, NoTypeHints}
+import org.json4s.jackson.Serialization
+import org.json4s.jackson.Serialization.write
 import com.backwards.transform.Transform
 import com.danielasfregola.twitter4s.entities.Tweet
 
@@ -22,7 +25,7 @@ object TwitterRunner extends BackwardsApp with Transform {
   val twitterProducer = TwitterProducer[IO](topic)
 
   val twitterBroker = new TwitterBroker
-  twitterBroker.track(NonEmptyList.of("scala"))(twitterProducer.produce(_).unsafeRunSync)
+  twitterBroker.track(NonEmptyList.of("scala", "bitcoin"))(twitterProducer.produce(_).unsafeRunSync)
 
   val twitterConsumer = TwitterConsumer[IO](topic)
 
@@ -46,7 +49,10 @@ object TwitterRunner extends BackwardsApp with Transform {
 
       tweets.foreach { case (k, v) =>
         val response = elasticsearchBroker.client.execute {
-          indexInto("twitter" / "tweets").doc(s"""{ "tweet": "${v.toString}" }""")
+          implicit val formats: Formats = Serialization formats NoTypeHints
+
+          indexInto("twitter" / "tweets").doc(write(v))
+
         }.await
 
         println(s"===> Elastic search response = ${response.result.id}")
