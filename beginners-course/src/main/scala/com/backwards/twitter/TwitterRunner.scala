@@ -3,6 +3,8 @@ package com.backwards.twitter
 import cats.data.NonEmptyList
 import com.backwards.BackwardsApp
 import com.backwards.elasticsearch.ElasticSearchBroker
+import io.circe.generic.auto._
+import io.circe.syntax._
 
 /**
   * Demo application which shows the following:
@@ -39,10 +41,10 @@ object TwitterRunner extends BackwardsApp {
 
       tweets.foreach { case (k, v) =>
         val response = elasticsearchBroker.client.execute {
-          indexInto("twitter" / "tweets").doc(s"""{ "tweet": "TODO" }""")
+          indexInto("twitter" / "tweets").doc(s"""{ "tweet": "${new String(v)}" }""")
         }.await
 
-        println(s"===> Elastic search response = $response")
+        println(s"===> Elastic search response = ${response.result.id}")
       }
 
       /*elasticsearchBroker.client.execute {

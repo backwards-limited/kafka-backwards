@@ -1,13 +1,17 @@
 package com.backwards.kafka.serde
 
+import java.util.Date
+import shapeless._
 import org.scalatest.{MustMatchers, WordSpec}
+import com.danielasfregola.twitter4s.entities._
 
+// TODO - Scalacheck
 class SerdeSpec extends WordSpec with MustMatchers with Serde {
   spec =>
 
   case class Foo(data: String, more: String)
 
-  case class Bar(length: Int)
+  case class Bar(length: Int, date: Date, high: Boolean, low: Boolean)
 
   val topic = "topic"
   val foo = Foo("scooby", "doo")
@@ -37,11 +41,19 @@ class SerdeSpec extends WordSpec with MustMatchers with Serde {
       foo mustEqual spec.foo
     }
 
+    // TODO - Scalacheck
     "serialize and deserialize something else" in {
-      val bar = Bar(length = 66)
+      val bar = Bar(length = 66, new Date, high = true, low = false)
       val bytes = serialize[Bar](topic, bar)
 
       deserialize[Bar](topic, bytes) mustEqual bar
     }
+
+    /*"serialize and deserialize something more substantial, such as a tweet" in {
+      val tweet = Tweet(created_at = new Date, id = 6, id_str = "blah", source = "blahblah", text = "something")
+      val bytes = serialize[Tweet](topic, tweet)
+
+      deserialize[Tweet](topic, bytes) mustEqual tweet
+    }*/
   }
 }
