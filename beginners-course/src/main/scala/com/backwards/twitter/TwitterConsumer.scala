@@ -54,7 +54,7 @@ class TwitterConsumer[F[_]: Applicative](topic: String) extends Serde with Loggi
       tweeted(run(consume))
       info("Commiting offset synchronously manually")
       consumer.underlying.commitSync()
-      TimeUnit.SECONDS.sleep(3)
+      TimeUnit.SECONDS.sleep(10)
       go()
     }
 
