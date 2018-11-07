@@ -27,7 +27,7 @@ class TwitterProducer[F[_]: Monad](topic: String) extends Serde with Logging {
   def produce(tweet: Tweet)(implicit transform: Future ~> F): F[Throwable Or RecordMetadata] =
     producer.send(tweet.id_str, tweet).map {
       case r @ Right(record) =>
-        info(s"Published tweet ${tweet.id}") // could include reflectionToString(record)
+        debug(s"Published tweet ${tweet.id} from Kafka partition: ${record.partition()}, offset: ${record.offset}")
         r
 
       case l @ Left(t) =>

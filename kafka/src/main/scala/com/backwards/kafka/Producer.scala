@@ -12,17 +12,17 @@ import com.backwards.transform.Transform
 
 object Producer extends KafkaConfigOps {
   def apply[F[_]: Monad, K, V](topic: String, config: KafkaConfig)(implicit K: Serializer[K], V: Serializer[V]): Producer[F, K, V] = {
-    lazy val producer: KafkaProducer[K, V] = {
-      val producer = new KafkaProducerImpl[K, V](config + keySerializerProperty[K] + valueSerializerProperty[V])
-      sys addShutdownHook producer.close()
-      producer
+    lazy val kafkaProducer: KafkaProducer[K, V] = {
+      val kafkaProducer = new KafkaProducerImpl[K, V](config + keySerializerProperty[K] + valueSerializerProperty[V])
+      sys addShutdownHook kafkaProducer.close()
+      kafkaProducer
     }
 
-    new Producer[F, K, V](topic, producer)
+    new Producer[F, K, V](topic, kafkaProducer)
   }
 }
 
-class Producer[F[_]: Monad, K, V](topic: String, producer: => KafkaProducer[K, V]) extends Transform {
+class Producer[F[_]: Monad, K, V](topic: String, kafkaProducer: => KafkaProducer[K, V]) extends Transform {
   lazy val record: (K, V) => ProducerRecord[K, V] =
     (key, value) => new ProducerRecord[K, V](topic, key, value)
 
@@ -31,7 +31,7 @@ class Producer[F[_]: Monad, K, V](topic: String, producer: => KafkaProducer[K, V
   def send(key: K, value: V)(implicit transform: Future ~> F): F[Throwable Or RecordMetadata] = {
     val promise = Promise[Throwable Or RecordMetadata]()
 
-    producer.send(record(key, value), callback(promise))
+    kafkaProducer.send(record(key, value), callback(promise))
 
     promise.future.liftTo[F]
   }

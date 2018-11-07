@@ -44,7 +44,7 @@ object KafkaConfig {
   * @param properties Map[String, String]
   * Included the Java friendly operation [[add]].
   */
-case class KafkaConfig(bootstrap: BootstrapConfig, properties: Map[String, String] = Map.empty[String, String]) {
+final case class KafkaConfig(bootstrap: BootstrapConfig, properties: Map[String, String] = Map.empty[String, String]) {
   import KafkaConfig._
 
   lazy val toProperties: Properties =

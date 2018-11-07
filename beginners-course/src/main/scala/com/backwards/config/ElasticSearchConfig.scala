@@ -1,3 +1,3 @@
 package com.backwards.config
 
-case class ElasticSearchConfig(bootstrap: BootstrapConfig, credentials: CredentialsConfig)
+final case class ElasticSearchConfig(bootstrap: BootstrapConfig, credentials: CredentialsConfig)

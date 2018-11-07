@@ -1,10 +1,8 @@
 package com.backwards.twitter
 
+import java.util.concurrent.TimeUnit
 import cats.data.NonEmptyList
 import cats.effect.IO
-import org.json4s.jackson.Serialization
-import org.json4s.jackson.Serialization.write
-import org.json4s.{Formats, NoTypeHints}
 import com.backwards.BackwardsApp
 import com.backwards.elasticsearch.ElasticSearchBroker
 import com.backwards.transform.Transform
@@ -18,9 +16,7 @@ import com.sksamuel.elastic4s.http.ElasticDsl._
   *   - Receive said tweets from Kafka using [[com.backwards.kafka.Consumer Consumer]]
   *   - Finally each received tweet is added to Elasticsearch using [[https://github.com/bizreach/elastic-scala-httpclient elastic-scala-httpclient]]
   */
-object TwitterRunner extends BackwardsApp with Transform {
-  implicit val jsonFormats: Formats = Serialization formats NoTypeHints
-
+object TwitterRunner extends BackwardsApp with Transform with Json {
   val topic = "twitter-topic"
 
   val twitterProducer = TwitterProducer[IO](topic)
@@ -32,20 +28,14 @@ object TwitterRunner extends BackwardsApp with Transform {
 
   val tweeted: Seq[(String, Tweet)] => Unit = {
     val elasticsearchBroker = new ElasticSearchBroker
+    println(s"ELASTIC SLEEPING - CURRENTLY A CRAZY HACK AS WITHOUT IT WE GET A 'CONNECTION REFUSED'") // TODO
+    TimeUnit.SECONDS.sleep(30)
     elasticsearchBroker.index("twitter").await
 
-    tweets => {
-      tweets.foreach { case (key, tweet) =>
-        val response = elasticsearchBroker.client.execute {
-          indexInto("twitter" / "tweets") id tweet.id_str doc write(tweet)
-        }.await
-
-        info(s"Elastic search response = ${response.result.id}")
-      }
-    }
+    elasticsearchBroker documentBulk ("twitter" / "tweets")
   }
 
-  twitterConsumer.doConsume(tweeted)(_.unsafeRunSync)
+  twitterConsumer.doConsume(_.unsafeRunSync)(tweeted)
 
   info("... and I'm spent!")
 }

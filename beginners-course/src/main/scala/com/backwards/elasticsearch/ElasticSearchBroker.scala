@@ -7,12 +7,19 @@ import org.apache.http.auth.{AuthScope, UsernamePasswordCredentials}
 import org.apache.http.impl.client.BasicCredentialsProvider
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder
 import org.elasticsearch.client.{RestClient, RestClientBuilder}
+import org.json4s.Writer
+import org.json4s.jackson.JsonMethods._
 import com.backwards.config.elasticSearchConfig
 import com.backwards.logging.Logging
-import com.sksamuel.elastic4s.http.{ElasticClient, Response}
+import com.sksamuel.elastic4s.IndexAndType
 import com.sksamuel.elastic4s.http.ElasticDsl._
 import com.sksamuel.elastic4s.http.index.CreateIndexResponse
+import com.sksamuel.elastic4s.http.{ElasticClient, Response}
+import com.sksamuel.elastic4s.indexes.IndexRequest
 
+/**
+  * For simplicity/demonstration we block on calls to the underlying Elasticsearch client.
+  */
 class ElasticSearchBroker extends Logging {
   val httpClientConfigCallback: RestClientBuilder.HttpClientConfigCallback = (httpClientBuilder: HttpAsyncClientBuilder) => {
     val credentialsProvider = new BasicCredentialsProvider
@@ -39,54 +46,26 @@ class ElasticSearchBroker extends Logging {
     client.execute {
       createIndex("twitter")
     }
-
-    /*try {
-      client.execute {
-        createIndex("twitter")
-      }.await
-    } catch {
-      case t: Throwable =>
-        warn(s"===> Twitter index creation: ${t.getMessage}") // Maybe index already exists
-    }*/
   }
 
-  def blah() = {
-    println(s"================================> ELASTIC SLEEPING.......... this is ridiculous, but without it we get a connection refused exception")
-    //TimeUnit.SECONDS.sleep(30)
+  def documentEach[V: Writer](indexAndType: IndexAndType)(xs: Seq[(String, V)]): Unit =
+    xs.foreach { case (key, value) =>
+      val response = client.execute(
+        indexRequest(indexAndType)(key -> value)
+      ).await
 
-    ///////////////////////////////////////// TODO - Remove below
-    /*client.execute {
-      createIndex("artists").mappings(
-        mapping("modern").fields(
-          textField("name")
-        )
-      )
-    }.await
-
-    // Next we index a single document which is just the name of an Artist.
-    // The RefreshPolicy.Immediate means that we want this document to flush to the disk immediately.
-    // see the section on Eventual Consistency.
-    client.execute {
-      indexInto("artists" / "modern").fields("name" -> "L.S. Lowry").refresh(RefreshPolicy.Immediate)
-    }.await
-
-    // now we can search for the document we just indexed
-    val resp = client.execute {
-      search("artists") query "lowry"
-    }.await
-
-    // resp is a Response[+U] ADT consisting of either a RequestFailure containing the
-    // Elasticsearch error details, or a RequestSuccess[U] that depends on the type of request.
-    // In this case it is a RequestSuccess[SearchResponse]
-
-    println("---- Search Results ----")
-    resp match {
-      case failure: RequestFailure => println("We failed " + failure.error)
-      case results: RequestSuccess[SearchResponse] => println(results.result.hits.hits.toList)
-      case results: RequestSuccess[_] => println(results.result)
+      info(s"Elasticsearch response = ${response.result.id}")
     }
 
-    // Response also supports familiar combinators like map / flatMap / foreach:
-    resp foreach (search => println(s"There were ${search.totalHits} total hits"))*/
+  def documentBulk[V: Writer](indexAndType: IndexAndType)(xs: Seq[(String, V)]): Unit = {
+    val response = client.execute(
+      bulk(xs map indexRequest(indexAndType))
+    ).await
+
+    info(s"Elasticsearch response = ${response.result.items.map(_.id).mkString(", ")}")
+  }
+
+  def indexRequest[V: Writer](indexAndType: IndexAndType)(keyValue: (String, V)): IndexRequest = keyValue match {
+    case (key, value) => indexInto(indexAndType) id key doc pretty(render(implicitly[Writer[V]].write(value)))
   }
 }

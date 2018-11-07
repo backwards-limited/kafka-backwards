@@ -7,9 +7,9 @@ import org.scalatest.{MustMatchers, WordSpec}
 class SerdeSpec extends WordSpec with MustMatchers with Serde {
   spec =>
 
-  case class Foo(data: String, more: String)
+  final case class Foo(data: String, more: String)
 
-  case class Bar(length: Int, date: Date, high: Boolean, low: Boolean)
+  final case class Bar(length: Int, date: Date, high: Boolean, low: Boolean)
 
   val topic = "topic"
   val foo = Foo("scooby", "doo")

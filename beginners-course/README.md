@@ -73,3 +73,14 @@ Note that this module is within a multi-module project and that there is only on
   where the **.env** file must be in the root of the running module.
  
   Choosing **.env** keeps in line with **docker-compose** environment variables.
+  
+- Kafka
+
+  While running, take a look at consumer information provided by Kafka:
+  
+  ```bash
+  $ kafka-consumer-groups --bootstrap-server 127.0.0.1:9092 --group twitter-group-1 --describe
+  
+  TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG   CONSUMER-ID      HOST            CLIENT-ID
+  twitter-topic   0          131             217             86    consumer-1-...   /172.28.0.1     consumer-1
+  ```
