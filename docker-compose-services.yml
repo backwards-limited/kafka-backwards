@@ -17,6 +17,7 @@ services:
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://127.0.0.1:9092"
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_CREATE_TOPICS: "twitter-status-topic:3:1,twitter-delete-topic:3:1:compact" # 3 partitions; replication factor of 1
       LOG4J_LOGGER_KAFKA_AUTHORIZER_LOGGER: ERROR
       KAFKA_LOG4J_ROOT_LOGLEVEL: ERROR
       KAFKA_TOOLS_LOG4J_LOGLEVEL: ERROR

@@ -2,6 +2,12 @@
 
 ## Useful Commands
 
+- Topics list
+
+  ```bash
+  kafka-topics --zookeeper 127.0.0.1:2181 --list
+  ```
+
 - Consumer group description
 
   ```bash

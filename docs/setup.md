@@ -21,6 +21,13 @@ brew cask install docker
 brew cask install minikube
 ```
 
+Other essentials related to Kafak:
+
+```bash
+brew tap confluentinc/homebrew-confluent-hub-client
+brew cask install confluent-hub-client
+```
+
 As well as the above essentials, we can also install the following to aid testing/understanding:
 
 ```bash
