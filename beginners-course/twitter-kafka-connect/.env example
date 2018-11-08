@@ -8,7 +8,7 @@ filter.keywords = bitcoin
 kafka.status.topic = twitter-status-topic
 kafka.delete.topic = twitter-delete-topic
 
-twitter.oauth.consumerKey = 7DT0MqBnjJDoE20JgZWmxCByd
-twitter.oauth.consumerSecret = 7kgrKsCYmy9F2HfueRQGKb9q0TbLl459lHdQzQC38fHj0UDpEd
-twitter.oauth.accessToken = 855435752-35cyAGZBwWAIrdJOhC0aTJqxnDing0nhErYJG55X
-twitter.oauth.accessTokenSecret = Le5eHbUC7DK669L3f6mND76WYsGHPytDMOqgCWWQz5wcr
+twitter.oauth.consumerKey = <key>
+twitter.oauth.consumerSecret = <secret>
+twitter.oauth.accessToken = <key>
+twitter.oauth.accessTokenSecret = <secret>
