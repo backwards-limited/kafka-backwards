@@ -4,7 +4,7 @@ import java.util.Properties
 import io.lemonlabs.uri.Uri
 import org.apache.kafka.clients.CommonClientConfigs._
 import org.scalatest.{MustMatchers, WordSpec}
-import com.backwards.config.BootstrapConfig
+import com.backwards.config.{BootstrapConfig, ConfigOps}
 
 class KafkaConfigSpec extends WordSpec with MustMatchers {
   "Kafka Config" should {
@@ -43,6 +43,14 @@ class KafkaConfigSpec extends WordSpec with MustMatchers {
       val configWithProperties = config + keyValue1 + keyValue2
 
       configWithProperties.toProperties mustEqual properties
+    }
+
+    "read properties from resource configuration" in new ConfigOps {
+      val config: KafkaConfig = load[KafkaConfig]("kafka")
+
+      config.properties("acks") mustEqual "all"
+      config.properties("min.insync.replicas") mustEqual "2"
+      config.properties("enable.idempotence") mustEqual "true"
     }
   }
 }

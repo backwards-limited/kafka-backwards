@@ -11,6 +11,7 @@ lazy val backwards = project("backwards") // TODO - Extract this into its own re
 
 lazy val kafka = project("kafka")
   .settings(description := "Backwards Kafka functionality includes example usage in various courses")
+  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(backwards % "compile->compile;test->test;it->it")
 
 lazy val beginnersCourse = project("beginners-course")
