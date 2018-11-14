@@ -2,7 +2,7 @@ package com.backwards.twitter
 
 import java.util
 import java.util.Base64
-import org.apache.kafka.common.serialization.{Deserializer, Serializer}
+import org.apache.kafka.common.serialization.{Deserializer, Serde, Serializer}
 import org.json4s._
 import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization._
@@ -27,5 +27,15 @@ object TweetSerde {
       read[Tweet](new String(Base64.getDecoder.decode(data)))
 
     def close(): Unit = ()
+  }
+
+  def apply(): Serde[Tweet] = new Serde[Tweet] {
+    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+
+    def close(): Unit = ()
+
+    def serializer(): Serializer[Tweet] = new TweetSerializer
+
+    def deserializer(): Deserializer[Tweet] = new TweetDeserializer
   }
 }

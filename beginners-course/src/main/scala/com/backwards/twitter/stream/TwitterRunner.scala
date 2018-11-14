@@ -1,17 +1,15 @@
 package com.backwards.twitter.stream
 
-import java.util.concurrent.TimeUnit
 import cats.data.NonEmptyList
 import cats.effect.IO
-import com.backwards.BackwardsApp
-import com.backwards.elasticsearch.ElasticSearchBroker
-import com.backwards.kafka.KafkaConfig
+import org.apache.kafka.common.serialization.Serdes.StringSerde
+import org.apache.kafka.streams.StreamsConfig._
+import org.apache.kafka.streams.{KafkaStreams, StreamsBuilder}
+import com.backwards.{BackwardsApp, kafka}
 import com.backwards.transform.Transform
-import com.backwards.twitter.Json
+import com.backwards.twitter.{Json, TweetSerde}
 import com.backwards.twitter.simple.{TwitterBroker, TwitterProducer}
 import com.danielasfregola.twitter4s.entities.Tweet
-import com.sksamuel.elastic4s.http.ElasticDsl._
-import com.backwards.{Or, kafka}
 
 /**
   * Demo application which shows the following:
@@ -31,26 +29,18 @@ object TwitterRunner extends BackwardsApp with Transform with Json {
   val twitterBroker = new TwitterBroker
   twitterBroker.track(NonEmptyList.of("scala", "bitcoin"))(twitterProducer.produce(_).unsafeRunSync)
 
+  val streamsConfig =
+    kafka.config +
+    (APPLICATION_ID_CONFIG -> "streamer") +
+    (DEFAULT_KEY_SERDE_CLASS_CONFIG -> classOf[StringSerde].getName) +
+    (DEFAULT_VALUE_SERDE_CLASS_CONFIG -> TweetSerde.apply().getClass.getName)
 
+  val streamsBuilder = new StreamsBuilder()
 
-  //kafka.config +
+  streamsBuilder.stream[String, Tweet](topic)
+    .filter { (_, tweet) => tweet.user.exists(_.followers_count > 10000) }
+    .to("important-tweets-topic")
 
-
-
-
-
-  /*val twitterConsumer = TwitterConsumer[IO](topic)
-
-  val tweeted: Seq[(String, Tweet)] => Unit = {
-    val elasticsearchBroker = new ElasticSearchBroker
-    println(s"ELASTIC SLEEPING - CURRENTLY A CRAZY HACK AS WITHOUT IT WE GET A 'CONNECTION REFUSED'") // TODO
-    TimeUnit.SECONDS.sleep(30)
-    elasticsearchBroker.index("twitter").await
-
-    elasticsearchBroker documentBulk ("twitter" / "tweets")
-  }
-
-  twitterConsumer.doConsume(_.unsafeRunSync)(tweeted)*/
-
-  info("... and I'm spent!")
+  val kafkaStreams = new KafkaStreams(streamsBuilder.build(), streamsConfig)
+  kafkaStreams.start()
 }
