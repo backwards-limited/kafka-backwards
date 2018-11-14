@@ -1,4 +1,4 @@
-package com.backwards.twitter
+package com.backwards.twitter.simple
 
 import scala.concurrent.Future
 import scala.language.higherKinds

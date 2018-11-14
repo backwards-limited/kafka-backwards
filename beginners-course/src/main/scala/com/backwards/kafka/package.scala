@@ -8,10 +8,10 @@ import com.backwards.logging.Logging
 package object kafka extends ConfigOps with Logging {
   lazy val config: KafkaConfig = {
     val c = load[KafkaConfig]("kafka") +
-      (ENABLE_IDEMPOTENCE_CONFIG -> "true") +
+      (ENABLE_IDEMPOTENCE_CONFIG -> true) +
       (ACKS_CONFIG -> "all") +
-      (RETRIES_CONFIG -> Int.MaxValue.toString) +
-      (MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION -> "5")
+      (RETRIES_CONFIG -> Int.MaxValue) +
+      (MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION -> 5)
 
     info(s"Kafka configuration: $c")
     c

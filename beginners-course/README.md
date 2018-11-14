@@ -6,6 +6,10 @@ Note that this module is within a multi-module project and that there is only on
 
 ## Table of Contents
 
-- [Beginners](docs/beginners.md)
+- [Testing](docs/testing.md)
+
+- [Simple](docs/simple.md)
 
 - [Kafka Connect for Twitter](docs/twitter-kafka-connect.md)
+
+- [Kafka Streams](docs/kafka-streams.md)

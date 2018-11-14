@@ -1,4 +1,4 @@
-package com.backwards.twitter
+package com.backwards.twitter.simple
 
 import java.util
 import java.util.Date

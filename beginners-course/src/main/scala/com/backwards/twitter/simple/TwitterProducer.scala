@@ -1,4 +1,4 @@
-package com.backwards.twitter
+package com.backwards.twitter.simple
 
 import scala.concurrent.Future
 import scala.language.higherKinds
@@ -6,11 +6,11 @@ import cats.implicits._
 import cats.{Monad, ~>}
 import org.apache.kafka.clients.producer.ProducerConfig._
 import org.apache.kafka.clients.producer.RecordMetadata
-import com.backwards.{Or, kafka}
 import com.backwards.kafka.Producer
 import com.backwards.kafka.serde.Serde
 import com.backwards.logging.Logging
 import com.backwards.twitter.TweetSerde.TweetSerializer
+import com.backwards.{Or, kafka}
 import com.danielasfregola.twitter4s.entities.Tweet
 
 object TwitterProducer {

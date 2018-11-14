@@ -1,4 +1,4 @@
-package com.backwards.twitter
+package com.backwards.twitter.simple
 
 import java.util.concurrent.TimeUnit
 import scala.annotation.tailrec

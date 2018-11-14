@@ -7,6 +7,7 @@ import scala.language.postfixOps
 import cats.data.NonEmptyList
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{MustMatchers, WordSpec}
+import com.backwards.twitter.simple.TwitterBroker
 import com.danielasfregola.twitter4s.entities.Tweet
 
 class TwitterBrokerITSpec extends WordSpec with MustMatchers with ScalaFutures {

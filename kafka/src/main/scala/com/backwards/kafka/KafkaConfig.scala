@@ -7,7 +7,7 @@ import org.apache.kafka.clients.CommonClientConfigs._
 import com.backwards.config.BootstrapConfig
 
 object KafkaConfig {
-  implicit def toProperties(c: KafkaConfig): Properties = c.toProperties
+  implicit def toProperties(config: KafkaConfig): Properties = config.toProperties
 
   def apply(bootstrap: BootstrapConfig): KafkaConfig =
     KafkaConfig(bootstrap, Map.empty[String, String])
