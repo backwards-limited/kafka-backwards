@@ -1,4 +1,4 @@
-package com.backwards.kafka.config
+package com.backwards.kafka
 
 import org.apache.kafka.clients.consumer.ConsumerConfig.{KEY_DESERIALIZER_CLASS_CONFIG, VALUE_DESERIALIZER_CLASS_CONFIG}
 import org.apache.kafka.clients.producer.ProducerConfig.{KEY_SERIALIZER_CLASS_CONFIG, VALUE_SERIALIZER_CLASS_CONFIG}

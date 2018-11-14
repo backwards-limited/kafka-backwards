@@ -7,7 +7,6 @@ import cats.{Monad, _}
 import org.apache.kafka.clients.producer.{Callback, ProducerRecord, RecordMetadata, KafkaProducer => KafkaProducerImpl, Producer => KafkaProducer}
 import org.apache.kafka.common.serialization.Serializer
 import com.backwards._
-import com.backwards.kafka.config.{KafkaConfig, KafkaConfigOps}
 import com.backwards.transform.Transform
 
 object Producer extends KafkaConfigOps {
@@ -28,6 +27,7 @@ class Producer[F[_]: Monad, K, V](topic: String, kafkaProducer: => KafkaProducer
 
   // TODO similar to - def send[V: Identifiable]
 
+  // TODO - Going to change something like: F[() => Future[RecordMetaData]] i.e. a future thunk
   def send(key: K, value: V)(implicit transform: Future ~> F): F[Throwable Or RecordMetadata] = {
     val promise = Promise[Throwable Or RecordMetadata]()
 

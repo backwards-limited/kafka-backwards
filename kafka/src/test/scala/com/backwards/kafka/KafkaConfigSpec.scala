@@ -1,4 +1,4 @@
-package com.backwards.kafka.config
+package com.backwards.kafka
 
 import java.util.Properties
 import io.lemonlabs.uri.Uri

@@ -5,7 +5,6 @@ import io.lemonlabs.uri.Uri
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.config.BootstrapConfig
 import com.backwards.container.{Container, ContainerFixture}
-import com.backwards.kafka.config.KafkaConfig
 import com.backwards.kafka.serde.Serde
 import com.backwards.transform.Transform
 

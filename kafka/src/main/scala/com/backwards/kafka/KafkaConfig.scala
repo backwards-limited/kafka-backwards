@@ -1,4 +1,4 @@
-package com.backwards.kafka.config
+package com.backwards.kafka
 
 import java.util.Properties
 import scala.language.implicitConversions

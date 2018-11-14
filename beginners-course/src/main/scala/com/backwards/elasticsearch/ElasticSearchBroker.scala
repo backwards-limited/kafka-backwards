@@ -9,7 +9,6 @@ import org.apache.http.impl.nio.client.HttpAsyncClientBuilder
 import org.elasticsearch.client.{RestClient, RestClientBuilder}
 import org.json4s.Writer
 import org.json4s.jackson.JsonMethods._
-import com.backwards.config.elasticSearchConfig
 import com.backwards.logging.Logging
 import com.sksamuel.elastic4s.IndexAndType
 import com.sksamuel.elastic4s.http.ElasticDsl._
@@ -23,11 +22,11 @@ import com.sksamuel.elastic4s.indexes.IndexRequest
 class ElasticSearchBroker extends Logging {
   val httpClientConfigCallback: RestClientBuilder.HttpClientConfigCallback = (httpClientBuilder: HttpAsyncClientBuilder) => {
     val credentialsProvider = new BasicCredentialsProvider
-    credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(elasticSearchConfig.credentials.user, elasticSearchConfig.credentials.password))
+    credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(config.credentials.user, config.credentials.password))
     httpClientBuilder setDefaultCredentialsProvider credentialsProvider
   }
 
-  val httpHosts: Seq[HttpHost] = elasticSearchConfig.bootstrap.servers.map(_.toJavaURI).map { uri =>
+  val httpHosts: Seq[HttpHost] = config.bootstrap.servers.map(_.toJavaURI).map { uri =>
     new HttpHost(uri.getHost, uri.getPort, uri.getScheme)
   }
 

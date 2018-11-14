@@ -6,7 +6,7 @@ import scala.language.{higherKinds, postfixOps}
 import cats.Applicative
 import cats.implicits._
 import org.apache.kafka.clients.consumer.ConsumerConfig._
-import com.backwards.config.kafkaConfig
+import com.backwards.kafka
 import com.backwards.kafka.Consumer
 import com.backwards.kafka.serde.Serde
 import com.backwards.logging.Logging
@@ -21,7 +21,7 @@ class TwitterConsumer[F[_]: Applicative](topic: String) extends Serde with Loggi
   implicit val tweetDeserializer: TweetDeserializer = new TweetDeserializer
 
   val consumer: Consumer[F, String, Tweet] =
-    Consumer[F, String, Tweet](topic, kafkaConfig +
+    Consumer[F, String, Tweet](topic, kafka.config +
       (GROUP_ID_CONFIG, "twitter-group-1") +
       (AUTO_OFFSET_RESET_CONFIG -> "latest") +
       (ENABLE_AUTO_COMMIT_CONFIG -> false) +

@@ -121,9 +121,14 @@ object Dependencies {
     "io.lemonlabs" %% "scala-uri" % "1.3.1"
   )
 
-  lazy val kafka: Seq[ModuleID] = Seq(
-    "org.apache.kafka" % "kafka-clients" % "2.0.0"
-  )
+  lazy val kafka: Seq[ModuleID] = {
+    val version = "2.0.0"
+    
+    Seq(
+      "org.apache.kafka" % "kafka-clients",
+      "org.apache.kafka" % "kafka-streams"
+    ).map(_ % version)
+  }
 
   lazy val twitter: Seq[ModuleID] = Seq(
     "com.danielasfregola" %% "twitter4s" % "5.5",

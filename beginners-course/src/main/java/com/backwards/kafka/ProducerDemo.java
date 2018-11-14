@@ -9,7 +9,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.backwards.config.BootstrapConfig;
-import com.backwards.kafka.config.KafkaConfig;
+import com.backwards.kafka.KafkaConfig;
 import io.lemonlabs.uri.Uri;
 import io.lemonlabs.uri.Uri$;
 import static java.util.Collections.singletonList;

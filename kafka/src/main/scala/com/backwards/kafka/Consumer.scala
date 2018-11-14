@@ -8,7 +8,6 @@ import cats.Applicative
 import cats.implicits._
 import org.apache.kafka.clients.consumer.{Consumer => KafkaConsumer, KafkaConsumer => KafkaConsumerImpl}
 import org.apache.kafka.common.serialization.Deserializer
-import com.backwards.kafka.config.{KafkaConfig, KafkaConfigOps}
 
 object Consumer extends KafkaConfigOps {
   def apply[F[_]: Applicative, K, V](topic: String, config: KafkaConfig)(implicit K: Deserializer[K], V: Deserializer[V]): Consumer[F, K, V] = {
