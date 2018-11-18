@@ -33,7 +33,7 @@ object TwitterRunner extends BackwardsApp with Transform with Json {
     kafka.config +
     (APPLICATION_ID_CONFIG -> "streamer") +
     (DEFAULT_KEY_SERDE_CLASS_CONFIG -> classOf[StringSerde].getName) +
-    (DEFAULT_VALUE_SERDE_CLASS_CONFIG -> TweetSerde.apply().getClass.getName)
+    (DEFAULT_VALUE_SERDE_CLASS_CONFIG -> TweetSerde().getClass.getName)
 
   val streamsBuilder = new StreamsBuilder()
 
