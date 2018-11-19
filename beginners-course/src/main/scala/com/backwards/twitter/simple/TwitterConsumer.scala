@@ -13,10 +13,6 @@ import com.backwards.logging.Logging
 import com.backwards.twitter.TweetSerde.TweetDeserializer
 import com.danielasfregola.twitter4s.entities.Tweet
 
-object TwitterConsumer {
-  def apply[F[_]: Applicative](topic: String) = new TwitterConsumer[F](topic)
-}
-
 class TwitterConsumer[F[_]: Applicative](topic: String) extends Serde with Logging {
   implicit val tweetDeserializer: TweetDeserializer = new TweetDeserializer
 
@@ -60,4 +56,8 @@ class TwitterConsumer[F[_]: Applicative](topic: String) extends Serde with Loggi
 
     go()
   }
+}
+
+object TwitterConsumer {
+  def apply[F[_]: Applicative](topic: String) = new TwitterConsumer[F](topic)
 }

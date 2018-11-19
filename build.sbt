@@ -16,6 +16,7 @@ lazy val kafka = project("kafka")
 
 lazy val beginnersCourse = project("beginners-course")
   .settings(description := "Beginners Course - Apache Kafka Series")
+  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
 
 def project(id: String): Project = project(id, file(id))

@@ -1,33 +1,35 @@
 package com.backwards.twitter.stream
 
 import cats.data.NonEmptyList
-import cats.effect.IO
+import cats.implicits._
 import org.apache.kafka.common.serialization.Serdes.StringSerde
 import org.apache.kafka.streams.StreamsConfig._
 import org.apache.kafka.streams.{KafkaStreams, StreamsBuilder}
-import com.backwards.{BackwardsApp, kafka}
-import com.backwards.transform.Transform
-import com.backwards.twitter.{Json, TweetSerde}
+import com.backwards.kafka.KafkaConfig
 import com.backwards.twitter.simple.{TwitterBroker, TwitterProducer}
+import com.backwards.twitter.{Json, TweetSerde}
+import com.backwards.{BackwardsApp, kafka}
 import com.danielasfregola.twitter4s.entities.Tweet
 
 /**
   * Demo application which shows the following:
   *   - Query Twitter for "scala" and other tweets using [[https://github.com/DanielaSfregola/twitter4s twitter4s]]
-  *   - Send tweets to Kafka using [[com.backwards.kafka.Producer Producer]]
+  *   - Send tweets to Kafka using [[com.backwards.kafka.KafkaProducer]]
   *   - Consume tweets via Kafka Streams which:
   *     - filter tweets with high follower count
   *     - produce back to another topic for other consumers
   *
   * Note that Kafka Streams "application ID" can be thought of as similar to Kafka Consumer "group ID"
   */
-object TwitterRunner extends BackwardsApp with Transform with Json {
+object TwitterRunner extends BackwardsApp with Json {
+  implicit val kafkaConfig: KafkaConfig = com.backwards.kafka.config
+
   val topic = "twitter-topic"
 
-  val twitterProducer = TwitterProducer[IO](topic)
+  val twitterProducer = TwitterProducer(topic)
 
   val twitterBroker = new TwitterBroker
-  twitterBroker.track(NonEmptyList.of("scala", "bitcoin"))(twitterProducer.produce(_).unsafeRunSync)
+  twitterBroker.track(NonEmptyList.of("scala", "bitcoin"))(twitterProducer.send)
 
   val streamsConfig =
     kafka.config +
