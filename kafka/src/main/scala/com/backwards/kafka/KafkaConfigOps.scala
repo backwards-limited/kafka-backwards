@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig.{KEY_DESERIALIZER_CLASS_
 import org.apache.kafka.clients.producer.ProducerConfig.{KEY_SERIALIZER_CLASS_CONFIG, VALUE_SERIALIZER_CLASS_CONFIG}
 import org.apache.kafka.common.serialization.{Deserializer, Serializer}
 
+@deprecated(message = "", since = "19th November 2019")
 trait KafkaConfigOps {
   def keySerializerProperty[K: Serializer]: (String, String) = KEY_SERIALIZER_CLASS_CONFIG -> implicitly[Serializer[K]].getClass.getName
 

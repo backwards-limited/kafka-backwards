@@ -4,8 +4,7 @@ import scala.reflect.ClassTag
 import io.lemonlabs.uri.Uri
 import pureconfig.{ConfigReader, Derivation, loadConfigOrThrow}
 
-@deprecated(message = "Instead use com.backwards.config.Config", since = "18th November 2018")
-trait ConfigOps {
+object Config {
   implicit val uriReader: ConfigReader[Uri] =
     ConfigReader fromString { s =>
       Right(Uri parse s)

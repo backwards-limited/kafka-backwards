@@ -9,19 +9,7 @@ import cats.implicits._
 import org.apache.kafka.clients.consumer.{Consumer => KafkaConsumer, KafkaConsumer => KafkaConsumerImpl}
 import org.apache.kafka.common.serialization.Deserializer
 
-object Consumer extends KafkaConfigOps {
-  def apply[F[_]: Applicative, K, V](topic: String, config: KafkaConfig)(implicit K: Deserializer[K], V: Deserializer[V]): Consumer[F, K, V] = {
-    lazy val kafkaConsumer: KafkaConsumer[K, V] = {
-      val kafkaConsumer = new KafkaConsumerImpl[K, V](config + keyDeserializerProperty[K] + valueDeserializerProperty[V])
-      kafkaConsumer.subscribe(Seq(topic).asJava)
-      sys addShutdownHook kafkaConsumer.close()
-      kafkaConsumer
-    }
-
-    new Consumer[F, K, V](topic, kafkaConsumer)
-  }
-}
-
+@deprecated(message = "Rewrite as KafkaConsumer much like Producer was rewritten as KafkaProducer", since = "19th November 2018")
 class Consumer[F[_]: Applicative, K, V](topic: String, kafkaConsumer: => KafkaConsumer[K, V]) {
   lazy val underlying: KafkaConsumer[K, V] = kafkaConsumer
 
@@ -33,5 +21,18 @@ class Consumer[F[_]: Applicative, K, V](topic: String, kafkaConsumer: => KafkaCo
       // TODO - Instead of providing "consumerRecored.key", we could provide: val id = s"${record.topic}-${record.partition}-${record.offset}"
       (consumerRecord.key, consumerRecord.value)
     }.toSeq.pure[F]
+  }
+}
+
+object Consumer extends KafkaConfigOps {
+  def apply[F[_]: Applicative, K, V](topic: String, config: KafkaConfig)(implicit K: Deserializer[K], V: Deserializer[V]): Consumer[F, K, V] = {
+    lazy val kafkaConsumer: KafkaConsumer[K, V] = {
+      val kafkaConsumer = new KafkaConsumerImpl[K, V](config + keyDeserializerProperty[K] + valueDeserializerProperty[V])
+      kafkaConsumer.subscribe(Seq(topic).asJava)
+      sys addShutdownHook kafkaConsumer.close()
+      kafkaConsumer
+    }
+
+    new Consumer[F, K, V](topic, kafkaConsumer)
   }
 }
