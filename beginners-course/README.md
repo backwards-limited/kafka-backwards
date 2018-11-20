@@ -13,3 +13,21 @@ Note that this module is within a multi-module project and that there is only on
 - [Kafka Connect for Twitter](docs/twitter-kafka-connect.md)
 
 - [Kafka Streams](docs/kafka-streams.md)
+
+- [Kafka Cluster](docs/cluster.md)
+
+- [Security](docs/security.md)
+
+- Use Cases
+
+  - [VideoFlix](docs/video-flix.md)
+  
+  - [GetTaxi](docs/get-taxi.md)
+  
+  - [MySocialMedia](docs/my-social-media.md)
+  
+  - [MyBank](docs/my-bank.md)
+  
+  - [Big Data Ingestion](docs/big-data-ingestion.md)
+  
+  - [Logging & Metrics Aggregation](docs/logging-metrics.md)
