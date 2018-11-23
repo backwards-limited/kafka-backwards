@@ -21,7 +21,7 @@ brew cask install docker
 brew cask install minikube
 ```
 
-Other essentials related to Kafak:
+Other essentials related to Kafka:
 
 ```bash
 brew tap confluentinc/homebrew-confluent-hub-client

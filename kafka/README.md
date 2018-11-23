@@ -2,6 +2,8 @@
 
 ## Table of Contents
 
+- [Booting Kafka](docs/booting.md)
+
 - [Useful Commands](docs/commands.md)
 
 - [Consumer Strategies](docs/consumer-strategies.md)
