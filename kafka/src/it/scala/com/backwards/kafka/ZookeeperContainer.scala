@@ -4,7 +4,7 @@ import org.testcontainers.containers.wait.strategy.Wait
 import com.backwards.container.GenericContainer
 
 object ZookeeperContainer {
-  def apply() = new ZookeeperContainer
+  def apply(): ZookeeperContainer = new ZookeeperContainer
 }
 
 class ZookeeperContainer extends GenericContainer("confluentinc/cp-zookeeper:latest") {

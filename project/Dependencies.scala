@@ -3,10 +3,22 @@ import sbt._
 object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
+      backwards,
       scalatest, testcontainers, airframe, logging, pprint, configuration, betterFiles, apacheCommons,
       avro4s, circe, json4s,
       cats, monocle, shapeless, http4s, scalaUri, kafka, twitter, elasticsearch
     ).flatten
+
+  lazy val backwards: Seq[ModuleID] = {
+    val version = "1.0.5"
+
+    Seq(
+      "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "tests",
+      "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "it"
+    ) ++ Seq(
+      "com.github.backwards-limited" % "scala-backwards" % version
+    )
+  }
 
   lazy val scalatest: Seq[ModuleID] = Seq(
     "org.scalatest" %% "scalatest" % "3.0.5" % "test, it"
