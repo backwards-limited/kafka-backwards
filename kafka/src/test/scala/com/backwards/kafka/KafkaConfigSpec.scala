@@ -4,7 +4,7 @@ import java.util.Properties
 import io.lemonlabs.uri.Uri
 import org.apache.kafka.clients.CommonClientConfigs._
 import org.scalatest.{MustMatchers, WordSpec}
-import com.backwards.config.{BootstrapConfig, ConfigOps}
+import com.backwards.config.{BootstrapConfig, Config}
 
 class KafkaConfigSpec extends WordSpec with MustMatchers {
   "Kafka Config" should {
@@ -45,7 +45,7 @@ class KafkaConfigSpec extends WordSpec with MustMatchers {
       configWithProperties.toProperties mustEqual properties
     }
 
-    "read properties from resource configuration" in new ConfigOps {
+    "read properties from resource configuration" in new Config {
       val config: KafkaConfig = load[KafkaConfig]("kafka")
 
       config.properties("acks") mustEqual "all"

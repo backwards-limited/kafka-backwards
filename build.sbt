@@ -17,7 +17,7 @@ lazy val beginnersCourse = project("beginners-course")
 
 def project(id: String): Project = project(id, file(id))
 
-// TODO - Reuse from module "scala-backwards"
+// TODO - Somehow reuse from module "scala-backwards"
 def project(id: String, base: File): Project =
   Project(id, base)
     .configs(IntegrationTest)
