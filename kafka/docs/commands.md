@@ -1,12 +1,12 @@
 # Useful Commands
 
-- Topics list
+## Topics List
 
 ```bash
 kafka-topics --zookeeper 127.0.0.1:2181 --list
 ```
 
-- Consumer group description
+## Consumer Group Description
 
 ```bash
 $ kafka-consumer-groups --bootstrap-server 127.0.0.1:9092 --group twitter-group-1 --describe
@@ -17,7 +17,7 @@ TOPIC         PARTITION  CURRENT-OFFSET LOG-END-OFFSET LAG CONSUMER-ID HOST CLIE
 twitter-topic 0          216            308            92  -           -    -
 ```
 
-- Reset offsets so consumer can replay events
+## Reset Offsets So Consumer Can Replay Events
 
 ```bash
 $ kafka-consumer-groups --bootstrap-server 127.0.0.1:9092 --topic twitter-topic --group twitter-group-1 --reset-offsets --execute --to-earliest
@@ -39,7 +39,7 @@ twitter-topic 0         20             374            354 consumer-1-8dbd81ed-ee
                                                                 /172.31.0.1 consumer-1
 ```
 
-- Configure a topic
+## Configure a Topic
 
 ```bash
 $ kafka-topics --zookeeper 127.0.0.1:2181 --create --topic my-topic --partitions 3 --replication-factor 1
@@ -67,7 +67,7 @@ $ kafka-configs --zookeeper 127.0.0.1:2181 --entity-type topics --entity-name my
 Completed Updating config for entity: topic 'my-topic'	
 ```
 
-- Configure log compaction
+## Configure Log Compaction
 
 Either create a new topic or delete one to start afresh.
 
@@ -80,6 +80,7 @@ Note: This will have no impact if delete.topic.enable is not set to true
 ```
 
 Interesting. If we indeed want this setting then add it to **/usr/local/etc/kafka/server.properties**. (Don't forget to reboot Kafka).
+There is more on "deleting" below.
 
 So, create a topic with log compaction:
 
@@ -131,3 +132,28 @@ John,salary: 10000
 ```
 
 Note that compaction is not instantaneous and you may need to restart the consumer a few times to actually witness log compaction.
+
+## Delete Topic
+
+As mentioned deleting a topic will have no impact if delete.topic.enable is not set to true in **server.properties**, then we can do:
+
+```bash
+$ kafka-topics --zookeeper 127.0.0.1:2181 --delete --topic my-topic
+Topic my-topic is marked for deletion.
+```
+
+However, even this may not work. So, log into the Zookeeper CLI and do the following (where I want to delete topic __confluent.support.metrics):
+
+```bash
+$ zkCli
+get /brokers/topics/__confluent.support.metrics
+rmr /brokers/topics/__confluent.support.metrics
+rmr /admin/delete_topics/__confluent.support.metrics
+get /brokers/topics/__confluent.support.metrics
+```
+
+Log out and double check:
+
+```bash
+kafka-topics --zookeeper 127.0.0.1:2181 --list
+```

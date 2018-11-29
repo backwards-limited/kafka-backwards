@@ -8,7 +8,7 @@ import org.apache.kafka.streams.{KafkaStreams, StreamsBuilder}
 import com.backwards.kafka.KafkaConfig
 import com.backwards.twitter.simple.{TwitterBroker, TwitterProducer}
 import com.backwards.twitter.{Json, TweetSerde}
-import com.backwards.{BackwardsApp, kafka}
+import com.backwards.{AppBackwards, kafka}
 import com.danielasfregola.twitter4s.entities.Tweet
 
 /**
@@ -21,7 +21,7 @@ import com.danielasfregola.twitter4s.entities.Tweet
   *
   * Note that Kafka Streams "application ID" can be thought of as similar to Kafka Consumer "group ID"
   */
-object TwitterRunner extends BackwardsApp with Json {
+object TwitterRunner extends AppBackwards with Json {
   implicit val kafkaConfig: KafkaConfig = com.backwards.kafka.config
 
   val topic = "twitter-topic"

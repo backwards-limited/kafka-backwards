@@ -2,6 +2,7 @@ version: "3.3"
 
 services:
   zookeeper:
+    hostname: zookeeper
     image: wurstmeister/zookeeper
     ports:
       - 2181:2181
@@ -28,8 +29,8 @@ services:
       - zookeeper
 
   elasticsearch:
-    image: elasticsearch:6.4.1
     hostname: elasticsearch
+    image: elasticsearch:6.4.1
     ports:
       - 9200:9200
       - 9300:9300
@@ -41,7 +42,7 @@ services:
       - .env-local
     environment:
       _JAVA_OPTIONS: "-DKAFKA_BOOTSTRAP_SERVERS.0=kafka:9092 -DELASTIC_SEARCH_BOOTSTRAP_SERVERS.0=http://elasticsearch:9200"
-    entrypoint: ["java", "-cp", "/beginners-course.jar", "com.backwards.twitter.TwitterRunner"]
+    entrypoint: ["java", "-cp", "/beginners-course.jar", "com.backwards.twitter.simple.TwitterRunner"]
     restart: on-failure
     depends_on:
       - zookeeper

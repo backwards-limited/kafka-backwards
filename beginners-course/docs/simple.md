@@ -2,32 +2,26 @@
 
 ## Application
 
-Take a look at com.backwards.twitter.simple.TwitterRunner
+Take a look at **com.backwards.twitter.simple.TwitterRunner** (there is an equivalent stream version **com.backwards.twitter.stream.TwitterRunner**).
 
 As mentioned, run everything from the root of this project as there is only one top-level **build.sbt**
-  
+
 ```bash
-sbt assembly
-docker-compose up --build
+$ sbt "dockerComposeUp beginners-course"
+```
 
 OR
 
-sbt dockerComposeUp
+```bash
+$ sbt "dockerComposeServicesUp beginners-course"
 
-OR
-
-sbt dockerComposeServicesUp
-sbt beginners-course/run
+$ sbt beginners-course/run
 ```
 
 Finally
 
 ```bash
-docker-compose down
-
-OR
-
-sbt dockerComposeDown
+$ sbt "dockerComposeDown beginners-course"
 ```
   
 ## Run Applciation with a Given Environment
@@ -40,15 +34,15 @@ ELASTIC_SEARCH_CREDENTIALS_USER=<user>
 ELASTIC_SEARCH_CREDENTIALS_PASSWORD=<password>
 ```
 
-To use said environment for the running application, provide the system property **environment** upon running:
+To use said environment for the running application, provide the system property **environment** upon running e.g.:
 
 ```bash
-sbt -DENV=.env beginners-course/run
+sbt -DENV=beginners-course/.env-local beginners-course/run
 ```
 
-where the **.env** file must be in the root of the running module.
+where the **environment** file must be relative to where you are running the application from (the above shows path and file name).
 
-Choosing **.env** keeps in line with **docker-compose** environment variables.
+Choosing **.env** keeps in line with **docker-compose** environment variables. Within the repository, there is a **.env example**.
   
 ## Kafka
 

@@ -48,9 +48,8 @@ class KafkaConfigSpec extends WordSpec with MustMatchers {
     "read properties from resource configuration" in new Config {
       val config: KafkaConfig = load[KafkaConfig]("kafka")
 
-      config.properties("acks") mustEqual "all"
-      config.properties("min.insync.replicas") mustEqual "2"
-      config.properties("enable.idempotence") mustEqual "true"
+      config.properties("enable.idempotence") mustEqual "false"
+      config.properties("max.block.ms") mustEqual "3000"
     }
   }
 }

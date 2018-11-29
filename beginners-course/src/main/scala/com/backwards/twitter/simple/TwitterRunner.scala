@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 import cats.data.NonEmptyList
 import cats.effect.IO
 import cats.implicits._
-import com.backwards.BackwardsApp
+import com.backwards.AppBackwards
 import com.backwards.elasticsearch.ElasticSearchBroker
 import com.backwards.kafka.KafkaConfig
 import com.backwards.twitter.Json
@@ -18,7 +18,7 @@ import com.sksamuel.elastic4s.http.ElasticDsl._
   *   - Receive said tweets from Kafka using [[com.backwards.kafka.Consumer Consumer]]
   *   - Finally each received tweet is added to Elasticsearch using [[https://github.com/bizreach/elastic-scala-httpclient elastic-scala-httpclient]]
   */
-object TwitterRunner extends BackwardsApp with Json {
+object TwitterRunner extends AppBackwards with Json {
   implicit val kafkaConfig: KafkaConfig = com.backwards.kafka.config
 
   val topic = "twitter-topic"

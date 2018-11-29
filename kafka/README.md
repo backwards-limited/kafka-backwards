@@ -2,8 +2,14 @@
 
 ## Table of Contents
 
-- [Booting Kafka](docs/booting.md)
-
+- Booting Kafka
+  
+  - [Homebrew](docs/booting-homebrew.md)
+  
+  - [Confluent](docs/booting-confluent.md)
+  
+  - [Docker](docs/booting-docker.md)
+  
 - [Useful Commands](docs/commands.md)
 
 - [Consumer Strategies](docs/consumer-strategies.md)
