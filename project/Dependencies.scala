@@ -10,7 +10,7 @@ object Dependencies {
     ).flatten
 
   lazy val backwards: Seq[ModuleID] = {
-    val version = "1.0.8"
+    val version = "1.0.9"
 
     Seq(
       "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "tests",
@@ -122,6 +122,7 @@ object Dependencies {
       "org.http4s" %% "http4s-dsl"
     ).map(_ % version % "test, it") ++ Seq(
       "org.http4s" %% "http4s-core",
+      "org.http4s" %% "http4s-dsl",
       "org.http4s" %% "http4s-blaze-server",
       "org.http4s" %% "http4s-blaze-client",
       "org.http4s" %% "http4s-client",

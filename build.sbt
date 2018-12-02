@@ -39,7 +39,7 @@ def project(id: String, base: File): Project =
       fork in Test := true,
       fork in IntegrationTest := true,
       javaOptions in IntegrationTest ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
-      scalacOptions in (Compile, doc) ++= Seq("-groups", "-implicits"),
+      scalacOptions ++= Seq("-Ypartial-unification"),
       assemblyJarName in assembly := s"$id.jar",
       assemblyMergeStrategy in assembly := {
         case PathList("javax", "servlet", xs @ _*)          => MergeStrategy.first
