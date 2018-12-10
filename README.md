@@ -26,4 +26,4 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
 
   - [Beginners Course](beginners-course/README.md)
   
-  - [Kafka Connect](connect/README.md)
+  - [Connect Course](connect-course/README.md)

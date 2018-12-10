@@ -4,7 +4,7 @@ import sbt._
 
 lazy val root = project("kafka-backwards", file("."))
   .settings(description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses")
-  .aggregate(kafka, beginnersCourse, connect)
+  .aggregate(kafka, beginnersCourse, connectCourse)
 
 lazy val kafka = project("kafka")
   .settings(description := "Backwards Kafka functionality includes example usage in various courses")
@@ -15,7 +15,7 @@ lazy val beginnersCourse = project("beginners-course")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
 
-lazy val connect = project("connect")
+lazy val connectCourse = project("connect-course")
   .settings(description := "Connect Course - Apache Kafka Series")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
