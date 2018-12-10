@@ -4,10 +4,6 @@ import java.net.URI
 import org.testcontainers.containers.wait.strategy.Wait
 import com.backwards.container.GenericContainer
 
-object KafkaContainer {
-  def apply(zookeeperContainer: ZookeeperContainer) = new KafkaContainer(zookeeperContainer)
-}
-
 class KafkaContainer(zookeeperContainer: ZookeeperContainer) extends GenericContainer("confluentinc/cp-kafka:latest") {
   val port = 9092
 
@@ -23,4 +19,8 @@ class KafkaContainer(zookeeperContainer: ZookeeperContainer) extends GenericCont
 
     waitingFor(Wait.defaultWaitStrategy)
   }
+}
+
+object KafkaContainer {
+  def apply(zookeeperContainer: ZookeeperContainer) = new KafkaContainer(zookeeperContainer)
 }

@@ -3,10 +3,6 @@ package com.backwards.kafka
 import org.testcontainers.containers.wait.strategy.Wait
 import com.backwards.container.GenericContainer
 
-object ZookeeperContainer {
-  def apply(): ZookeeperContainer = new ZookeeperContainer
-}
-
 class ZookeeperContainer extends GenericContainer("confluentinc/cp-zookeeper:latest") {
   val port = 2181
 
@@ -17,4 +13,8 @@ class ZookeeperContainer extends GenericContainer("confluentinc/cp-zookeeper:lat
 
     waitingFor(Wait.defaultWaitStrategy)
   }
+}
+
+object ZookeeperContainer {
+  def apply(): ZookeeperContainer = new ZookeeperContainer
 }

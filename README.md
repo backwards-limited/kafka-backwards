@@ -6,7 +6,7 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
 
 - [Learn Apache Kafka for Beginners](https://www.udemy.com/apache-kafka)
 
-**TODO Extract module _backwards_ into its own repo e.g. backwards**
+- [Kafka Connect](https://www.udemy.com/kafka-connect)
 
 ## Table of Contents
 
@@ -25,3 +25,5 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
 - Courses (module per course)
 
   - [Beginners Course](beginners-course/README.md)
+  
+  - [Kafka Connect](connect/README.md)

@@ -72,7 +72,8 @@ object Dependencies {
       "io.circe" %% "circe-core",
       "io.circe" %% "circe-generic",
       "io.circe" %% "circe-generic-extras",
-      "io.circe" %% "circe-parser"
+      "io.circe" %% "circe-parser",
+      "io.circe" %% "circe-refined"
     ).map(_ % version)
   }
 
