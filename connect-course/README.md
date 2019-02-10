@@ -19,3 +19,5 @@ Note that this module is within a multi-module project and that there is only on
   - [File Stream Source Connector - Distributed](app/file-stream-source-connector-distributed/README.md)
   
   - [Twitter Connector](app/twitter-connector/README.md)
+  
+  - [Kafka Connect REST API](app/rest-api/README.md)
