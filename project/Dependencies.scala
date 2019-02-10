@@ -4,7 +4,7 @@ object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
       backwards,
-      scalatest, testcontainers, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
+      scalatest, testcontainers, scalatestContainers, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
       avro4s, circe, json4s,
       cats, monocle, shapeless, http4s, scalaUri, kafka, twitter, elasticsearch
     ).flatten
@@ -26,6 +26,10 @@ object Dependencies {
 
   lazy val testcontainers: Seq[ModuleID] = Seq(
     "org.testcontainers" % "testcontainers" % "1.10.1" % "test, it"
+  )
+  
+  lazy val scalatestContainers: Seq[ModuleID] = Seq(
+    "com.dimafeng" %% "testcontainers-scala" % "0.22.0" % "test, it"
   )
 
   lazy val airframe: Seq[ModuleID] = Seq(

@@ -4,7 +4,7 @@ Take a look at [docker-compose.yml](../docker-compose.yml):
 
 ## Kafka Cluster
 
-We use Docker image [fast-data-dev](https://github.com/Landoop/fast-data-dev) which can be booted on its own:
+We use Docker image [fast-data-dev](https://github.com/Landoop/fast-data-dev) which can be booted on its own (in root of this module):
 
 ```bash
 $ docker-compose up kafka-cluster

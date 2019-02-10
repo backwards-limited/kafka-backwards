@@ -94,3 +94,4 @@ hs_err_pid*
 .java-version
 
 course
+*.offsets
