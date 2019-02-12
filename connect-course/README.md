@@ -20,4 +20,6 @@ Note that this module is within a multi-module project and that there is only on
   
   - [Twitter Connector](app/twitter-connector/README.md)
   
+  - [JDBC Connector](app/jdbc-connector/README.md)
+  
   - [Kafka Connect REST API](app/rest-api/README.md)
