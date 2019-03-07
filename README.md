@@ -8,6 +8,8 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
 
 - [Kafka Connect](https://www.udemy.com/kafka-connect)
 
+- [Building Streaming Applications using Kafka Scala](https://www.udemy.com/build-streaming-applications-using-apache-kafka-and-scala)
+
 ## Table of Contents
 
 - [Setup](docs/setup.md)
@@ -27,3 +29,5 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
   - [Beginners Course](beginners-course/README.md)
   
   - [Connect Course](connect-course/README.md)
+  
+  - [Building Streaming Applications using Kafka Scala](streaming-using-kafka-scala/README.md)
