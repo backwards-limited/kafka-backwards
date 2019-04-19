@@ -5,6 +5,7 @@ import java.nio.file.{Files, Path, Paths, StandardOpenOption}
 import java.util.zip.{ZipEntry, ZipOutputStream}
 import scala.collection.JavaConverters._
 import scala.collection.mutable.ListBuffer
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
 import scala.concurrent.duration._
 import scala.sys.process.{Process, ProcessLogger}
@@ -24,9 +25,9 @@ case class DockerCompose(
   environment: Map[String, String] = Map.empty[String, String]
 ) extends LazyLogging {
 
-  logger.info(s"Docker compose files: ${dockerComposeFiles.map(_.toAbsolutePath).mkString(", ")}")
+  import DockerCompose._
 
-  implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global // TODO
+  logger.info(s"Docker compose files: ${dockerComposeFiles.map(_.toAbsolutePath).mkString(", ")}")
 
   private val defaultLongCommandTimeOut = 5.minutes
   private val defaultShortCommandTimeOut = 1.minutes
@@ -50,12 +51,12 @@ case class DockerCompose(
   /**
     * Retrieves port that was mapped to binded port for specified service.
     *
-    * @param name service name
+    * @param serviceName ServiceName
     * @param bindedPort port that was binded to some specific port
     * @return Returns a list of ports from all service containers that have binded port
     */
-  def serviceMappedPort(name: String, bindedPort: Int): Seq[String] = {
-    serviceContainerIds(name)
+  def serviceMappedPort(serviceName: ServiceName, bindedPort: Int): Seq[String] = {
+    serviceContainerIds(serviceName)
       .filter(containerMappedPort(_, bindedPort).nonEmpty)
       .map(containerMappedPort(_, bindedPort))
   }
@@ -132,6 +133,9 @@ case class DockerCompose(
     stoppedContainers && removedContainers && removedNetworks
   }
 
+  def containerMappedPort(serviceName: ServiceName, port: Int): Int =
+    containerMappedPort(serviceContainerId(serviceName), port).toInt // TODO
+
   def containerMappedPort(containerId: String, port: Int): String = {
     val command = Seq(
       "docker",
@@ -139,17 +143,21 @@ case class DockerCompose(
       containerId,
       port.toString
     )
+
     runCmdWithOutput(command, workingDirectory.toFile, environment, defaultShortCommandTimeOut) match {
       case Success(output) if output.nonEmpty => output.head.replaceAll("^.+:", "")
       case _ => ""
     }
   }
 
-  def serviceContainerIds(serviceName: String): List[String] = {
+  def serviceContainerId(serviceName: ServiceName): String =
+    serviceContainerIds(serviceName).head // TODO - headOption ???
+
+  def serviceContainerIds(serviceName: ServiceName): List[String] = {
     val command =
       Seq("docker-compose") ++
         composeFileArguments(dockerComposeFiles) ++
-        Seq("-p", name, "ps", "-q", serviceName)
+        Seq("-p", name, "ps", "-q", serviceName.value)
 
     runCmdWithOutput(command, workingDirectory.toFile, environment, defaultShortCommandTimeOut) match {
       case Success(output) =>
@@ -248,6 +256,7 @@ case class DockerCompose(
           Thread.sleep(1.seconds.toMillis)
         }
       }
+
       result.nonEmpty
     }
 
@@ -374,4 +383,8 @@ case class DockerCompose(
 
   private def composeFileArguments(files: Seq[Path]): Seq[String] =
     files.flatMap(file => Seq("-f", file.toString))
+}
+
+object DockerCompose {
+  case class ServiceName(value: String) extends AnyVal
 }

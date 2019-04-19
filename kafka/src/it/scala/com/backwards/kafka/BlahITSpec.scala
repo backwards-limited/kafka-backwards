@@ -11,6 +11,7 @@ import org.apache.kafka.clients.producer.RecordMetadata
 import org.scalatest.{AsyncWordSpec, MustMatchers}
 import com.backwards.config.BootstrapConfig
 import com.backwards.kafka.serde.Serde
+import com.backwards.kafka.DockerCompose._
 
 class BlahITSpec extends AsyncWordSpec with MustMatchers with Serde with DockerComposeFixture {
   val dockerCompose: DockerCompose =
@@ -20,19 +21,14 @@ class BlahITSpec extends AsyncWordSpec with MustMatchers with Serde with DockerC
 
   "Kafka producer" should {
     "send a message to Kafka" in {
-      println("1")
-      val id = dockerCompose.serviceContainerIds("kafka").head
-      val port = dockerCompose.containerMappedPort(id, 9092).toInt
+      val kafkaPort = dockerCompose.containerMappedPort(ServiceName("kafka"), 9092)
 
-      implicit lazy val config: KafkaConfig = KafkaConfig(BootstrapConfig(Seq(Uri.parse(s"http://localhost:$port"))))
+      implicit lazy val config: KafkaConfig = KafkaConfig(BootstrapConfig(Seq(Uri.parse(s"http://localhost:$kafkaPort"))))
 
       val producer = new com.backwards.kafka.future.KafkaProducer[String, String]("test-topic")
-      println("2")
 
       producer.send("key", now.toString).collect {
         case Right(_: RecordMetadata) =>
-          println("ye baby")
-
           val consumer = Consumer[Id, String, String]("test-topic", config + (GROUP_ID_CONFIG -> "test-topic-group") + (AUTO_OFFSET_RESET_CONFIG -> "earliest"))
           println("===> GOT: " + consumer.poll())
 
