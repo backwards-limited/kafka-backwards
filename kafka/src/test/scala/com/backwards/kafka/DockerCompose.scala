@@ -2,6 +2,7 @@ package com.backwards.kafka
 
 import java.io.File
 import java.nio.file.{Files, Path, Paths, StandardOpenOption}
+import java.util.UUID
 import java.util.zip.{ZipEntry, ZipOutputStream}
 import scala.collection.JavaConverters._
 import scala.collection.mutable.ListBuffer
@@ -19,7 +20,7 @@ import com.typesafe.scalalogging.LazyLogging
   * @param environment Map[String, String] Environment variables. Example: Map("CONTAINER_EXPOSED_PORT" -> "80")
   */
 case class DockerCompose(
-  name: String = "blah",
+  name: String = UUID.randomUUID().toString,
   dockerComposeFiles: Seq[Path],
   workingDirectory: Path = Paths.get("").toAbsolutePath,
   environment: Map[String, String] = Map.empty[String, String]
@@ -33,8 +34,7 @@ case class DockerCompose(
   private val defaultShortCommandTimeOut = 1.minutes
 
   /**
-    * Executes docker-compose up command using setup defined and waits for
-    * all containers with healthchecks to be in a healthy state.
+    * Executes docker-compose up command using setup defined and waits for all containers with healthchecks to be in a healthy state.
     *
     * @param timeOut maximum time for all containers be in a healthy state
     * @return true if all containers started and achieved a healthy state otherwise false
@@ -62,8 +62,8 @@ case class DockerCompose(
   }
 
   /**
-    * Dump logs from STDOUT using docker-compose logs for each service. Logs will be saved to
-    * target dir in a zip file with the name specified.
+    * Dump logs from STDOUT using docker-compose logs for each service.
+    * Logs will be saved to target dir in a zip file with the name specified.
     *
     * @param fileName zip file name
     * @param target directory where zip file will be saved
@@ -352,11 +352,11 @@ case class DockerCompose(
     * @return a Try object with output lines list if succeeds
     */
   private def runCmdWithOutput(
-    command: Seq[String],
-    cwd: File,
-    envVars: Map[String, String],
-    timeout: Duration
-  ): Try[List[String]] = Try {
+                                command: Seq[String],
+                                cwd: File,
+                                envVars: Map[String, String],
+                                timeout: Duration
+                              ): Try[List[String]] = Try {
     val resultBuffer = new ListBuffer[String]()
 
     val process =

@@ -1,30 +1,33 @@
 package com.backwards.twitter
 
+import java.nio.file.Paths
 import java.util.Date
 import scala.collection.JavaConverters._
 import scala.concurrent.duration._
 import scala.language.postfixOps
 import cats.Id
 import cats.effect.IO
+import io.lemonlabs.uri.Uri
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.apache.kafka.common.errors.TimeoutException
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.config.BootstrapConfig
-import com.backwards.container.{Container, ContainerFixture, ForAllContainerLifecycle}
-import com.backwards.kafka.{KafkaConfig, KafkaContainer}
+import com.backwards.kafka.DockerCompose.ServiceName
+import com.backwards.kafka.{DockerCompose, DockerComposeFixture, KafkaConfig}
 import com.backwards.transform.Transform
 import com.backwards.twitter.simple.TwitterProducer
 import com.danielasfregola.twitter4s.entities.Tweet
 
-class TwitterProducerSpec extends WordSpec with MustMatchers with ScalaFutures with Transform with ContainerFixture with ForAllContainerLifecycle {
+class TwitterProducerSpec extends WordSpec with MustMatchers with ScalaFutures with Transform with DockerComposeFixture {
   override implicit def patienceConfig: PatienceConfig = PatienceConfig(10 seconds, 2 seconds)
 
-  lazy val (zookeeperContainer, kafkaContainer) = KafkaContainer()
+  val dockerCompose: DockerCompose =
+    DockerCompose("twitter", Seq(Paths.get("src", "it", "resources", "docker-compose.yml")))
 
-  lazy val container: Container = Container(zookeeperContainer, kafkaContainer)
+  lazy val kafkaPort: Int = dockerCompose.containerMappedPort(ServiceName("kafka"), 9092)
 
-  implicit lazy val config: KafkaConfig = KafkaConfig(BootstrapConfig(Seq(kafkaContainer.uri)))
+  implicit lazy val config: KafkaConfig = KafkaConfig(BootstrapConfig(Seq(Uri.parse(s"http://localhost:$kafkaPort"))))
 
   val topic = "topic"
   val tweet = Tweet(created_at = new Date, id = 6, id_str = "blah", source = "blahblah", text = "something")

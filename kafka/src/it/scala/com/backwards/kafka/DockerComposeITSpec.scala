@@ -13,7 +13,7 @@ import com.backwards.config.BootstrapConfig
 import com.backwards.kafka.serde.Serde
 import com.backwards.kafka.DockerCompose._
 
-class BlahITSpec extends AsyncWordSpec with MustMatchers with Serde with DockerComposeFixture {
+class DockerComposeITSpec extends AsyncWordSpec with MustMatchers with Serde with DockerComposeFixture {
   val dockerCompose: DockerCompose =
     DockerCompose("kafka", Seq(Paths.get("src", "it", "resources", "docker-compose.yml")))
 

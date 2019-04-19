@@ -1,25 +1,34 @@
 package com.backwards.twitter
 
+import java.nio.file.Paths
 import java.util.Date
 import java.{lang, util}
 import scala.collection.JavaConverters._
+import scala.concurrent.duration._
+import scala.language.postfixOps
 import cats.Id
 import cats.effect.IO
+import io.lemonlabs.uri.Uri
 import org.apache.kafka.clients.consumer.{ConsumerRecord, MockConsumer, OffsetResetStrategy}
 import org.apache.kafka.common.TopicPartition
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.config.BootstrapConfig
-import com.backwards.container._
-import com.backwards.kafka.{Consumer, KafkaConfig, KafkaContainer}
+import com.backwards.kafka.DockerCompose.ServiceName
+import com.backwards.kafka.{Consumer, DockerCompose, DockerComposeFixture, KafkaConfig}
+import com.backwards.transform.Transform
 import com.backwards.twitter.simple.TwitterConsumer
 import com.danielasfregola.twitter4s.entities.Tweet
 
-class TwitterConsumerSpec extends WordSpec with MustMatchers with ContainerFixture with ForAllContainerLifecycle {
-  lazy val (zookeeperContainer, kafkaContainer) = KafkaContainer()
+class TwitterConsumerSpec extends WordSpec with MustMatchers with ScalaFutures with Transform with DockerComposeFixture {
+  override implicit def patienceConfig: PatienceConfig = PatienceConfig(10 seconds, 2 seconds)
 
-  lazy val container: Container = Container(zookeeperContainer, kafkaContainer)
+  val dockerCompose: DockerCompose =
+    DockerCompose("twitter", Seq(Paths.get("src", "it", "resources", "docker-compose.yml")))
 
-  implicit lazy val config: KafkaConfig = KafkaConfig(BootstrapConfig(Seq(kafkaContainer.uri)))
+  lazy val kafkaPort: Int = dockerCompose.containerMappedPort(ServiceName("kafka"), 9092)
+
+  implicit lazy val config: KafkaConfig = KafkaConfig(BootstrapConfig(Seq(Uri.parse(s"http://localhost:$kafkaPort"))))
 
   trait Context {
     val topic = "topic"

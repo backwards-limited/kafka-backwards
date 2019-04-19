@@ -34,16 +34,3 @@ services:
       - 9200:9200
       - 9300:9300
     privileged: true
-
-  twitter-backwards:
-    build: . # OR image: backwards/kafka:latest AFTER docker build -t backwards/kafka .
-    env_file:
-      - .env-local
-    environment:
-      _JAVA_OPTIONS: "-DKAFKA_BOOTSTRAP_SERVERS.0=kafka:9092 -DELASTIC_SEARCH_BOOTSTRAP_SERVERS.0=http://elasticsearch:9200"
-    entrypoint: ["java", "-cp", "/beginners-course.jar", "com.backwards.twitter.simple.TwitterRunner"]
-    restart: on-failure
-    depends_on:
-      - zookeeper
-      - kafka
-      - elasticsearch
