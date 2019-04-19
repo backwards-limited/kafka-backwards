@@ -22,7 +22,7 @@ lazy val connectCourse = project("connect-course")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
 
-lazy val streamingCourse = project("streaming-using-kafka-scala")
+lazy val streamingCourse = project("streaming-kafka-course")
   .settings(description := "Kafka Streaming Course")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
