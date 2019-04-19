@@ -5,6 +5,7 @@ import io.lemonlabs.uri.Uri
 import org.testcontainers.containers.wait.strategy.Wait
 import com.backwards.container.GenericContainer
 
+// TODO - WIP - Do not use as there is an underlying issue with "test containers" - Instead use DockerComposeFixture / DockerCompose
 class KafkaContainer(zookeeperContainer: ZookeeperContainer) extends GenericContainer("confluentinc/cp-kafka:latest") {
   val port = 9092
 

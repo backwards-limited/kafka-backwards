@@ -13,8 +13,9 @@ import org.apache.kafka.common.errors.TimeoutException
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.config.BootstrapConfig
-import com.backwards.kafka.DockerCompose.ServiceName
-import com.backwards.kafka.{DockerCompose, DockerComposeFixture, KafkaConfig}
+import com.backwards.docker.DockerCompose.ServiceName
+import com.backwards.docker.{DockerCompose, DockerComposeFixture}
+import com.backwards.kafka.KafkaConfig
 import com.backwards.transform.Transform
 import com.backwards.twitter.simple.TwitterProducer
 import com.danielasfregola.twitter4s.entities.Tweet

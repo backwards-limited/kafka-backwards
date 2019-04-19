@@ -14,8 +14,9 @@ import org.apache.kafka.common.TopicPartition
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.config.BootstrapConfig
-import com.backwards.kafka.DockerCompose.ServiceName
-import com.backwards.kafka.{Consumer, DockerCompose, DockerComposeFixture, KafkaConfig}
+import com.backwards.docker.DockerCompose.ServiceName
+import com.backwards.docker.{DockerCompose, DockerComposeFixture}
+import com.backwards.kafka.{Consumer, KafkaConfig}
 import com.backwards.transform.Transform
 import com.backwards.twitter.simple.TwitterConsumer
 import com.danielasfregola.twitter4s.entities.Tweet

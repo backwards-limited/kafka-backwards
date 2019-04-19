@@ -10,7 +10,7 @@ import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.twitter.simple.TwitterBroker
 import com.danielasfregola.twitter4s.entities.Tweet
 
-class TwitterBrokerITSpec extends WordSpec with MustMatchers with ScalaFutures {
+class TwitterBrokerSpec extends WordSpec with MustMatchers with ScalaFutures {
   override implicit def patienceConfig: PatienceConfig = PatienceConfig(10 seconds, 2 seconds)
 
   "Twitter broker" should {

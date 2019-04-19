@@ -10,10 +10,11 @@ import org.apache.kafka.clients.consumer.ConsumerConfig.{AUTO_OFFSET_RESET_CONFI
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.scalatest.{AsyncWordSpec, MustMatchers}
 import com.backwards.config.BootstrapConfig
+import com.backwards.docker.DockerCompose.ServiceName
+import com.backwards.docker.{DockerCompose, DockerComposeFixture}
 import com.backwards.kafka.serde.Serde
-import com.backwards.kafka.DockerCompose._
 
-class DockerComposeITSpec extends AsyncWordSpec with MustMatchers with Serde with DockerComposeFixture {
+class DockerComposeSpec extends AsyncWordSpec with MustMatchers with Serde with DockerComposeFixture {
   val dockerCompose: DockerCompose =
     DockerCompose("kafka", Seq(Paths.get("src", "it", "resources", "docker-compose.yml")))
 
