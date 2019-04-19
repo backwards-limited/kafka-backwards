@@ -1,7 +1,8 @@
-package com.backwards.twitter.simple
+package com.backwards.twitter
 
 import java.util.Date
 import scala.collection.JavaConverters._
+import scala.concurrent.duration._
 import scala.language.postfixOps
 import cats.Id
 import cats.effect.IO
@@ -9,12 +10,21 @@ import org.apache.kafka.clients.producer.RecordMetadata
 import org.apache.kafka.common.errors.TimeoutException
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{MustMatchers, WordSpec}
-import com.backwards.kafka.KafkaConfig
+import com.backwards.config.BootstrapConfig
+import com.backwards.container.{Container, ContainerFixture, ForAllContainerLifecycle}
+import com.backwards.kafka.{KafkaConfig, KafkaContainer}
 import com.backwards.transform.Transform
+import com.backwards.twitter.simple.TwitterProducer
 import com.danielasfregola.twitter4s.entities.Tweet
 
-class TwitterProducerSpec extends WordSpec with MustMatchers with ScalaFutures with Transform {
-  implicit val kafkaConfig: KafkaConfig = com.backwards.kafka.config
+class TwitterProducerSpec extends WordSpec with MustMatchers with ScalaFutures with Transform with ContainerFixture with ForAllContainerLifecycle {
+  override implicit def patienceConfig: PatienceConfig = PatienceConfig(10 seconds, 2 seconds)
+
+  lazy val (zookeeperContainer, kafkaContainer) = KafkaContainer()
+
+  lazy val container: Container = Container(zookeeperContainer, kafkaContainer)
+
+  implicit lazy val config: KafkaConfig = KafkaConfig(BootstrapConfig(Seq(kafkaContainer.uri)))
 
   val topic = "topic"
   val tweet = Tweet(created_at = new Date, id = 6, id_str = "blah", source = "blahblah", text = "something")
@@ -27,7 +37,7 @@ class TwitterProducerSpec extends WordSpec with MustMatchers with ScalaFutures w
       kafkaConfigProperties("value.serializer") mustBe "com.backwards.twitter.TweetSerde$TweetSerializer"
     }
 
-    "fail to send a tweet when there are no Kafka brokers available" in {
+    "fail to send a tweet when there are no Kafka brokers available" ignore {
       val twitterProducer = TwitterProducer(topic)
 
       whenReady(twitterProducer send tweet) { result =>

@@ -2,6 +2,8 @@ import BuildProperties._
 import Dependencies._
 import sbt._
 
+lazy val IT = config("it") extend Test
+
 lazy val root = project("kafka-backwards", file("."))
   .settings(description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses")
   .aggregate(kafka, beginnersCourse, connectCourse, streamingCourse)
@@ -30,7 +32,8 @@ def project(id: String): Project = project(id, file(id))
 // TODO - Somehow reuse from module "scala-backwards"
 def project(id: String, base: File): Project =
   Project(id, base)
-    .configs(IntegrationTest)
+    .configs(IT)
+    .settings(inConfig(IT)(Defaults.testSettings))
     .settings(Defaults.itSettings)
     .settings(
       resolvers ++= Seq(
@@ -43,12 +46,13 @@ def project(id: String, base: File): Project =
       sbtVersion := BuildProperties("sbt.version"),
       organization := "com.backwards",
       name := id,
-      addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.9"),
+      addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.10"),
       addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full),
       libraryDependencies ++= dependencies,
       fork in Test := true,
-      fork in IntegrationTest := true,
-      javaOptions in IntegrationTest ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
+      fork in IT := true,
+      fork in run := true,
+      javaOptions in IT ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
       scalacOptions ++= Seq("-Ypartial-unification"),
       assemblyJarName in assembly := s"$id.jar",
       assemblyMergeStrategy in assembly := {

@@ -18,7 +18,7 @@ class TwitterConsumer[F[_]: Applicative](topic: String) extends Serde with Loggi
 
   val consumer: Consumer[F, String, Tweet] =
     Consumer[F, String, Tweet](topic, kafka.config +
-      (GROUP_ID_CONFIG, "twitter-group-1") +
+      (GROUP_ID_CONFIG -> "twitter-group-1") +
       (AUTO_OFFSET_RESET_CONFIG -> "latest") +
       (ENABLE_AUTO_COMMIT_CONFIG -> false) +
       (MAX_POLL_RECORDS_CONFIG -> 10) +
