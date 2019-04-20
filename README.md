@@ -2,6 +2,8 @@
 
 Scala module with reusable Kafka functionality (including some Java friendliness).
 
+Along with a lot of reusable Kafka code, more can be found (with improvements) in [Kafka Demo](https://github.com/backwards-limited/kafka-demo).
+
 Example usage included while covering "beginner" to "advanced" Kafka courses including:
 
 - [Learn Apache Kafka for Beginners](https://www.udemy.com/apache-kafka)
