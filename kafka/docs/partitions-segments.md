@@ -8,4 +8,4 @@
   - log.segment.bytes - maximum size of a single segment in bytes
   - log.segment.ms - time Kafka will wait until committing (closing) the segment if not full
 
-> ![Segments](docs/images/segments.png)
+![Segments](images/segments.png)
