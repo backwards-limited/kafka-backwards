@@ -2,7 +2,7 @@
 
 ## Source
 
-> ![Goal](docs/images/goal.png)
+![Goal](docs/images/goal.png)
 
 We need a Kafka cluster - In root of this project run the [docker-compose.yml](../../docker-compose.yml):
 
@@ -27,17 +27,17 @@ root@fast-data-dev / $ kafka-console-consumer --bootstrap-server 127.0.0.1:9092 
 
 At this point, go to the Kafka Connect UI in the [browser](http://127.0.0.1:3030/kafka-connect-ui/#/cluster/fast-data-dev):
 
-> ![Connect UI](docs/images/kafka-connect-ui.png)
+![Connect UI](docs/images/kafka-connect-ui.png)
 
 ---
 
-> ![Twitter connect](docs/images/twitter-connect.png)
+![Twitter connect](docs/images/twitter-connect.png)
 
 And provide our properties from [source-twitter-distributed.properties](source-twitter-distributed.properties).
 
 ## Sink
 
-> ![Sink goal](docs/images/sink-goal.png)
+![Sink goal](docs/images/sink-goal.png)
 
 This time start up all services in the [docker-compose.yml](../../docker-compose.yml):
 
@@ -71,10 +71,10 @@ Content-Type: application/json; charset=UTF-8
 
 Now create a new Elasticsearch connector with the relevant properties:
 
-> ![Elasticsearch connect](docs/images/elasticsearch-connect.png)
+![Elasticsearch connect](docs/images/elasticsearch-connect.png)
 
 Finally we can visualise Elasticsearch because of a plugin configured in our docker services.
 
 Navigate to [http:127.0.0.1:9200/_plugin/dejavu](http:127.0.0.1:9200/_plugin/dejavu):
 
-> ![Dejavu](docs/images/dejavu.png)
+![Dejavu](docs/images/dejavu.png)

@@ -2,13 +2,13 @@
 
 Kafka Connect simplifies and improves getting data in and out of Kafka, as part of an ETL (extract, transform and load) pipeline.
 
-> ![Kafka Connect](images/connect.png)
+![Kafka Connect](images/connect.png)
 
 The following shows the generic use of Kafka Connect.
 
 A Streams App could be Kafka Streams or Spark to perform data transformations, aggregations etc.
 
-> ![Architecture](images/architecture.png)
+![Architecture](images/architecture.png)
 
 Kafka Connect Cluster has multiple loaded **Connectors** - where a connector is essentially a **jar**.
 
@@ -30,4 +30,4 @@ Tasks are executed by Kafka Connect **Workers** (servers). Where a worker is a s
 
 Distributed example where one worker (server) crashes:
 
-> ![Worker crashes](images/worker-crashes.png)
+![Worker crashes](images/worker-crashes.png)

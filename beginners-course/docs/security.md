@@ -5,14 +5,14 @@
 - Encryption in Kafka ensures that the data exchanged between clients and brokers is secret to routers on the way
 - This is similar concept to an HTTPS website
 
-> ![Encryption](images/encryption.png)
+![Encryption](images/encryption.png)
 
 ## Authentication
 
 - Authentication in Kafka ensures that only **clients that can prove their identity** can connect to our Kafka cluster
 - Similar concept to a login (username / password)
 
-> ![Authentication](images/authentication.png)
+![Authentication](images/authentication.png)
 
 Authentication in Kafka can take a few forms:
 

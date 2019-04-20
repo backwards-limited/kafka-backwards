@@ -1,3 +1,3 @@
 # Logging & Metrics Aggregation
 
-> ![Logging & Metrics](images/logging-metrics.png)
+![Logging & Metrics](images/logging-metrics.png)

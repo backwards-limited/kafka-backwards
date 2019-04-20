@@ -32,4 +32,4 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
   
   - [Connect Course](connect-course/README.md)
   
-  - [Building Streaming Applications using Kafka Scala](streaming-using-kafka-scala/README.md)
+  - [Building Streaming Applications using Kafka Scala](streaming-kafka-course/README.md)

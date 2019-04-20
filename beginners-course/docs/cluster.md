@@ -6,5 +6,4 @@ You also want a cluster of at least 3 Zookeeper.
 
 E.g in AWS
 
-> ![AWS Kafka cluster](images/aws-kafka-cluster.png)
-
+![AWS Kafka cluster](images/aws-kafka-cluster.png)

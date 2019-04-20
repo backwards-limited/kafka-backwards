@@ -10,7 +10,7 @@ The company wants to deploy a new capability to alert users in case of large tra
 
 How to implement this using Kafka?
 
-> ![MyBank](images/my-bank.png)
+![MyBank](images/my-bank.png)
 
 - Bank transactions topic
 

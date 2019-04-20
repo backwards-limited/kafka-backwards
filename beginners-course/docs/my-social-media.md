@@ -11,7 +11,7 @@ The business wants the following capabilities:
 
 How to implement using Kafka?
 
-> ![MySocialMedia](images/my-social-media.png)
+![MySocialMedia](images/my-social-media.png)
 
 CQRS = Command Query Responsibility Segregation
 

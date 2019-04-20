@@ -12,4 +12,4 @@ $ docker-compose up kafka-cluster
 
 and open a browser to view the [Kafka Development Environment UI](http://localhost:3030)
 
-> ![UI](images/ui.png)
+![UI](images/ui.png)

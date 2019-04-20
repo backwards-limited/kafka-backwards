@@ -7,7 +7,7 @@ The resources for this example are within this directory **file-stream-source-co
 - Read a file and load content directly into Kafka
 - Run connector in standalone mode (useful for development)
 
-> ![Source connector standalone](../../docs/images/source-connector-standalone.png)
+![Source connector standalone](../../docs/images/source-connector-standalone.png)
 
 Boot Kafka cluster (Note that your Docker Daemon needs at least 4GB):
 
@@ -41,7 +41,7 @@ Created topic "file-stream-connector-standalone".
 
 If we don't run the above command, upon publication the topic **file-stream-connector-standalone** would still be created but with only 1 partition (so no parallelism). At this point, we can take a look at this topic in the [browser](http://127.0.0.1:3030/kafka-topics-ui/#/).
 
-> ![File stream connector standalone topic](../../docs/images/file-stream-connector-standalone-topic.png)
+![File stream connector standalone topic](../../docs/images/file-stream-connector-standalone-topic.png)
 
 Start the **connector** which will stream data from **source-file.txt** to our **file-stream-connector-standalone** Kafka topic.
 
@@ -51,6 +51,6 @@ $ connect-standalone worker.properties file-stream-connector-standalone.properti
 
 Enter some text into the source file (remembering that it is mapped so the container will see the changes) and upon saving the connector application will get that data and publish onto Kafka:
 
-> ![Blah on mytopic](../../docs/images/blah-on-file-stream-connector-standalone-topic.png)
+![Blah on mytopic](../../docs/images/blah-on-file-stream-connector-standalone-topic.png)
 
 Note that the file **standalone.offsets** is generated.

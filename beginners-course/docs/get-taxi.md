@@ -10,7 +10,7 @@ The business wants the following capabilities:
 
 How to implement using Kafka?
 
-> ![GetTaxi](images/get-taxi.png)
+![GetTaxi](images/get-taxi.png)
 
 - taxi_position, user_position topics:
   - Topics that can have multiple producers

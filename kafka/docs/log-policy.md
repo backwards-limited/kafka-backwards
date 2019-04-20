@@ -14,4 +14,4 @@
 
 Let's say we have the topic **employee-salary** and we want to keep them most recent salary for our employees:
 
-> ![Log compaction](images/log-compaction.png)
+![Log compaction](images/log-compaction.png)

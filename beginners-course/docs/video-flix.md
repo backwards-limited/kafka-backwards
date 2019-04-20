@@ -12,7 +12,7 @@ VideoFlix is a company that allows you to watch videos on demand - the business 
 
 How to implement this using Kafka?
 
->![VideoFlix](images/video-flix.png)
+![VideoFlix](images/video-flix.png)
 
 - show_position topic:
   - Is a topic that can have multiple producers
