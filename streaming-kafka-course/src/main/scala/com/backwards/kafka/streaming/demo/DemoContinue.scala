@@ -1,6 +1,6 @@
-package com.backwards.kafka.streaming
+package com.backwards.kafka.streaming.demo
 
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit.MILLISECONDS
 import scala.collection.JavaConverters._
 import scala.concurrent.duration._
 import scala.language.postfixOps
@@ -9,13 +9,8 @@ import com.backwards.collection.MapOps._
 import com.backwards.io.Continue
 import com.backwards.kafka.streaming.Config._
 import com.backwards.time.DurationOps._
-import com.typesafe.scalalogging.LazyLogging
 
-trait Demo extends App with LazyLogging {
-  val topic: String = "test-topic"
-}
-
-object ConsumerDemo extends Demo with Continue {
+object ConsumerDemoWithContinue extends Demo with Continue {
   import org.apache.kafka.clients.consumer.ConsumerConfig.{CLIENT_ID_CONFIG, GROUP_ID_CONFIG}
   import org.apache.kafka.clients.consumer.KafkaConsumer
 
@@ -35,7 +30,7 @@ object ConsumerDemo extends Demo with Continue {
   consumer.close()
 }
 
-object ProducerDemo extends Demo with Continue {
+object ProducerDemoWithContinue extends Demo with Continue {
   import org.apache.kafka.clients.producer.ProducerConfig.CLIENT_ID_CONFIG
   import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
@@ -49,7 +44,7 @@ object ProducerDemo extends Demo with Continue {
     val record = new ProducerRecord[String, String](topic, randomString(2), randomString(10))
     println(s"Producing: $record")
     producer send record
-    TimeUnit.MILLISECONDS.sleep(sleep.toMillis)
+    MILLISECONDS sleep sleep.toMillis
 
     if (continue.get) produce(sleep)
   }
