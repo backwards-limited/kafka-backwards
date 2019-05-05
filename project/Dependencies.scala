@@ -6,11 +6,12 @@ object Dependencies {
       backwards,
       scalatest, testcontainers, scalatestContainers, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
       avro4s, circe, json4s,
-      cats, monocle, shapeless, http4s, scalaUri, kafka, twitter, elasticsearch
+      cats, monocle, shapeless, http4s, scalaUri, kafka,
+      twitter, elasticsearch, maxmindGioIp2
     ).flatten
 
   lazy val backwards: Seq[ModuleID] = {
-    val version = "1.0.19"
+    val version = "1.0.20"
 
     Seq(
       "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "tests",
@@ -165,4 +166,8 @@ object Dependencies {
       "com.sksamuel.elastic4s" %% "elastic4s-http-streams"
     ).map(_ % version)
   }
+
+  lazy val maxmindGioIp2: Seq[ModuleID] = Seq(
+    "com.maxmind.geoip2" % "geoip2" % "2.12.0"
+  )
 }

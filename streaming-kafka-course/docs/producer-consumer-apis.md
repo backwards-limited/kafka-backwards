@@ -71,6 +71,15 @@ $ kafka-topics \
 Created topic "multi".
 ```
 
+And to delete a topic:
+
+```bash
+$ kafka-topics \
+--zookeeper localhost:2181 \
+--delete \
+--topic multi
+```
+
 ## ProducerRecord with Key
 
 - When we pass the key to produce messages into the partitioned topic, by default it will compute the hash of the key and then apply **mod** using the number of partitions used when creating the topic.
@@ -108,5 +117,8 @@ public class org.apache.kafka.clients.producer.ProducerRecord<K, V> {
 }
 ```
 
+Take a look at [Demo.scala](../src/main/scala/com/backwards/kafka/streaming/demo/Demo.scala).
+
 ## PartitionRecord without Key
 
+Take a look at [DemoNoKeys.scala](../src/main/scala/com/backwards/kafka/streaming/demo/DemoNoKeys.scala)
