@@ -121,4 +121,8 @@ Take a look at [Demo.scala](../src/main/scala/com/backwards/kafka/streaming/demo
 
 ## PartitionRecord without Key
 
-Take a look at [DemoNoKeys.scala](../src/main/scala/com/backwards/kafka/streaming/demo/DemoNoKeys.scala)
+Take a look at [DemoNoKeys.scala](../src/main/scala/com/backwards/kafka/streaming/demo/DemoNoKeys.scala).
+
+## PartitionRecord by Partition
+
+A producer can send a message to a chosen partition. Take a look at [DemoChoosePartition.scala](../src/main/scala/com/backwards/kafka/streaming/demo/DemoChoosePartition.scala).
