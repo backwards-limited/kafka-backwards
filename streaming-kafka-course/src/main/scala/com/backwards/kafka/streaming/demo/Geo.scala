@@ -34,7 +34,7 @@ object Geo {
     response.unsafeBody
   }
 
-  final case class Geo(City: City, Continent: Continent, Country: Country, Location: Location, Postal: Postal, RegisteredCountry: RegisteredCountry, RepresentedCountry: RepresentedCountry, Subdivisions: Seq[Subdivision], Traits: Traits)
+  final case class Geo(City: City, Continent: Continent, Country: Country, Location: Location, Postal: Postal, RegisteredCountry: RegisteredCountry, RepresentedCountry: RepresentedCountry, Subdivisions: Option[Seq[Subdivision]], Traits: Traits)
 
   final case class City(GeoNameID: Int, Names: Option[Map[String, String]])
 

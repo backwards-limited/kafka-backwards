@@ -63,17 +63,16 @@ object ProducerDemoChoosePartition extends DemoChoosePartition {
 
   while (true) {
     val ip = randomIp
-    val message = randomString(10)
 
     val record = geo(ip) match {
       case Left(e) =>
-        new ProducerRecord[String, String](s"$topic-error", ip, s"$message: Error = $e")
+        new ProducerRecord[String, String](s"$topic-error", ip, s"$e")
 
       case Right(g: Geo) if g.Country.IsoCode == "US" =>
-        new ProducerRecord[String, String](topic, 0, ip, message)
+        new ProducerRecord[String, String](topic, 0, ip, g.toString)
 
-      case Right(isoCode) =>
-        new ProducerRecord[String, String](topic, isoCode.hashCode % partitionCount + 1, ip, message)
+      case Right(g: Geo) =>
+        new ProducerRecord[String, String](topic, g.Country.IsoCode.hashCode % partitionCount + 1, ip, g.toString)
     }
 
     println(s"Producing: $record")
