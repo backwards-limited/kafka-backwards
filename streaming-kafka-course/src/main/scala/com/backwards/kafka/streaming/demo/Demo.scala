@@ -17,8 +17,7 @@ import com.typesafe.scalalogging.LazyLogging
 trait Demo extends App with LazyLogging {
   val topic: String = "demo"
 
-  val clientId: String =
-    lowerKebab(getClass.getSimpleName.replaceAll("\\$", ""))
+  val clientId: String = lowerKebab(getClass)
 
   val kafkaProps: Map[String, String] =
     load[Map[String, String]]("kafka") + (CLIENT_ID_CONFIG -> clientId)

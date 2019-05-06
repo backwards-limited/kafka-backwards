@@ -18,8 +18,7 @@ import com.typesafe.scalalogging.LazyLogging
 trait DemoNoKeys extends App with LazyLogging {
   val topic: String = "demo-no-keys"
 
-  val clientId: String =
-    lowerKebab(getClass.getSimpleName.replaceAll("\\$", ""))
+  val clientId: String = lowerKebab(getClass)
 
   val kafkaProps = {
     val kafkaProps: Map[String, String] =

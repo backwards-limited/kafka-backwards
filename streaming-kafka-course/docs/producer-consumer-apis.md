@@ -126,3 +126,110 @@ Take a look at [DemoNoKeys.scala](../src/main/scala/com/backwards/kafka/streamin
 ## PartitionRecord by Partition
 
 A producer can send a message to a chosen partition. Take a look at [DemoChoosePartition.scala](../src/main/scala/com/backwards/kafka/streaming/demo/DemoChoosePartition.scala).
+
+We can send a message to a specific partition by providing said partition to a constructed **PartitionRecord**.
+
+This demo uses [Maxmind](https://www.maxmind.com/) to look up the country of IP where a simulated message was generated. We then redirect each message to partitions based on this information. As we are running our services within Docker, such as Kafka an Zookeeper, we do the same for the Maxmind Geo database we the handy docker image [convox/geoip](https://github.com/convox/geoip) which provides a RESTful API to make queries.
+
+Example query (having run our [docker-compose.yml](../src/it/resources/docker-compose.yml)):
+
+```bash
+$ http localhost:80/city/50.180.47.38
+HTTP/1.1 200 OK
+Content-Length: 1318
+Content-Type: text/plain; charset=utf-8
+Date: Mon, 06 May 2019 11:47:09 GMT
+
+{
+    "City": {
+        "GeoNameID": 4180439,
+        "Names": {
+            "de": "Atlanta",
+            "en": "Atlanta",
+            "es": "Atlanta",
+            "fr": "Atlanta",
+            "ja": "アトランタ",
+            "pt-BR": "Atlanta",
+            "ru": "Атланта",
+            "zh-CN": "亚特兰大"
+        }
+    },
+    "Continent": {
+        "Code": "NA",
+        "GeoNameID": 6255149,
+        "Names": {
+            "de": "Nordamerika",
+            "en": "North America",
+            "es": "Norteamérica",
+            "fr": "Amérique du Nord",
+            "ja": "北アメリカ",
+            "pt-BR": "América do Norte",
+            "ru": "Северная Америка",
+            "zh-CN": "北美洲"
+        }
+    },
+    "Country": {
+        "GeoNameID": 6252001,
+        "IsoCode": "US",
+        "Names": {
+            "de": "USA",
+            "en": "United States",
+            "es": "Estados Unidos",
+            "fr": "États-Unis",
+            "ja": "アメリカ合衆国",
+            "pt-BR": "Estados Unidos",
+            "ru": "США",
+            "zh-CN": "美国"
+        }
+    },
+    "Location": {
+        "Latitude": 33.793,
+        "Longitude": -84.4432,
+        "MetroCode": 524,
+        "TimeZone": "America/New_York"
+    },
+    "Postal": {
+        "Code": "30318"
+    },
+    "RegisteredCountry": {
+        "GeoNameID": 6252001,
+        "IsoCode": "US",
+        "Names": {
+            "de": "USA",
+            "en": "United States",
+            "es": "Estados Unidos",
+            "fr": "États-Unis",
+            "ja": "アメリカ合衆国",
+            "pt-BR": "Estados Unidos",
+            "ru": "США",
+            "zh-CN": "美国"
+        }
+    },
+    "RepresentedCountry": {
+        "GeoNameID": 0,
+        "IsoCode": "",
+        "Names": null,
+        "Type": ""
+    },
+    "Subdivisions": [
+        {
+            "GeoNameID": 4197000,
+            "IsoCode": "GA",
+            "Names": {
+                "en": "Georgia",
+                "es": "Georgia",
+                "fr": "Géorgie",
+                "ja": "ジョージア州",
+                "pt-BR": "Geórgia",
+                "ru": "Джорджия"
+            }
+        }
+    ],
+    "Traits": {
+        "IsAnonymousProxy": false,
+        "IsSatelliteProvider": false
+    }
+}
+```
+
+Note, that this demo also uses the excellent [sttp - Scala HTTP client](https://sttp.readthedocs.io/) to interact with the REST API.
