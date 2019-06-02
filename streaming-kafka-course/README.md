@@ -7,3 +7,5 @@
 - [Kafka](docs/kafka.md)
 
 - [Producer & Consumer APIs](docs/producer-consumer-apis.md)
+
+- [Apache Flume](docs/flume.md)

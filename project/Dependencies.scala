@@ -6,12 +6,12 @@ object Dependencies {
       backwards,
       scalatest, testcontainers, scalatestContainers, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
       avro4s, circe, json4s,
-      cats, monocle, shapeless, http4s, sttp, scalaUri, kafka,
+      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka,
       twitter, elasticsearch, maxmindGioIp2
     ).flatten
 
   lazy val backwards: Seq[ModuleID] = {
-    val version = "1.0.23"
+    val version = "1.0.24"
 
     Seq(
       "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "tests",
@@ -119,6 +119,16 @@ object Dependencies {
   lazy val shapeless: Seq[ModuleID] = Seq(
     "com.chuusai" %% "shapeless" % "2.3.3"
   )
+  
+  lazy val fs2: Seq[ModuleID] = {
+    val version = "1.0.4"
+    
+    Seq(
+      "co.fs2" %% "fs2-core",
+      "co.fs2" %% "fs2-io",
+      "co.fs2" %% "fs2-reactive-streams"
+    ).map(_ % version)
+  }
 
   lazy val http4s: Seq[ModuleID] = {
     val version = "0.19.0"

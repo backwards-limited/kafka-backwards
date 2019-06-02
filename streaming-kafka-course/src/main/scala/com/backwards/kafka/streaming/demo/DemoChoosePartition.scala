@@ -1,7 +1,6 @@
 package com.backwards.kafka.streaming.demo
 
 import java.util.concurrent.TimeUnit.SECONDS
-import scala.collection.JavaConverters._
 import scala.concurrent.duration._
 import scala.language.postfixOps
 import org.apache.kafka.clients.CommonClientConfigs.CLIENT_ID_CONFIG
@@ -9,6 +8,7 @@ import org.apache.kafka.clients.admin.{AdminClient, NewTopic}
 import org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
+import com.backwards.collection.JavaCollectionOps._
 import com.backwards.collection.MapOps._
 import com.backwards.kafka.streaming.Config._
 import com.backwards.kafka.streaming.demo.Geo._
@@ -30,7 +30,7 @@ trait DemoChoosePartition extends App with LazyLogging {
       load[Map[String, String]]("kafka") + (CLIENT_ID_CONFIG -> clientId)
 
     val admin: AdminClient = AdminClient create kafkaProps
-    admin createTopics asJavaCollection(Seq(new NewTopic(topic, partitionCount, replicationFactor.toShort)))
+    admin createTopics Seq(new NewTopic(topic, partitionCount, replicationFactor.toShort))
 
     kafkaProps
   }
@@ -41,10 +41,10 @@ abstract class ConsumerDemoChoosePartition extends DemoChoosePartition {
 
   val consumer = new KafkaConsumer[Nothing, String](consumerProps)
   sys addShutdownHook consumer.close
-  consumer subscribe asJavaCollection(Seq(topic))
+  consumer subscribe Seq(topic)
 
   while (true) {
-    (consumer poll 10.seconds).iterator.asScala.foreach(println)
+    (consumer poll 10.seconds).iterator.foreach(println)
   }
 }
 
