@@ -71,3 +71,64 @@ INFO sink.LoggerSink: Event: { headers:{} body: 42 6C 6F 63 6B 63 68 61 69 6E 0D
   - Memory (good performance but unreliable)
   - File (reliable at the cost of performance)
   - Kafka
+
+## Simple Multi Agent Flow
+
+```markdown
+Agent (start this one second)                            Agent (start first)
+
+Source       —>          Channel  —>  Sink      —>       Source    —>    Channel   —>  Sink
+
+Log data from web logs   Memory       Avro               Avro	           Memory        logger
+```
+
+Take a look at [first-agent.conf](../src/main/resources/simple-multi/first-agent.conf) and [second-agent.conf](../src/main/resources/simple-multi/second-agent.conf).
+
+Start the first agent:
+
+```bash
+$ flume-ng agent --name fa --conf-file first-agent.conf
+...
+INFO node.Application: Starting Sink k1
+INFO node.Application: Starting Source r1
+INFO source.AvroSource: Starting Avro source r1: { bindAddress: 0.0.0.0, port: 44444 }...
+INFO instrumentation.MonitoredCounterGroup: Monitored counter group for type: SOURCE, name: r1: Successfully registered new MBean.
+INFO instrumentation.MonitoredCounterGroup: Component type: SOURCE, name: r1 started
+INFO source.AvroSource: Avro source r1 started.
+```
+
+Start the second agent:
+
+```bash
+$ flume-ng agent --name sa --conf-file second-agent.conf
+```
+
+## Piping Data into HDFS via Flume
+
+We have configurations under [sink-multi](../src/main/resources/flume/sink-multi) where we can run a [first attempt](../src/main/resources/flume/sink-multi/logs-to-logger.conf) not actually using HDFS:
+
+```bash
+$ flume-ng agent --name lm --conf-file logs-to-logger.conf
+```
+
+Now for our [hdfs conf](../src/main/resources/flume/sink-multi/logs-to-hdfs.conf)
+
+```bash
+$ hadoop fs -ls ./hdfs
+2019-06-03 21:45:42,345 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+```
+With our logs generator running i.e. start GenLogs e.g.
+
+```bash
+$ sbt "streaming-kafka-course/runMain com.backwards.kafka.streaming.demo.GenLogs"
+```
+
+then:
+
+```bash
+$ flume-ng agent --name lm --conf-file logs-to-hdfs.conf
+```
+
+We'll start to get a lot of files under **hdfs**:
+
+![HDFS files](images/hdfs-files.png)

@@ -12,13 +12,15 @@ import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 
 object GenLogs extends App {
+  generate()
+
   def generate(): Unit = {
     val apis: Vector[String] = Vector("departments", "orders", "users", "accounts", "admin", "status")
 
     val random = new Random
-    val dtf: DateTimeFormatter = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm:ss")
+    val dtf: DateTimeFormatter = DateTimeFormat forPattern "dd-MM-yyyy HH:mm:ss"
 
-    val logFile: File = File("streaming-kafka-course/logs/logs.txt").createFileIfNotExists(createParents = true).overwrite("")
+    val logFile: File = File("streaming-kafka-course/src/main/resources/logs.txt").createFileIfNotExists(createParents = true).overwrite("")
     println(s"Created ${logFile.path}")
 
     val randomLog: IO[String] = IO {
@@ -28,13 +30,13 @@ object GenLogs extends App {
     }
 
     def log(s: String): String = {
-      logFile.appendLine(s)
-      TimeUnit.SECONDS.sleep(2)
+      logFile appendLine s
+      TimeUnit.SECONDS.sleep(5)
       s
     }
 
-    val s = Stream.repeatEval(randomLog).map(log)
+    val s = Stream repeatEval randomLog map log
 
-    s.compile.drain.unsafeRunAsyncAndForget()
+    s.compile.drain.unsafeRunAsyncAndForget
   }
 }
