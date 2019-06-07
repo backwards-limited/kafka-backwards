@@ -132,3 +132,59 @@ $ flume-ng agent --name lm --conf-file logs-to-hdfs.conf
 We'll start to get a lot of files under **hdfs**:
 
 ![HDFS files](images/hdfs-files.png)
+
+## Piping Data into Kafka via Flume
+
+Just as with the previous example but this time we have the following flume manifest named [logs-to-hdfs-and-kafka.conf](../src/main/resources/flume/sink-multi-with-kafka/logs-to-hdfs-and-kafka.conf):
+
+```properties
+lm.sources = r1
+lm.sinks = k1 k2
+lm.channels = c1 c2
+
+lm.sources.r1.type = exec
+lm.sources.r1.command = tail -F ../../logs.txt
+
+lm.sinks.k1.type = hdfs
+lm.sinks.k1.hdfs.path = ./hdfs
+lm.sinks.k1.hdfs.fileType = DataStream
+lm.sinks.k1.hdfs.fileSuffix = .txt
+lm.sinks.k1.hdfs.rollInterval = 60
+lm.sinks.k1.hdfs.rollSize = 0
+lm.sinks.k1.hdfs.rollCount = 100
+
+lm.sinks.k2.type = org.apache.flume.sink.kafka.KafkaSink
+lm.sinks.k2.kafka.bootstrap.servers = localhost:9092
+lm.sinks.k2.kafka.topic = flume-logs-to-kafka
+
+lm.channels.c1.type = memory
+lm.channels.c1.capacity = 1000
+lm.channels.c1.transactionCapacity = 100
+
+lm.channels.c2.type = memory
+lm.channels.c2.capacity = 1000
+lm.channels.c2.transactionCapacity = 100
+
+lm.sources.r1.channels = c1 c2
+lm.sinks.k1.channel = c1
+lm.sinks.k2.channel = c2
+```
+
+Of course this time we will also need Kafka up and running - You can use one of our available [docker compose files](../src/it/resources/docker-compose.yml).
+
+And again start the flume agent - don't forget to have the GenLogs Scala application running:
+
+```bash
+$ flume-ng agent --name lm --conf-file logs-to-hdfs-and-kafka.conf
+```
+
+We can check the flume piped messages into kafka:
+
+```bash
+$ kafka-console-consumer --bootstrap-server localhost:9092 --topic flume-logs-to-kafka
+
+16.255.203.116 - [07-06-2019 22:16:46] "GET /admin HTTP/1.1" 200
+70.98.81.136 - [07-06-2019 22:16:51] "GET /departments HTTP/1.1" 200
+...
+```
+
