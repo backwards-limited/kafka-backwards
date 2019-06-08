@@ -1,6 +1,5 @@
 package com.backwards.twitter
 
-import java.nio.file.Paths
 import java.util.Date
 import java.{lang, util}
 import scala.collection.JavaConverters._
