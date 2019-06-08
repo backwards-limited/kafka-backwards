@@ -9,3 +9,5 @@
 - [Producer & Consumer APIs](docs/producer-consumer-apis.md)
 
 - [Apache Flume](docs/flume.md)
+
+- [Kafka and Spark Streaming](docs/kafka-spark-streaming.md)

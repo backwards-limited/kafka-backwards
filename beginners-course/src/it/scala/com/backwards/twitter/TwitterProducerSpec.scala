@@ -24,7 +24,7 @@ class TwitterProducerSpec extends WordSpec with MustMatchers with ScalaFutures w
   override implicit def patienceConfig: PatienceConfig = PatienceConfig(10 seconds, 2 seconds)
 
   val dockerCompose: DockerCompose =
-    DockerCompose("twitter", Seq(Paths.get("src", "it", "resources", "docker-compose.yml")))
+    DockerCompose("twitter", Seq(Paths.get("beginners-course", "src", "it", "resources", "docker-compose.yml")))
 
   lazy val kafkaPort: Int = dockerCompose.containerMappedPort(ServiceName("kafka"), 9092)
 

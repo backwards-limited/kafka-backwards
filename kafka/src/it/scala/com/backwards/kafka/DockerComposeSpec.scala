@@ -16,7 +16,7 @@ import com.backwards.kafka.serde.Serde
 
 class DockerComposeSpec extends AsyncWordSpec with MustMatchers with Serde with DockerComposeFixture {
   val dockerCompose: DockerCompose =
-    DockerCompose("kafka", Seq(Paths.get("src", "it", "resources", "docker-compose.yml")))
+    DockerCompose("kafka", Seq(Paths.get("kafka", "src", "it", "resources", "docker-compose.yml")))
 
   val now: Instant = Instant.now
 

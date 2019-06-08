@@ -1,5 +1,13 @@
 # Building and Executing
 
+## SBT
+
+```bash
+$ sbt test
+
+$ sbt it:test
+```
+
 ## Environment
 
 Any environment variables that should not be saved in **Git** should be in a **.env** file - a hidden file, where [.env example](../.env example) can be used as a template.
