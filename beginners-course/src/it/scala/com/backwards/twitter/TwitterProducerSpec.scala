@@ -5,6 +5,7 @@ import java.util.Date
 import scala.collection.JavaConverters._
 import scala.concurrent.duration._
 import scala.language.postfixOps
+import better.files.{File, Resource}
 import cats.Id
 import cats.effect.IO
 import io.lemonlabs.uri.Uri
@@ -24,7 +25,7 @@ class TwitterProducerSpec extends WordSpec with MustMatchers with ScalaFutures w
   override implicit def patienceConfig: PatienceConfig = PatienceConfig(10 seconds, 2 seconds)
 
   val dockerCompose: DockerCompose =
-    DockerCompose("twitter", Seq(Paths.get("beginners-course", "src", "it", "resources", "docker-compose.yml")))
+    DockerCompose("kafka", Seq(File(Resource.getUrl("docker-compose.yml"))))
 
   lazy val kafkaPort: Int = dockerCompose.containerMappedPort(ServiceName("kafka"), 9092)
 
