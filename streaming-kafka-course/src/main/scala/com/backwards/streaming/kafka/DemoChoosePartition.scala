@@ -1,4 +1,4 @@
-package com.backwards.kafka.streaming.demo
+package com.backwards.streaming.kafka
 
 import java.util.concurrent.TimeUnit.SECONDS
 import scala.concurrent.duration._
@@ -10,8 +10,8 @@ import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import com.backwards.collection.JavaCollectionOps._
 import com.backwards.collection.MapOps._
-import com.backwards.kafka.streaming.Config._
-import com.backwards.kafka.streaming.demo.Geo._
+import com.backwards.streaming.Config._
+import com.backwards.streaming.kafka.Geo._
 import com.backwards.text.StringOps._
 import com.backwards.time.DurationOps._
 import com.typesafe.scalalogging.LazyLogging

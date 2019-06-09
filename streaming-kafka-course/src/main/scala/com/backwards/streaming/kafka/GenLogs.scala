@@ -1,13 +1,10 @@
-package com.backwards.kafka.streaming.demo
+package com.backwards.streaming.kafka
 
 import java.util.concurrent.TimeUnit
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.language.postfixOps
 import scala.util.Random
 import better.files.File
 import cats.effect.IO
-import cats.implicits._
-import fs2._
+import fs2.Stream
 import org.joda.time.DateTime
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 

@@ -6,7 +6,7 @@ object Dependencies {
       backwards,
       scalatest, testcontainers, scalatestContainers, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
       avro4s, circe, json4s,
-      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka,
+      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, spark,
       twitter, elasticsearch, maxmindGioIp2
     ).flatten
 
@@ -167,6 +167,10 @@ object Dependencies {
       "org.apache.kafka" % "kafka-streams"
     ).map(_ % version)
   }
+  
+  lazy val spark: Seq[ModuleID] = Seq(
+    "org.apache.spark" %% "spark-streaming" % "2.4.3"
+  )
 
   lazy val twitter: Seq[ModuleID] = Seq(
     "com.danielasfregola" %% "twitter4s" % "5.5",

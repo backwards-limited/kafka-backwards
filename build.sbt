@@ -50,6 +50,7 @@ def project(id: String, base: File): Project =
       addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.10"),
       addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full),
       libraryDependencies ++= dependencies,
+      excludeDependencies ++= Seq("org.slf4j" % "slf4j-log4j12"),
       fork := true,
       javaOptions in IT ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
       scalacOptions ++= Seq("-Ypartial-unification"),

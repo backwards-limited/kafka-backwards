@@ -1,4 +1,4 @@
-package com.backwards.kafka.streaming.demo
+package com.backwards.streaming.kafka
 
 import io.circe.Error
 import io.circe.generic.auto._

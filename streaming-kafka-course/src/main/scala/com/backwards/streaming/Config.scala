@@ -1,4 +1,4 @@
-package com.backwards.kafka.streaming
+package com.backwards.streaming
 
 import scala.language.experimental.macros
 import scala.reflect.ClassTag

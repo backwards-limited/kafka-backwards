@@ -1,4 +1,4 @@
-package com.backwards.kafka.streaming.demo
+package com.backwards.streaming.kafka
 
 import org.scalatest.{MustMatchers, WordSpec}
 
