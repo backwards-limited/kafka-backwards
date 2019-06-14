@@ -13,6 +13,7 @@ object GenLogs extends App {
 
   def generate(): Unit = {
     val apis: Vector[String] = Vector("departments", "orders", "users", "accounts", "admin", "status")
+    val departments: Vector[String] = Vector("finance", "hr", "it", "recruitment")
 
     val random = new Random
     val dtf: DateTimeFormatter = DateTimeFormat forPattern "dd-MM-yyyy HH:mm:ss"
@@ -23,7 +24,17 @@ object GenLogs extends App {
     val randomLog: IO[String] = IO {
       def i = random.nextInt(256)
 
-      s"""$i.$i.$i.$i - [${DateTime.now.toString(dtf)}] "GET /${apis(random.nextInt(apis.length))} HTTP/1.1" 200"""
+      val api = {
+        val api = apis(random.nextInt(apis.length))
+
+        if (api == "departments") {
+          s"$api/${departments(random.nextInt(departments.length))}"
+        } else {
+          api
+        }
+      }
+
+      s"""$i.$i.$i.$i - [${DateTime.now.toString(dtf)}] "GET /$api HTTP/1.1" 200"""
     }
 
     def log(s: String): String = {

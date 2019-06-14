@@ -6,7 +6,7 @@ object Dependencies {
       backwards,
       scalatest, testcontainers, scalatestContainers, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
       avro4s, circe, json4s,
-      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, spark,
+      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, spark, sparkRestClient,
       twitter, elasticsearch, maxmindGioIp2
     ).flatten
 
@@ -168,8 +168,17 @@ object Dependencies {
     ).map(_ % version)
   }
   
-  lazy val spark: Seq[ModuleID] = Seq(
-    "org.apache.spark" %% "spark-streaming" % "2.4.3"
+  lazy val spark: Seq[ModuleID] = {
+    val version = "2.4.2"
+    
+    Seq(
+      "org.apache.spark" %% "spark-core",
+      "org.apache.spark" %% "spark-streaming"
+    ).map(_ % version)
+  }
+  
+  lazy val sparkRestClient: Seq[ModuleID] = Seq(
+    "com.github.ywilkof" % "spark-jobs-rest-client" % "1.3.9"
   )
 
   lazy val twitter: Seq[ModuleID] = Seq(
