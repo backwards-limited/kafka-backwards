@@ -4,49 +4,27 @@ import sbt._
 
 lazy val IT = config("it") extend Test
 
-lazy val assemblyMergeStrategySettings = assemblyMergeStrategy in assembly := {
-  case PathList("javax", xs @ _*)            => MergeStrategy.first
-  case PathList("org", xs @ _*)            => MergeStrategy.first
-  case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
-  case PathList(ps @ _*) if ps.last endsWith "module-info.class" => MergeStrategy.first
-  case "application.conf"                            => MergeStrategy.concat
-  case "unwanted.txt"                                => MergeStrategy.discard
-  case x =>
-    val oldStrategy = (assemblyMergeStrategy in assembly).value
-    oldStrategy(x)
-}
-
 lazy val root = project("kafka-backwards", file("."))
   .settings(description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses")
-  .settings(assemblyJarName in assembly := "kafka-backwards.jar")
-  .settings(assemblyMergeStrategySettings)
   .aggregate(kafka, beginnersCourse, connectCourse, streamingCourse)
 
 lazy val kafka = project("kafka")
   .settings(description := "Backwards Kafka functionality includes example usage in various courses")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
-  .settings(test in assembly := {})
-  .settings(assemblyMergeStrategySettings)
 
 lazy val beginnersCourse = project("beginners-course")
   .settings(description := "Beginners Course - Apache Kafka Series")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
-  .settings(test in assembly := {})
-  .settings(assemblyMergeStrategySettings)
   .dependsOn(kafka % "compile->compile;test->test;it->it")
 
 lazy val connectCourse = project("connect-course")
   .settings(description := "Connect Course - Apache Kafka Series")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
-  .settings(test in assembly := {})
-  .settings(assemblyMergeStrategySettings)
   .dependsOn(kafka % "compile->compile;test->test;it->it")
 
 lazy val streamingCourse = project("streaming-kafka-course")
   .settings(description := "Kafka Streaming Course")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
-  .settings(test in assembly := {})
-  .settings(assemblyMergeStrategySettings)
   .dependsOn(kafka % "compile->compile;test->test;it->it")
 
 def project(id: String): Project = project(id, file(id))
@@ -77,11 +55,13 @@ def project(id: String, base: File): Project =
       javaOptions in IT ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
       scalacOptions ++= Seq("-Ypartial-unification"),
       assemblyJarName in assembly := s"$id.jar",
+      test in assembly := {},
       assemblyMergeStrategy in assembly := {
-        case PathList("javax", "servlet", xs @ _*)          => MergeStrategy.first
-        case PathList(ps @ _*) if ps.last endsWith ".html"  => MergeStrategy.first
-        case "application.conf"                             => MergeStrategy.concat
-        case "io.netty.versions.properties"                 => MergeStrategy.concat
+        case PathList("javax", xs @ _*)  => MergeStrategy.first
+        case PathList("org", xs @ _*)  => MergeStrategy.first
+        case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
+        case PathList(ps @ _*) if ps.last endsWith "module-info.class" => MergeStrategy.first
+        case "application.conf"  => MergeStrategy.concat
         case x =>
           val oldStrategy = (assemblyMergeStrategy in assembly).value
           oldStrategy(x)
