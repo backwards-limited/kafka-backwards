@@ -8,26 +8,24 @@ lazy val root = project("kafka-backwards", file("."))
   .settings(description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses")
   .aggregate(kafka, beginnersCourse, connectCourse, streamingCourse)
 
-lazy val kafka = project("kafka")
+lazy val kafka = project("kafka", file("kafka"))
   .settings(description := "Backwards Kafka functionality includes example usage in various courses")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
 
-lazy val beginnersCourse = project("beginners-course")
+lazy val beginnersCourse = project("beginners-course", file("courses/beginners-course"))
   .settings(description := "Beginners Course - Apache Kafka Series")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
 
-lazy val connectCourse = project("connect-course")
+lazy val connectCourse = project("connect-course", file("courses/connect-course"))
   .settings(description := "Connect Course - Apache Kafka Series")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
 
-lazy val streamingCourse = project("streaming-kafka-course")
+lazy val streamingCourse = project("streaming-kafka-course", file("courses/streaming-kafka-course"))
   .settings(description := "Kafka Streaming Course")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
-
-def project(id: String): Project = project(id, file(id))
 
 // TODO - Somehow reuse from module "scala-backwards"
 def project(id: String, base: File): Project =

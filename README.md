@@ -28,8 +28,8 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
 
 - Courses (module per course)
 
-  - [Beginners Course](beginners-course/README.md)
+  - [Beginners Course](courses/beginners-course/README.md)
   
-  - [Connect Course](connect-course/README.md)
+  - [Connect Course](courses/connect-course/README.md)
   
-  - [Building Streaming Applications using Kafka Scala](streaming-kafka-course/README.md)
+  - [Building Streaming Applications using Kafka Scala](courses/streaming-kafka-course/README.md)
