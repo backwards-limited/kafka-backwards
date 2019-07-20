@@ -94,6 +94,8 @@ hs_err_pid*
 .java-version
 
 course
+kafka-connect
+kafka-connect-github-source
 *.offsets
 landoop
 gen_logs
