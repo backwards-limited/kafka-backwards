@@ -1,8 +1,8 @@
 package com.backwards.kafka.github
 
+import scala.collection.JavaConverters._
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.kafka.github.GitHubSourceConnectorConfig._
-import scala.collection.JavaConverters._
 
 class GitHubSourceConnectorSpec extends WordSpec with MustMatchers {
   "Github source connector" should {

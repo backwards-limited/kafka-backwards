@@ -11,11 +11,12 @@ class GitHubSourceConnector extends SourceConnector {
   private val githubSourceConnectorConfig = new AtomicReference[GitHubSourceConnectorConfig]()
 
   def start(props: util.Map[String, String]): Unit =
-    githubSourceConnectorConfig.set(GitHubSourceConnectorConfig(props.asScala.toMap))
+    githubSourceConnectorConfig set GitHubSourceConnectorConfig(props.asScala.toMap)
 
   def taskClass(): Class[_ <: Task] = ???
 
-  def taskConfigs(maxTasks: Int): util.List[util.Map[String, String]] = ???
+  def taskConfigs(maxTasks: Int): util.List[util.Map[String, String]] =
+    List(githubSourceConnectorConfig.get.originalsStrings()).asJava
 
   def stop(): Unit = {
     // Do things that are necessary to stop your connector - nothing is necessary to stop for this connector

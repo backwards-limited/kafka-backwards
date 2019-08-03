@@ -6,7 +6,7 @@ lazy val IT = config("it") extend Test
 
 lazy val root = project("kafka-backwards", file("."))
   .settings(description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses")
-  .aggregate(kafka, beginnersCourse, connectCourse, streamingCourse)
+  .aggregate(kafka, beginnersCourse, connectCourse, streamsCourse, streamingCourse)
 
 lazy val kafka = project("kafka", file("kafka"))
   .settings(description := "Backwards Kafka functionality includes example usage in various courses")
@@ -21,6 +21,11 @@ lazy val connectCourse = project("connect-course", file("courses/connect-course"
   .settings(description := "Connect Course - Apache Kafka Series")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
+
+lazy val streamsCourse = project("streams-course", file("courses/streams-course"))
+  .settings(description := "Streams Course - Apache Kafka Series")
+  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
+  .dependsOn(kafka % "compile->compile;test->test;it->it")  
 
 lazy val streamingCourse = project("streaming-kafka-course", file("courses/streaming-kafka-course"))
   .settings(description := "Kafka Streaming Course")
