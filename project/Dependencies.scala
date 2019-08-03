@@ -11,7 +11,7 @@ object Dependencies {
     ).flatten
 
   lazy val backwards: Seq[ModuleID] = {
-    val version = "1.0.25"
+    val version = "1.0.26"
 
     Seq(
       "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "tests",
@@ -22,19 +22,19 @@ object Dependencies {
   }
 
   lazy val scalatest: Seq[ModuleID] = Seq(
-    "org.scalatest" %% "scalatest" % "3.0.7" % "test, it"
+    "org.scalatest" %% "scalatest" % "3.0.8" % "test, it"
   )
 
   lazy val testcontainers: Seq[ModuleID] = Seq(
-    "org.testcontainers" % "testcontainers" % "1.11.2" % "test, it"
+    "org.testcontainers" % "testcontainers" % "1.12.0" % "test, it"
   )
   
   lazy val scalatestContainers: Seq[ModuleID] = Seq(
-    "com.dimafeng" %% "testcontainers-scala" % "0.24.0" % "test, it"
+    "com.dimafeng" %% "testcontainers-scala" % "0.29.0" % "test, it"
   )
 
   lazy val airframe: Seq[ModuleID] = Seq(
-    "org.wvlet.airframe" %% "airframe-log" % "19.4.1"
+    "org.wvlet.airframe" %% "airframe-log" % "19.7.6"
   )
 
   lazy val logging: Seq[ModuleID] = Seq(
@@ -43,11 +43,11 @@ object Dependencies {
   )
 
   lazy val pprint: Seq[ModuleID] = Seq(
-    "com.lihaoyi" %% "pprint" % "0.5.4" % "test, it"
+    "com.lihaoyi" %% "pprint" % "0.5.5" % "test, it"
   )
 
   lazy val pureConfig: Seq[ModuleID] = {
-    val version = "0.10.2"
+    val version = "0.11.1"
 
     Seq(
       "com.github.pureconfig" %% "pureconfig",
@@ -56,7 +56,7 @@ object Dependencies {
   }
 
   lazy val betterFiles: Seq[ModuleID] = Seq(
-    "com.github.pathikrit" %% "better-files" % "3.7.1"
+    "com.github.pathikrit" %% "better-files" % "3.8.0"
   )
 
   lazy val apacheCommons: Seq[ModuleID] = Seq(
@@ -83,7 +83,7 @@ object Dependencies {
   }
 
   lazy val json4s: Seq[ModuleID] = {
-    val version = "3.6.5"
+    val version = "3.6.7"
       
     Seq(
       "org.json4s" %% "json4s-jackson",
@@ -92,7 +92,7 @@ object Dependencies {
   }
 
   lazy val cats: Seq[ModuleID] = {
-    val version = "1.6.0"
+    val version = "1.6.1"
 
     Seq(
       "org.typelevel" %% "cats-laws",
@@ -100,12 +100,12 @@ object Dependencies {
     ).map(_ % version % "test, it") ++ Seq(
       "org.typelevel" %% "cats-core"
     ).map(_ % version) ++ Seq(
-      "org.typelevel" %% "cats-effect" % "1.2.0"
+      "org.typelevel" %% "cats-effect" % "1.4.0"
     )
   }
   
   lazy val monocle: Seq[ModuleID] = {
-    val version = "1.5.0"
+    val version = "1.6.0"
 
     Seq(
       "com.github.julien-truffaut" %% "monocle-law"
@@ -121,7 +121,7 @@ object Dependencies {
   )
   
   lazy val fs2: Seq[ModuleID] = {
-    val version = "1.0.4"
+    val version = "1.0.5"
     
     Seq(
       "co.fs2" %% "fs2-core",
@@ -131,7 +131,7 @@ object Dependencies {
   }
 
   lazy val http4s: Seq[ModuleID] = {
-    val version = "0.19.0"
+    val version = "0.20.8"
 
     Seq(
       "org.http4s" %% "http4s-testing",
@@ -147,7 +147,7 @@ object Dependencies {
   }
 
   lazy val sttp: Seq[ModuleID] = {
-    val version = "1.5.15"
+    val version = "1.6.4"
 
     Seq(
       "com.softwaremill.sttp" %% "core",
@@ -156,11 +156,11 @@ object Dependencies {
   }
 
   lazy val scalaUri: Seq[ModuleID] = Seq(
-    "io.lemonlabs" %% "scala-uri" % "1.4.5"
+    "io.lemonlabs" %% "scala-uri" % "1.4.10"
   )
 
   lazy val kafka: Seq[ModuleID] = {
-    val version = "2.2.0"
+    val version = "2.3.0"
     
     Seq(
       "org.apache.kafka" % "kafka-clients",
@@ -187,7 +187,7 @@ object Dependencies {
   )
 
   lazy val elasticsearch: Seq[ModuleID] = {
-    val version = "6.5.1"
+    val version = "6.7.1"
 
     Seq(
       "com.sksamuel.elastic4s" %% "elastic4s-testkit",

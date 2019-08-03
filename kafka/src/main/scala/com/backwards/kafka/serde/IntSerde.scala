@@ -6,16 +6,16 @@ import org.apache.kafka.common.serialization.{Deserializer, Serializer}
 
 object IntSerde {
   class IntSerializer extends Serializer[Int] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
     def serialize(topic: String, data: Int): Array[Byte] =
       Array[Byte]((data >>> 24).toByte, (data >>> 16).toByte, (data >>> 8).toByte, data.byteValue)
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
   }
 
   class IntDeserializer extends Deserializer[Int] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
     def deserialize(topic: String, data: Array[Byte]): Int = {
       if (data.length != 4) throw new SerializationException("Size of data received by IntegerDeserializer is not 4")
@@ -31,6 +31,6 @@ object IntSerde {
       value
     }
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
   }
 }

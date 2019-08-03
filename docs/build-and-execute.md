@@ -2,9 +2,15 @@
 
 ## SBT
 
+Unit test:
+
 ```bash
 $ sbt test
+```
 
+Integration test:
+
+```bash
 $ sbt it:test
 ```
 
@@ -18,7 +24,7 @@ If necessary, you may need other **environments** such as **.env-local** and **.
 ```bash
 docker build -t backwards/kafka .
 ```
-  
+
 ## Execute
 
 ```bash
@@ -26,7 +32,7 @@ docker-compose up --build
 ```
 
 but, we need a **docker compose** file...
-  
+
 Take a look at the **beginners-course** [docker-compose.yml](beginner-course/docker-compose.yml) to see the use of the **build** directive and comments showing the alternative of using **image**.
 Whenever code is changed then use the **build** option when running **docker-compose** - this will in turn utilise the **Dockerfile** to build a new image.
 i.e. this approach allows us to always run against the **latest** without having to include the separate step of building a Docker image.
@@ -43,17 +49,20 @@ docker-compose up --build
 ```
 
 i.e. we wish to **build** and **package** before executing via some **docker compose** file.
-  
+
 Now, **sbt** does have a workaround for this by using plugins such as [sbt-docker](https://github.com/marcuslonnberg/sbt-docker) and [sbt-docker-compose](https://github.com/Tapad/sbt-docker-compose).
 However, these rely on the fact that you do not write a standard **Dockerfile** and instead write one in the [build.sbt](../build.sbt).
-I've avoided using these plugins for several reasons (stories for another day).
 
-The plugins mentioned provide various sbt tasks to execute required Docker and Compose commands.
-As a convenience, since I'm avoiding the these plugins, I've added a few tasks (more to be added as required in [docker.sbt](../docker.sbt)) to mimic the plugins, where these tasks wrap commands you would normally provided.
+I'm going to show both approaches i.e. some submodules will use these sbt docker plugins and some don't; where the ones that don't, we mimic what these plugins provide, but instead provide standard Dockerfile.
+
+## Without SBT Docker Plugins
+
+The sbt docker plugins provide various sbt tasks to execute required Docker and Compose commands.
+I've added a few tasks (more to be added as required in [docker.sbt](../docker.sbt)) to mimic the plugins, where these tasks wrap commands you would normally provided.
 
 Let's go through some examples.
 **Note** that working within a **multi module** project, from the **root** (top level) of the project, we need to state which module we are working with.
-  
+
 Within a module such as **beginners-course** we need our relevant **docker compose** files and associated **Dockerfile**.
 
 ```bash
@@ -91,10 +100,18 @@ or use another associated **sbt task**:
 $ sbt "dockerComposeDown beginners-course"
 ```
 
+## With SBT Docker Plugins
+
+Module [streams-course](../course/streams-course) uses these plugins. It has its own docker-compose yaml:
+
+```bash
+$ sbt "; project streams-course; dockerComposeTest"
+```
+
 ## An Application
-  
+
 To simply use the ubiquitous **run** (where again we indicate the desired module because as mentioned this is a multi module project):
-  
+
 ```bash
 sbt <module>/run
 ```

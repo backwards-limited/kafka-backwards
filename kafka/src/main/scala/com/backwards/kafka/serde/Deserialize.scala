@@ -24,23 +24,23 @@ trait Deserialize {
   implicit val dateDeserializer: Deserializer[Date] = new DateDeserializer
 
   implicit def genericDeserializer[A, R <: HList](implicit gen: Generic.Aux[A, R], rDeserializer: Deserializer[R]): Deserializer[A] = new Deserializer[A] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
     def deserialize(topic: String, data: Array[Byte]): A = gen.from(rDeserializer.deserialize(topic, data))
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
   }
 
   implicit def hnilDeserializer: Deserializer[HNil] = new Deserializer[HNil] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
     def deserialize(topic: String, data: Array[Byte]): HNil = HNil
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
   }
 
   implicit def hlistDeserializer[H, T <: HList](implicit hDeserializer: Deserializer[H], tDeserializer: Deserializer[T]): Deserializer[H :: T] = new Deserializer[H :: T] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
     // TODO - WIP - 1st iteration is a hack by using the simplest delimiter
     def deserialize(topic: String, data: Array[Byte]): H :: T = {
@@ -50,7 +50,7 @@ trait Deserialize {
       hDeserializer.deserialize(topic, h) :: tDeserializer.deserialize(topic, t.tail)
     }
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
   }
 
   def apply[A: Deserializer]: Deserializer[A] = implicitly[Deserializer[A]]

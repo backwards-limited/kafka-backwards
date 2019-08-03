@@ -12,27 +12,27 @@ object TweetSerde {
   implicit val formats: Formats = Serialization formats NoTypeHints
 
   class TweetSerializer extends Serializer[Tweet] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
     def serialize(topic: String, data: Tweet): Array[Byte] =
       Base64.getEncoder.encode(write(data).getBytes)
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
   }
 
   class TweetDeserializer extends Deserializer[Tweet] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
     def deserialize(topic: String, data: Array[Byte]): Tweet =
       read[Tweet](new String(Base64.getDecoder.decode(data)))
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
   }
 
   def apply(): Serde[Tweet] = new Serde[Tweet] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
 
     def serializer(): Serializer[Tweet] = new TweetSerializer
 

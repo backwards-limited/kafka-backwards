@@ -8,7 +8,7 @@ import org.apache.kafka.connect.source.{SourceRecord, SourceTask}
 class GitHubSourceTask extends SourceTask {
   val config = new AtomicReference[GitHubSourceConnectorConfig]
 
-  val gitHubHttpAPIClient = new AtomicReference[GitHubAPIHttpClient]
+  // val gitHubHttpAPIClient = new AtomicReference[GitHubAPIHttpClient]
 
   def start(props: util.Map[String, String]): Unit = {
     config.set(GitHubSourceConnectorConfig(props.asScala.toMap))

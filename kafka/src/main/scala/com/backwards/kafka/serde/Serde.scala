@@ -8,9 +8,9 @@ object Serde extends Serde
 
 trait Serde extends Serialize with Deserialize {
   implicit def genericSerde[A, R <: HList](implicit gen: Generic.Aux[A, R], rSerializer: Serializer[R], rDeserializer: Deserializer[R]): ApacheSerde[A] = new ApacheSerde[A] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
 
     def serializer(): Serializer[A] = genericSerializer[A, R]
 
@@ -18,9 +18,9 @@ trait Serde extends Serialize with Deserialize {
   }
 
   implicit def hnilSerde: ApacheSerde[HNil] = new ApacheSerde[HNil] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
 
     def serializer(): Serializer[HNil] = hnilSerializer
 
@@ -28,9 +28,9 @@ trait Serde extends Serialize with Deserialize {
   }
 
   implicit def hlistSerde[H, T <: HList](implicit hSerializer: Serializer[H], hDeserializer: Deserializer[H], tSerializer: Serializer[T], tDeserializer: Deserializer[T]): ApacheSerde[H :: T] = new ApacheSerde[H :: T] {
-    def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
-    def close(): Unit = ()
+    override def close(): Unit = ()
 
     def serializer(): Serializer[H :: T] = hlistSerializer[H, T]
 
