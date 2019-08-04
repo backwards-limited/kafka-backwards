@@ -164,7 +164,8 @@ object Dependencies {
     
     Seq(
       "org.apache.kafka" % "kafka-clients",
-      "org.apache.kafka" % "kafka-streams"
+      "org.apache.kafka" % "kafka-streams",
+      "org.apache.kafka" %% "kafka-streams-scala"
     ).map(_ % version)
   }
   

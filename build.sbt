@@ -47,6 +47,8 @@ lazy val `streaming-course` = project("streaming-kafka-course", file("courses/st
   .dependsOn(kafka % "compile->compile;test->test;it->it")
   .settings(description := "Kafka Streaming Course")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
+  .settings(mainClass in assembly := Some("com.backwards.kafka.streams.WordCountApp")
+)
 
 // TODO - Somehow reuse from module "scala-backwards"
 def project(id: String, base: File): Project =
@@ -64,6 +66,7 @@ def project(id: String, base: File): Project =
       ),
       scalaVersion := BuildProperties("scala.version"),
       sbtVersion := BuildProperties("sbt.version"),
+      version := "0.1.0-SNAPSHOT",
       organization := "com.backwards",
       name := id,
       autoStartServer := false,
@@ -74,7 +77,7 @@ def project(id: String, base: File): Project =
       fork := true,
       javaOptions in IT ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
       scalacOptions ++= Seq("-Ypartial-unification"),
-      assemblyJarName in assembly := s"$id.jar",
+      assemblyJarName in assembly := s"$id-${version.value}.jar",
       test in assembly := {},
       assemblyMergeStrategy in assembly := {
         case PathList("javax", xs @ _*)  => MergeStrategy.first
