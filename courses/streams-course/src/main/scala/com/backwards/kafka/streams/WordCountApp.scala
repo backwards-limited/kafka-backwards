@@ -56,7 +56,7 @@ import com.backwards.time.DurationOps._
   *   - Either:
   *   - In Intellij, click the green run/arrow button in the margin of this app
   *   - or on the command line
-  *   - sbt "; project streams-course; runMain com.backwards.kafka.streams.WordCountApp"
+  *   - sbt "; project streams-course; runMain com.backwards.kafka.streams.FavouriteColourApp"
   * 5. Using a "kafka console producer" publish messages onto the input topic
   *   - kafka-console-producer --broker-list localhost:9092 --topic word-count-input
   *   - >Kafka kafka streams streaming

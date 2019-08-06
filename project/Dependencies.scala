@@ -6,7 +6,7 @@ object Dependencies {
       backwards,
       scalatest, testcontainers, scalatestContainers, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
       avro4s, circe, json4s,
-      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, spark, sparkRestClient,
+      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, spark, sparkRestClient,
       twitter, elasticsearch, maxmindGioIp2
     ).flatten
 
@@ -168,6 +168,10 @@ object Dependencies {
       "org.apache.kafka" %% "kafka-streams-scala"
     ).map(_ % version)
   }
+
+  lazy val monixKafka: Seq[ModuleID] = Seq(
+    "io.monix" %% "monix-kafka-1x" % "1.0.0-RC2"
+  )
   
   lazy val spark: Seq[ModuleID] = {
     val version = "2.4.2"
