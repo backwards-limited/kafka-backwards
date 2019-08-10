@@ -3,20 +3,20 @@ package com.backwards.kafka.streams
 import scala.concurrent.duration._
 import scala.language.postfixOps
 import monix.eval.Task
+import monix.execution.Scheduler
+import monix.kafka._
 import wvlet.log.LazyLogger
 import org.apache.kafka.clients.admin.{AdminClient, NewTopic}
 import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.clients.producer.RecordMetadata
 import org.apache.kafka.streams.scala.ImplicitConversions._
 import org.apache.kafka.streams.scala.Serdes._
 import org.apache.kafka.streams.scala.StreamsBuilder
-import org.apache.kafka.streams.scala.kstream.{KStream, KTable}
+import org.apache.kafka.streams.scala.kstream.KTable
 import org.apache.kafka.streams.{KafkaStreams, StreamsConfig}
 import com.backwards.collection.MapOps._
 import com.backwards.kafka.admin.KafkaAdmin
 import com.backwards.time.DurationOps._
-import monix.kafka._
-import monix.execution.Scheduler
-import org.apache.kafka.clients.producer.RecordMetadata
 
 /**
   * Take a comma delimited topic of userId -> colour
@@ -35,59 +35,70 @@ import org.apache.kafka.clients.producer.RecordMetadata
   *     - john,green
   *     - stephane,red
   *     - alice,red
+  *
+  * We can check the final aggregation topic with:
+  * <pre>
+  *   kafka-console-consumer --bootstrap-server localhost:9092 \
+  *     --topic favourite-colours-aggregate \
+  *     --from-beginning \
+  *     --formatter kafka.tools.DefaultMessageFormatter \
+  *     --property print.key=true \
+  *     --property print.value=true \
+  *     --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+  *     --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+  * </pre>
   */
 object FavouriteColourApp extends App with KafkaAdmin with LazyLogger {
   type Key = String
   type Value = String
 
-  implicit val admin: AdminClient = newAdminClient()
-
-  val topic: NewTopic = createTopic("favourite-colours", numberOfPartitions = 1, replicationFactor = 1)
-
-
   implicit val scheduler: Scheduler = monix.execution.Scheduler.global
 
+  implicit val admin: AdminClient = newAdminClient()
+
+  val bootstrapServers = "127.0.0.1:9092"
+
+  val inputTopic: NewTopic = createTopic("favourite-colours", numberOfPartitions = 1, replicationFactor = 1)
+  val aggregateTopic: NewTopic = createTopic(s"${inputTopic.name()}-aggregate", numberOfPartitions = 1, replicationFactor = 1)
+
   val producerCfg = KafkaProducerConfig.default.copy(
-    bootstrapServers = List("127.0.0.1:9092")
+    bootstrapServers = List(bootstrapServers),
+    maxBlockTime = 5 seconds
   )
 
   val producer = KafkaProducer[Key, Value](producerCfg, scheduler)
 
   val produce: ((Key, Value)) => Task[Option[RecordMetadata]] = {
-    case (key, value) => producer.send(topic.name(), key, value)
+    case (key, value) => producer.send(inputTopic.name(), key, value)
   }
 
   Task.traverse(
     Seq("stephane" -> "blue", "john" -> "green", "stephane" -> "red", "alice" -> "red")
   )(produce).runSyncUnsafe()
 
-
-
-  /*val props = Map(
-    StreamsConfig.APPLICATION_ID_CONFIG -> "word-count",
-    StreamsConfig.BOOTSTRAP_SERVERS_CONFIG -> "localhost:9092",
+  val props = Map(
+    StreamsConfig.APPLICATION_ID_CONFIG -> "favourite-colours-aggregator",
+    StreamsConfig.BOOTSTRAP_SERVERS_CONFIG -> bootstrapServers,
+    StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG -> "0",
     ConsumerConfig.AUTO_OFFSET_RESET_CONFIG -> "earliest"
   )
 
   val builder = new StreamsBuilder
 
-  val wordCountStream: KStream[String, String] = builder.stream[String, String]("word-count-input")
+  val favouriteColoursStream: KTable[String, String] = builder.table[String, String](inputTopic.name())
 
-  val wordCounts: KTable[String, Long] = wordCountStream
+  val favouriteColours: KTable[String, Long] = favouriteColoursStream
     .mapValues(_.toLowerCase)
-    .flatMapValues(_.split(" "))
-    .selectKey((_, word) => word)
-    .groupByKey
+    .filter((_, value) => Seq("red", "green", "blue") contains value)
+    .groupBy((_, value) => (value, value))
     .count
 
-  wordCounts.toStream.to("word-count-output")
+  favouriteColours.toStream.to(aggregateTopic.name())
 
   val streams: KafkaStreams = new KafkaStreams(builder.build(), props)
   streams.cleanUp()
   streams.start()
 
-  logger info streams
-
   // Add shutdown hook to respond to SIGTERM and gracefully close Kafka Streams
-  sys ShutdownHookThread streams.close(10 seconds)*/
+  sys ShutdownHookThread streams.close(10 seconds)
 }
