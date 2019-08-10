@@ -47,6 +47,9 @@ import com.backwards.time.DurationOps._
   *     --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
   *     --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
   * </pre>
+  *
+  * Or, since the Kafka image used by this module's docker compose has a nice UI, just navigate to:
+  * http://127.0.0.1:3030
   */
 object FavouriteColourApp extends App with KafkaAdmin with LazyLogger {
   type Key = String
@@ -79,7 +82,7 @@ object FavouriteColourApp extends App with KafkaAdmin with LazyLogger {
   val props = Map(
     StreamsConfig.APPLICATION_ID_CONFIG -> "favourite-colours-aggregator",
     StreamsConfig.BOOTSTRAP_SERVERS_CONFIG -> bootstrapServers,
-    StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG -> "0",
+    StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG -> "0", // Disable cache to demonstrate all "steps" involved in the transformation - not recommended in prod
     ConsumerConfig.AUTO_OFFSET_RESET_CONFIG -> "earliest"
   )
 
@@ -96,7 +99,7 @@ object FavouriteColourApp extends App with KafkaAdmin with LazyLogger {
   favouriteColours.toStream.to(aggregateTopic.name())
 
   val streams: KafkaStreams = new KafkaStreams(builder.build(), props)
-  streams.cleanUp()
+  streams.cleanUp() // Just for dev (not prod)
   streams.start()
 
   // Add shutdown hook to respond to SIGTERM and gracefully close Kafka Streams

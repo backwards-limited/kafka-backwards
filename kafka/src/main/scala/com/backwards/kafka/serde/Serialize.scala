@@ -8,6 +8,8 @@ import com.backwards.kafka.serde.BooleanSerde.BooleanSerializer
 import com.backwards.kafka.serde.DateSerde.DateSerializer
 import com.backwards.kafka.serde.IntSerde.IntSerializer
 
+object Serialize extends Serialize
+
 trait Serialize {
   implicit val stringSerializer: Serializer[String] = new StringSerializer
 

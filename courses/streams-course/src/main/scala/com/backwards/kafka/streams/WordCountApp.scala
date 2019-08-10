@@ -106,7 +106,7 @@ object WordCountApp extends App with LazyLogger {
   wordCounts.toStream.to("word-count-output")
 
   val streams: KafkaStreams = new KafkaStreams(builder.build(), props)
-  streams.cleanUp()
+  streams.cleanUp() // Just for dev (not prod)
   streams.start()
 
   logger info streams

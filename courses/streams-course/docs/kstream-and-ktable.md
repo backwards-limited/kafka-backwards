@@ -60,3 +60,7 @@ Repartitioning is done seamlessly behind the scenes but will incur a performance
 ## Stream and Table duality
 
 ![Stream and table duality](images/stream-table-duality.png)
+
+## Operations
+
+![Operations](images/streams-tables-operations.png)
