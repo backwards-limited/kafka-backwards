@@ -20,6 +20,7 @@ import com.backwards.kafka.admin.KafkaAdmin
 import com.backwards.time.DurationOps._
 import io.circe.generic.auto._
 import com.backwards.kafka.serde.circe.Serializer._
+import com.backwards.kafka.serde.monix.Serializer._
 
 /**
   * Create a Kafka producer that outputs ~100 messages per second to a topic.
@@ -50,9 +51,8 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
     maxBlockTime = 5 seconds
   )
 
-
   val producer = KafkaProducer[String, Transaction](producerCfg, scheduler)
-  producer.send(transactionsTopic.name(), Transaction("Bob", 500))
+  producer.send(transactionsTopic.name(), Transaction("Bob", 500)).runSyncUnsafe()
 }
 
 final case class Transaction(name: String, amount: Int/*, time: LocalDateTime*/)
