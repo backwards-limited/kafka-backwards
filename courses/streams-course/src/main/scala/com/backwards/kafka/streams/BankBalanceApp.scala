@@ -1,8 +1,11 @@
 package com.backwards.kafka.streams
 
 import java.time.LocalDateTime
+import java.util.concurrent.TimeUnit
+import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 import scala.language.postfixOps
+import cats.effect.{ContextShift, IO, Timer}
 import monix.eval.Task
 import monix.execution.Scheduler
 import monix.kafka._
@@ -21,6 +24,7 @@ import com.backwards.time.DurationOps._
 import io.circe.generic.auto._
 import com.backwards.kafka.serde.circe.Serializer._
 import com.backwards.kafka.serde.monix.Serializer._
+import fs2.Stream
 
 /**
   * Create a Kafka producer that outputs ~100 messages per second to a topic.
@@ -34,25 +38,36 @@ import com.backwards.kafka.serde.monix.Serializer._
   * and the latest time an update was received.
   */
 object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
-  implicit val scheduler: Scheduler = monix.execution.Scheduler.global
-
   implicit val admin: AdminClient = newAdminClient()
 
-  /*implicit val localDateTimeSerializer: Serializer[LocalDateTime] = new Serializer[LocalDateTime] {
-    def serialize(topic: String, data: LocalDateTime): Array[Byte] = ???
-  }*/
+  val bootstrapServers = List("127.0.0.1:9092")
 
-  val bootstrapServers = "127.0.0.1:9092"
+  doTransactions(bootstrapServers)
 
-  val transactionsTopic: NewTopic = createTopic("transactions", numberOfPartitions = 1, replicationFactor = 1)
+  def doTransactions(bootstrapServers: List[String])(implicit admin: AdminClient): Unit = {
+    val ec: ExecutionContext = ExecutionContext.global
+    implicit val cs: ContextShift[IO] = IO.contextShift(ec)
+    implicit val timer: Timer[IO] = IO.timer(ec)
+    implicit val scheduler: Scheduler = monix.execution.Scheduler.global
 
-  val producerCfg = KafkaProducerConfig.default.copy(
-    bootstrapServers = List(bootstrapServers),
-    maxBlockTime = 5 seconds
-  )
+    val transactionsTopic: NewTopic = createTopic("transactions", numberOfPartitions = 1, replicationFactor = 1)
 
-  val producer = KafkaProducer[String, Transaction](producerCfg, scheduler)
-  producer.send(transactionsTopic.name(), Transaction("Bob", 500)).runSyncUnsafe()
+    val producerCfg = KafkaProducerConfig.default.copy(
+      bootstrapServers = bootstrapServers,
+      maxBlockTime = 5 seconds
+    )
+
+    val producer = KafkaProducer[String, Transaction](producerCfg, scheduler)
+
+    val stream =
+      Stream("Bob", "Sue", "Bill", "Agnes", "Mary", "Sid").repeat
+        .zipLeft(Stream.awakeEvery[IO](5.seconds))
+        .evalTap(user => IO.fromFuture(IO(producer.send(transactionsTopic.name(), Transaction(user, 500, LocalDateTime.now())).map(_ => ()).runToFuture)))
+
+    stream
+      .interruptAfter(30.seconds)
+      .compile.drain.unsafeRunSync()
+  }
 }
 
-final case class Transaction(name: String, amount: Int/*, time: LocalDateTime*/)
+final case class Transaction(name: String, amount: Int, time: LocalDateTime)
