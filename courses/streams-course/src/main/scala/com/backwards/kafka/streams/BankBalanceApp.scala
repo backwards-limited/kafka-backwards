@@ -42,15 +42,18 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
 
   val bootstrapServers = List("127.0.0.1:9092")
 
-  doTransactions(bootstrapServers)
+  val transactionsTopic: NewTopic = createTopic("transactions", numberOfPartitions = 1, replicationFactor = 1)
 
-  def doTransactions(bootstrapServers: List[String])(implicit admin: AdminClient): Unit = {
+  doTransactions(bootstrapServers)
+  //consumeTransactions(bootstrapServers)
+
+  def doTransactions(bootstrapServers: List[String]): Unit = {
     val ec: ExecutionContext = ExecutionContext.global
     implicit val cs: ContextShift[IO] = IO.contextShift(ec)
     implicit val timer: Timer[IO] = IO.timer(ec)
     implicit val scheduler: Scheduler = monix.execution.Scheduler.global
 
-    val transactionsTopic: NewTopic = createTopic("transactions", numberOfPartitions = 1, replicationFactor = 1)
+
 
     val producerCfg = KafkaProducerConfig.default.copy(
       bootstrapServers = bootstrapServers,
@@ -65,8 +68,8 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
         .evalTap(user => IO.fromFuture(IO(producer.send(transactionsTopic.name(), Transaction(user, 500, LocalDateTime.now())).map(_ => ()).runToFuture)))
 
     stream
-      .interruptAfter(30.seconds)
-      .compile.drain.unsafeRunSync()
+      .interruptAfter(30 seconds)
+      .compile.drain.unsafeRunAsyncAndForget()
   }
 }
 
