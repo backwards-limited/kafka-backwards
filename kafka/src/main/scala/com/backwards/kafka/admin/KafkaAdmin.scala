@@ -11,6 +11,10 @@ import com.backwards.JavaOps
 import com.backwards.kafka.admin.KafkaAdmin._
 
 trait KafkaAdmin extends JavaOps with LazyLogger {
+  def newAdminClient(props: Map[String, String]): AdminClient =
+    AdminClient create props
+
+  @deprecated(message = "User equivalent function that takes Map", since = "1st September 2019")
   def newAdminClient(properties: Properties = default): AdminClient =
     AdminClient create properties
 
@@ -45,6 +49,7 @@ trait KafkaAdmin extends JavaOps with LazyLogger {
 }
 
 object KafkaAdmin {
+  @deprecated(message = "Just don't like this", since = "1st September 2019")
   lazy val default: Properties = {
     val properties = new Properties()
     properties.setProperty(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")

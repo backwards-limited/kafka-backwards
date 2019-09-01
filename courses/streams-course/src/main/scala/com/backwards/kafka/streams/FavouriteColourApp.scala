@@ -88,15 +88,15 @@ object FavouriteColourApp extends App with KafkaAdmin with LazyLogger {
 
   val builder = new StreamsBuilder
 
-  val favouriteColoursStream: KTable[String, String] = builder.table[String, String](inputTopic.name())
+  val favouriteColoursTable: KTable[String, String] = builder.table[String, String](inputTopic.name())
 
-  val favouriteColours: KTable[String, Long] = favouriteColoursStream
+  val favouriteColoursAggregateTable: KTable[String, Long] = favouriteColoursTable
     .mapValues(_.toLowerCase)
     .filter((_, value) => Seq("red", "green", "blue") contains value)
     .groupBy((_, value) => (value, value))
     .count
 
-  favouriteColours.toStream.to(aggregateTopic.name())
+  favouriteColoursAggregateTable.toStream.to(aggregateTopic.name())
 
   val streams: KafkaStreams = new KafkaStreams(builder.build(), props)
   streams.cleanUp() // Just for dev (not prod)
