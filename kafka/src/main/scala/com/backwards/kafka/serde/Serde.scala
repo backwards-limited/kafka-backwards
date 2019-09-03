@@ -7,16 +7,6 @@ import org.apache.kafka.common.serialization.{Deserializer, Serializer, Serde =>
 object Serde extends Serde
 
 trait Serde extends Serialize with Deserialize {
-  implicit def genericSerde[A, R <: HList](implicit gen: Generic.Aux[A, R], rSerializer: Serializer[R], rDeserializer: Deserializer[R]): ApacheSerde[A] = new ApacheSerde[A] {
-    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
-
-    override def close(): Unit = ()
-
-    def serializer(): Serializer[A] = genericSerializer[A, R]
-
-    def deserializer(): Deserializer[A] = genericDeserializer[A, R]
-  }
-
   implicit def hnilSerde: ApacheSerde[HNil] = new ApacheSerde[HNil] {
     override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
 
@@ -35,6 +25,16 @@ trait Serde extends Serialize with Deserialize {
     def serializer(): Serializer[H :: T] = hlistSerializer[H, T]
 
     def deserializer(): Deserializer[H :: T] = hlistDeserializer[H, T]
+  }
+
+  implicit def genericSerde[A, R <: HList](implicit gen: Generic.Aux[A, R], rSerializer: Serializer[R], rDeserializer: Deserializer[R]): ApacheSerde[A] = new ApacheSerde[A] {
+    override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+
+    override def close(): Unit = ()
+
+    def serializer(): Serializer[A] = genericSerializer[A, R]
+
+    def deserializer(): Deserializer[A] = genericDeserializer[A, R]
   }
 
   def apply[A: ApacheSerde]: ApacheSerde[A] = implicitly[ApacheSerde[A]]
