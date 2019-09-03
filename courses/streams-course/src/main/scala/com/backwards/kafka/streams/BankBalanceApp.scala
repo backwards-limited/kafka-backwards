@@ -27,7 +27,9 @@ import com.backwards.kafka.serde.monix.Deserializer._
 import com.backwards.kafka.serde.Serde._
 import com.backwards.time.DurationOps._
 import cats.implicits._
+import monix.kafka.config.Acks
 import shapeless._
+import org.apache.kafka.clients.producer.ProducerConfig
 import com.backwards.kafka.serde.Serde
 
 /**
@@ -52,11 +54,14 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger with com.backw
   val transactionsAggregateTopic: NewTopic = createTopic(s"${transactionsTopic.name()}-aggregate", numberOfPartitions = 1, replicationFactor = 1)
 
   doTransactions(bootstrapServers, transactionsTopic)
-  println(s"===> doing transactions")
-  consumeTransactions(bootstrapServers, transactionsTopic)
-  println(s"===> consuming transactions")
+  consumeTransactions(bootstrapServers, transactionsTopic, transactionsAggregateTopic)
 
   // TODO - Return either Stream or IO and then for comprehension that
+  /**
+    * kafkacat -b localhost:9092 -t transactions -C -o beginning
+    * @param bootstrapServers
+    * @param transactionsTopic
+    */
   def doTransactions(bootstrapServers: List[String], transactionsTopic: NewTopic): Unit = {
     val ec: ExecutionContext = ExecutionContext.global
     implicit val cs: ContextShift[IO] = IO.contextShift(ec)
@@ -65,26 +70,36 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger with com.backw
 
     val producerCfg = KafkaProducerConfig.default.copy(
       bootstrapServers = bootstrapServers,
-      maxBlockTime = 5 seconds
+      maxBlockTime = 5 seconds,
+      acks = Acks.All, // Must set acks to all in order to use the idempotent producer - otherwise cannot guarantee idempotence
+      retries = 3, // Retries must be greater than 0 whn using idempotent producer
+      properties = Map(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG -> true.toString) // Ensure we don't push duplicates
     )
 
     val producer = KafkaProducer[String, Transaction](producerCfg, scheduler)
 
     val stream =
       Stream("Bob", "Sue", "Bill", "Agnes", "Mary", "Sid").repeat
-        .zipLeft(Stream.awakeEvery[IO](5.seconds))
-        .evalTap(user => IO.fromFuture(IO(producer.send(transactionsTopic.name(), Transaction(user, 500, LocalDateTime.now())).map(_ => ()).runToFuture)))
+        .zipLeft(Stream.awakeEvery[IO](1 second))
+        .evalTap(user => IO.fromFuture(IO(producer.send(transactionsTopic.name(), user, Transaction(user, 500, LocalDateTime.now)).map(_ => ()).runToFuture)))
 
     stream
       .interruptAfter(30 seconds)
       .compile.drain.unsafeRunAsyncAndForget()
   }
 
-  def consumeTransactions(bootstrapServers: List[String], transactionsTopic: NewTopic): Unit = {
+  /**
+    * kafkacat -b localhost:9092 -t transactions-aggregate -C -o beginning
+    * @param bootstrapServers
+    * @param transactionsTopic
+    * @param transactionsAggregateTopic
+    */
+  def consumeTransactions(bootstrapServers: List[String], transactionsTopic: NewTopic, transactionsAggregateTopic: NewTopic): Unit = {
     val props = Map(
       StreamsConfig.APPLICATION_ID_CONFIG -> "transactions-aggregator",
       StreamsConfig.BOOTSTRAP_SERVERS_CONFIG -> bootstrapServers.mkString(","),
-      StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG -> "0", // Disable cache to demonstrate all "steps" involved in the transformation - not recommended in prod
+      StreamsConfig.PROCESSING_GUARANTEE_CONFIG -> StreamsConfig.EXACTLY_ONCE,  // Exactly once processing
+      StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG -> "0",                    // Disable cache to demonstrate all "steps" involved in the transformation - not recommended in prod
       ConsumerConfig.AUTO_OFFSET_RESET_CONFIG -> "earliest"
     )
 
@@ -98,18 +113,29 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger with com.backw
       def deserializer(): org.apache.kafka.common.serialization.Deserializer[Transaction] = circeDeserializer[Transaction]
     }
 
-    val transactionsTable = builder.table[String, Transaction](transactionsTopic.name())
+    /*val transactionsTable = builder.table[String, Transaction](transactionsTopic.name())
 
     val transactionsAggregateTable: KTable[String, Int] = transactionsTable
-      .groupBy((_, transaction) => (transaction.name, transaction.amount))
+      .groupBy((user, transaction) => (user, transaction.amount))
       .reduce((amount1, amount2) => amount1 + amount2, (i1, i2) => i1 - i2)
+
+    transactionsAggregateTable.toStream.to(transactionsAggregateTopic.name())*/
+
+    val transactionsStream = builder.stream[String, Transaction](transactionsTopic.name())
+
+    val transactionsAggregateTable: KTable[String, Transaction] = transactionsStream
+      .groupByKey
+      .aggregate[Transaction](
+        Transaction(name = "", amount = 0, time = LocalDateTime.now)
+      )(
+        (user: String, transaction: Transaction, accTransaction: Transaction) => Transaction(user, accTransaction.amount + transaction.amount, transaction.time)
+      )
 
     transactionsAggregateTable.toStream.to(transactionsAggregateTopic.name())
 
     val streams = new KafkaStreams(builder.build(), props)
     streams.cleanUp() // Just for dev (not prod)
     streams.start()
-    println(s"===> started streams")
 
     // Add shutdown hook to respond to SIGTERM and gracefully close Kafka Streams
     sys ShutdownHookThread streams.close(10 seconds)
