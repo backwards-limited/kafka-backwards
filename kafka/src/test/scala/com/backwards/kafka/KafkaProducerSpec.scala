@@ -11,10 +11,10 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.Or
 import com.backwards.config.Config._
-import com.backwards.kafka.serde.Serde
+import com.backwards.kafka.serde.Serdes
 import com.backwards.transform.Transform
 
-class KafkaProducerSpec extends WordSpec with MustMatchers with ScalaFutures with Serde with Transform {
+class KafkaProducerSpec extends WordSpec with MustMatchers with ScalaFutures with Serdes with Transform {
   implicit val kafkaConfig: KafkaConfig = load[KafkaConfig]("kafka")
 
   "Kafka Producer (mocking) with Id as an effect" should {

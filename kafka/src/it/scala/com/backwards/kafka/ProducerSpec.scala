@@ -7,12 +7,12 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.config.BootstrapConfig
 import com.backwards.container.{Container, ContainerFixture}
-import com.backwards.kafka.serde.Serde
+import com.backwards.kafka.serde.Serdes
 
 // TODO - WIP
 // TODO - The examples are all ignored because of underlying issues with "test containers".
 // TODO - Instead use com.backwards.docker.DockerComposeFixture with com.backwards.docker.DockerCompose
-trait ProducerSpec extends WordSpec with MustMatchers with ScalaFutures with Serde {
+trait ProducerSpec extends WordSpec with MustMatchers with ScalaFutures with Serdes {
   this: ContainerFixture =>
 
   lazy val zookeeperContainer = ZookeeperContainer()

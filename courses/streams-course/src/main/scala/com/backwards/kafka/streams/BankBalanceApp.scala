@@ -15,7 +15,6 @@ import wvlet.log.LazyLogger
 import org.apache.kafka.clients.admin.{AdminClient, AdminClientConfig, NewTopic}
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.ProducerConfig
-import org.apache.kafka.common.serialization.{Serde, Serdes}
 import org.apache.kafka.streams.scala.ImplicitConversions._
 import org.apache.kafka.streams.scala.Serdes._
 import org.apache.kafka.streams.scala.StreamsBuilder
@@ -23,6 +22,7 @@ import org.apache.kafka.streams.scala.kstream.KTable
 import org.apache.kafka.streams.{KafkaStreams, StreamsConfig}
 import com.backwards.collection.MapOps._
 import com.backwards.kafka.admin.KafkaAdmin
+import com.backwards.kafka.serde.Serde._
 import com.backwards.kafka.serde.circe.Deserializer._
 import com.backwards.kafka.serde.circe.Serializer._
 import com.backwards.kafka.serde.monix.Serializer._
@@ -52,7 +52,7 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
   doTransactions(bootstrapServers, transactionsTopic)
   consumeTransactions(bootstrapServers, transactionsTopic, transactionsAggregateTopic)
 
-  // TODO - Return either Stream or IO and then for comprehension that
+  // TODO - Return either Stream or IO and then for comprehension
   /**
     * kafkacat -b localhost:9092 -t transactions -C -o beginning
     * @param bootstrapServers List[String]
@@ -101,9 +101,6 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
 
     val builder = new StreamsBuilder
 
-    // TODO - Wrong - where is implicit serde?
-    implicit val transactionSerde: Serde[Transaction] = new Serdes.WrapperSerde(circeSerializer[Transaction], circeDeserializer[Transaction])
-
     val transactionsStream = builder.stream[String, Transaction](transactionsTopic.name())
 
     val transactionsAggregateTable: KTable[String, Transaction] = transactionsStream
@@ -122,5 +119,3 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
     sys ShutdownHookThread streams.close(10 seconds)
   }
 }
-
-final case class Transaction(name: String, amount: Int, time: LocalDateTime)

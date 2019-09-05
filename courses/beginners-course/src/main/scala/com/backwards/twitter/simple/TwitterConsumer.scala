@@ -8,12 +8,12 @@ import cats.implicits._
 import org.apache.kafka.clients.consumer.ConsumerConfig._
 import com.backwards.kafka
 import com.backwards.kafka.Consumer
-import com.backwards.kafka.serde.Serde
+import com.backwards.kafka.serde.Serdes
 import com.backwards.logging.Logging
 import com.backwards.twitter.TweetSerde.TweetDeserializer
 import com.danielasfregola.twitter4s.entities.Tweet
 
-class TwitterConsumer[F[_]: Applicative](topic: String) extends Serde with Logging {
+class TwitterConsumer[F[_]: Applicative](topic: String) extends Serdes with Logging {
   implicit val tweetDeserializer: TweetDeserializer = new TweetDeserializer
 
   val consumer: Consumer[F, String, Tweet] =

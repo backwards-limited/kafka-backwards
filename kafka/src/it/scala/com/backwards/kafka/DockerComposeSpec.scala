@@ -12,9 +12,9 @@ import org.scalatest.{AsyncWordSpec, MustMatchers}
 import com.backwards.config.BootstrapConfig
 import com.backwards.docker.DockerCompose.ServiceName
 import com.backwards.docker.{DockerCompose, DockerComposeFixture}
-import com.backwards.kafka.serde.Serde
+import com.backwards.kafka.serde.Serdes
 
-class DockerComposeSpec extends AsyncWordSpec with MustMatchers with Serde with DockerComposeFixture {
+class DockerComposeSpec extends AsyncWordSpec with MustMatchers with Serdes with DockerComposeFixture {
   val dockerCompose: DockerCompose =
     DockerCompose("kafka", Seq(File(Resource.getUrl("docker-compose.yml"))))
 

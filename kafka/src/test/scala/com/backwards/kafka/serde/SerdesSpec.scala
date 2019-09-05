@@ -4,7 +4,7 @@ import java.util.Date
 import org.scalatest.{MustMatchers, WordSpec}
 
 // TODO - Scalacheck
-class SerdeSpec extends WordSpec with MustMatchers with Serde {
+class SerdesSpec extends WordSpec with MustMatchers with Serdes {
   spec =>
 
   final case class Foo(data: String, more: String)
@@ -16,9 +16,9 @@ class SerdeSpec extends WordSpec with MustMatchers with Serde {
 
   "Serde" should {
     "serialize and deserialize via object application" in {
-      val bytes = Serde[Foo].serializer.serialize(topic, spec.foo)
+      val bytes = Serdes[Foo].serializer.serialize(topic, spec.foo)
 
-      val foo = Serde[Foo].deserializer.deserialize(topic, bytes)
+      val foo = Serdes[Foo].deserializer.deserialize(topic, bytes)
 
       foo mustEqual spec.foo
     }
