@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 import scala.language.postfixOps
+import scala.util.Random
 import cats.effect.{ContextShift, IO, Timer}
 import cats.implicits._
 import fs2.Stream
@@ -74,10 +75,14 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
 
     val producer = KafkaProducer[String, Transaction](producerCfg, scheduler)
 
+    val randomAmount = () => Random.nextInt(100)
+
     val stream =
-      Stream("Bob", "Sue", "Bill", "Agnes", "Mary", "Sid").repeat
+      Stream("Bob", "Sue", "Bill", "Agnes", "Mary", "Sid").repeat.zip(Stream(randomAmount).repeat)
         .zipLeft(Stream.awakeEvery[IO](1 second))
-        .evalTap(user => IO.fromFuture(IO(producer.send(transactionsTopic.name(), user, Transaction(user, 500, LocalDateTime.now)).map(_ => ()).runToFuture)))
+        .evalTap { case (user, randomAmount) =>
+          IO.fromFuture(IO(producer.send(transactionsTopic.name(), user, Transaction(user, randomAmount(), LocalDateTime.now)).map(_ => ()).runToFuture))
+        }
 
     stream
       .interruptAfter(30 seconds)
