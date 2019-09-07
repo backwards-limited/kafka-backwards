@@ -50,7 +50,7 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
   val transactionsTopic: NewTopic = createTopic("transactions", numberOfPartitions = 1, replicationFactor = 1)
   val transactionsAggregateTopic: NewTopic = createTopic(s"${transactionsTopic.name()}-aggregate", numberOfPartitions = 1, replicationFactor = 1)
 
-  doTransactions(bootstrapServers, transactionsTopic)
+  produceTransactions(bootstrapServers, transactionsTopic)
   consumeTransactions(bootstrapServers, transactionsTopic, transactionsAggregateTopic)
 
   // TODO - Return either Stream or IO and then for comprehension
@@ -59,7 +59,7 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
     * @param bootstrapServers List[String]
     * @param transactionsTopic NewTopic
     */
-  def doTransactions(bootstrapServers: List[String], transactionsTopic: NewTopic): Unit = {
+  def produceTransactions(bootstrapServers: List[String], transactionsTopic: NewTopic): Unit = {
     val ec: ExecutionContext = ExecutionContext.global
     implicit val cs: ContextShift[IO] = IO.contextShift(ec)
     implicit val timer: Timer[IO] = IO.timer(ec)

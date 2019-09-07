@@ -7,7 +7,8 @@ object Dependencies {
       scalatest, testcontainers, scalatestContainers, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
       avro4s, circe, json4s,
       cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, spark, sparkRestClient,
-      twitter, elasticsearch, maxmindGioIp2
+      twitter, elasticsearch, maxmindGioIp2,
+      lombok // To prevent weird issue: java.lang.ClassNotFoundException: com.sun.tools.javac.code.TypeTags
     ).flatten
 
   lazy val backwards: Seq[ModuleID] = {
@@ -30,15 +31,15 @@ object Dependencies {
   )
   
   lazy val scalatestContainers: Seq[ModuleID] = Seq(
-    "com.dimafeng" %% "testcontainers-scala" % "0.29.0" % "test, it"
+    "com.dimafeng" %% "testcontainers-scala" % "0.31.0" % "test, it"
   )
 
   lazy val airframe: Seq[ModuleID] = Seq(
-    "org.wvlet.airframe" %% "airframe-log" % "19.7.6"
+    "org.wvlet.airframe" %% "airframe-log" % "19.9.2"
   )
 
   lazy val logging: Seq[ModuleID] = Seq(
-    "org.slf4j" % "log4j-over-slf4j" % "1.7.26",
+    "org.slf4j" % "log4j-over-slf4j" % "1.7.28",
     "ch.qos.logback" % "logback-classic" % "1.2.3"
   )
 
@@ -64,7 +65,7 @@ object Dependencies {
   )
 
   lazy val avro4s: Seq[ModuleID] = Seq(
-    "com.sksamuel.avro4s" %% "avro4s-core" % "2.0.4"
+    "com.sksamuel.avro4s" %% "avro4s-core" % "3.0.1"
   )
 
   lazy val circe: Seq[ModuleID] = {
@@ -131,7 +132,7 @@ object Dependencies {
   }
 
   lazy val http4s: Seq[ModuleID] = {
-    val version = "0.20.8"
+    val version = "0.20.10"
 
     Seq(
       "org.http4s" %% "http4s-core",
@@ -147,7 +148,7 @@ object Dependencies {
   }
 
   lazy val sttp: Seq[ModuleID] = {
-    val version = "1.6.4"
+    val version = "1.6.6"
 
     Seq(
       "com.softwaremill.sttp" %% "core",
@@ -156,7 +157,7 @@ object Dependencies {
   }
 
   lazy val scalaUri: Seq[ModuleID] = Seq(
-    "io.lemonlabs" %% "scala-uri" % "1.4.10"
+    "io.lemonlabs" %% "scala-uri" % "1.5.1"
   )
 
   lazy val kafka: Seq[ModuleID] = {
@@ -172,7 +173,7 @@ object Dependencies {
   }
 
   lazy val monixKafka: Seq[ModuleID] = Seq(
-    "io.monix" %% "monix-kafka-1x" % "1.0.0-RC2"
+    "io.monix" %% "monix-kafka-1x" % "1.0.0-RC4"
   )
   
   lazy val spark: Seq[ModuleID] = {
@@ -208,5 +209,9 @@ object Dependencies {
 
   lazy val maxmindGioIp2: Seq[ModuleID] = Seq(
     "com.maxmind.geoip2" % "geoip2" % "2.12.0"
+  )
+
+  lazy val lombok: Seq[ModuleID] = Seq(
+    "org.projectlombok" % "lombok" % "1.18.8" % "provided"
   )
 }
