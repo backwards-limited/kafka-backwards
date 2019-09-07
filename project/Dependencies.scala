@@ -14,10 +14,10 @@ object Dependencies {
     val version = "1.0.26"
 
     Seq(
+      "com.github.backwards-limited" % "scala-backwards" % version
+    ) ++ Seq(
       "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "tests",
       "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "it"
-    ) ++ Seq(
-      "com.github.backwards-limited" % "scala-backwards" % version
     )
   }
 
@@ -71,15 +71,15 @@ object Dependencies {
     val version = "0.11.1"
 
     Seq(
-      "io.circe" %% "circe-testing",
-      "io.circe" %% "circe-literal"
-    ).map(_ % version % "test, it") ++ Seq(
       "io.circe" %% "circe-core",
       "io.circe" %% "circe-generic",
       "io.circe" %% "circe-generic-extras",
       "io.circe" %% "circe-parser",
       "io.circe" %% "circe-refined"
-    ).map(_ % version)
+    ).map(_ % version) ++ Seq(
+      "io.circe" %% "circe-testing",
+      "io.circe" %% "circe-literal"
+    ).map(_ % version % "test, it")
   }
 
   lazy val json4s: Seq[ModuleID] = {
@@ -95,25 +95,25 @@ object Dependencies {
     val version = "1.6.1"
 
     Seq(
-      "org.typelevel" %% "cats-laws",
-      "org.typelevel" %% "cats-testkit"
-    ).map(_ % version % "test, it") ++ Seq(
       "org.typelevel" %% "cats-core"
     ).map(_ % version) ++ Seq(
       "org.typelevel" %% "cats-effect" % "1.4.0"
-    )
+    ) ++ Seq(
+      "org.typelevel" %% "cats-laws",
+      "org.typelevel" %% "cats-testkit"
+    ).map(_ % version % "test, it")
   }
   
   lazy val monocle: Seq[ModuleID] = {
     val version = "1.6.0"
 
     Seq(
-      "com.github.julien-truffaut" %% "monocle-law"
-    ).map(_ % version % "test, it") ++ Seq(
       "com.github.julien-truffaut" %% "monocle-core",
       "com.github.julien-truffaut" %% "monocle-macro",
       "com.github.julien-truffaut" %% "monocle-generic"
-    ).map(_ % version)
+    ).map(_ % version) ++ Seq(
+      "com.github.julien-truffaut" %% "monocle-law"
+    ).map(_ % version % "test, it")
   }
 
   lazy val shapeless: Seq[ModuleID] = Seq(
@@ -134,16 +134,16 @@ object Dependencies {
     val version = "0.20.8"
 
     Seq(
-      "org.http4s" %% "http4s-testing",
-      "org.http4s" %% "http4s-dsl"
-    ).map(_ % version % "test, it") ++ Seq(
       "org.http4s" %% "http4s-core",
       "org.http4s" %% "http4s-dsl",
       "org.http4s" %% "http4s-blaze-server",
       "org.http4s" %% "http4s-blaze-client",
       "org.http4s" %% "http4s-client",
       "org.http4s" %% "http4s-circe"
-    ).map(_ % version)
+    ).map(_ % version) ++ Seq(
+      "org.http4s" %% "http4s-testing",
+      "org.http4s" %% "http4s-dsl"
+    ).map(_ % version % "test, it")
   }
 
   lazy val sttp: Seq[ModuleID] = {
@@ -166,7 +166,9 @@ object Dependencies {
       "org.apache.kafka" % "kafka-clients",
       "org.apache.kafka" % "kafka-streams",
       "org.apache.kafka" %% "kafka-streams-scala"
-    ).map(_ % version)
+    ).map(_ % version) ++ Seq(
+      "org.apache.kafka" % "kafka-streams-test-utils"
+    ).map(_ % version % "test, it")
   }
 
   lazy val monixKafka: Seq[ModuleID] = Seq(
@@ -195,13 +197,13 @@ object Dependencies {
     val version = "6.7.1"
 
     Seq(
-      "com.sksamuel.elastic4s" %% "elastic4s-testkit",
-      "com.sksamuel.elastic4s" %% "elastic4s-embedded"
-    ).map(_ % version % "test, it") ++ Seq(
       "com.sksamuel.elastic4s" %% "elastic4s-core",
       "com.sksamuel.elastic4s" %% "elastic4s-http",
       "com.sksamuel.elastic4s" %% "elastic4s-http-streams"
-    ).map(_ % version)
+    ).map(_ % version) ++ Seq(
+      "com.sksamuel.elastic4s" %% "elastic4s-testkit",
+      "com.sksamuel.elastic4s" %% "elastic4s-embedded"
+    ).map(_ % version % "test, it")
   }
 
   lazy val maxmindGioIp2: Seq[ModuleID] = Seq(

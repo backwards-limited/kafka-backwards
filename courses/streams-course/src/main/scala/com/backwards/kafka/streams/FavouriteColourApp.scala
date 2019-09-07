@@ -24,7 +24,7 @@ import com.backwards.time.DurationOps._
   *   - Keep only colours red, green and blue
   * Get the running count of the favourite colours overall and output to a topic
   * Note that a user's favourite colour can change.
-  * <img src="doc-files/favourite-colour.png"/>
+  * <img src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png"/>
   *
   * So, we do the following:
   *   - Write topology

@@ -110,8 +110,8 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
 
     val transactionsAggregateTable: KTable[String, Transaction] = transactionsStream
       .groupByKey
-      .aggregate[Transaction](Transaction(name = "", amount = 0, time = LocalDateTime.now)) {
-        (user, transaction, accTransaction) => Transaction(user, accTransaction.amount + transaction.amount, transaction.time)
+      .aggregate[Transaction](genesisTransaction) { (user, transaction, accTransaction) =>
+        Transaction(user, accTransaction.amount + transaction.amount, latestDateTime(transaction.time, accTransaction.time))
       }
 
     transactionsAggregateTable.toStream.to(transactionsAggregateTopic.name())
@@ -123,4 +123,12 @@ object BankBalanceApp extends App with KafkaAdmin with LazyLogger {
     // Add shutdown hook to respond to SIGTERM and gracefully close Kafka Streams
     sys ShutdownHookThread streams.close(10 seconds)
   }
+
+  def genesisTransaction = Transaction(name = "", amount = 0, time = LocalDateTime.now)
+
+  def latestDateTime(dts: LocalDateTime*): LocalDateTime =
+    (LocalDateTime.now /: dts) {
+      case (dt, latest) if dt isAfter latest => dt
+      case (_, latest) => latest
+    }
 }
