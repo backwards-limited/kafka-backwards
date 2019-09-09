@@ -1,16 +1,9 @@
 package com.backwards.kafka.streams
 
-import wvlet.log.LazyLogger
-import com.backwards.kafka.admin.KafkaAdmin
-import java.time.LocalDateTime
-import scala.concurrent.ExecutionContext
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration._
 import scala.language.postfixOps
-import scala.util.Random
-import cats.effect.{ContextShift, IO, Timer}
 import cats.implicits._
-import fs2.Stream
-import io.circe.generic.auto._
 import monix.eval.Task
 import monix.execution.Scheduler
 import monix.kafka._
@@ -23,14 +16,10 @@ import org.apache.kafka.streams.kstream.GlobalKTable
 import org.apache.kafka.streams.scala.ImplicitConversions._
 import org.apache.kafka.streams.scala.Serdes._
 import org.apache.kafka.streams.scala.StreamsBuilder
-import org.apache.kafka.streams.scala.kstream.{KStream, KTable}
+import org.apache.kafka.streams.scala.kstream.KStream
 import org.apache.kafka.streams.{KafkaStreams, StreamsConfig}
 import com.backwards.collection.MapOps._
 import com.backwards.kafka.admin.KafkaAdmin
-import com.backwards.kafka.serde.Serde._
-import com.backwards.kafka.serde.circe.Deserializer._
-import com.backwards.kafka.serde.circe.Serializer._
-import com.backwards.kafka.serde.monix.Serializer._
 import com.backwards.time.DurationOps._
 
 /**
@@ -73,29 +62,77 @@ object JoinApp extends App with KafkaAdmin with LazyLogger {
 
     val producer = KafkaProducer[String, String](producerCfg, scheduler)
 
-
-    object TaskOps {
-      def seq[T](ts: Task[T]*) = Task sequence ts
-    }
-
-    implicit def task2Ops(task: Task.type) = TaskOps
-
-    val newUserTask = Task.seq(
+    val newUserTasks = Seq(
       Task(logger info "\nExample 1 - new user\n"),
       producer.send(usersTopic.name(), "john", "First=John,Last=Doe,Email=john.doe@gmail.com"),
       producer.send(userPurchasesTopic.name(), "john", "Apples and Bananas (1)")
     )
 
-    //val nonExistingUserTask = Task.sequence()
+    val nonExistingUserTasks = Seq(
+      Task(logger info "\nExample 2 - non existing user\n"),
+      producer.send(userPurchasesTopic.name(), "bob", "Kafka Udemy Course (2)")
+    )
 
-    for {
-      // 1 - Create a new user and send some data to Kafka
-      _ <- Task(logger info "\nExample 1 - new user\n")
-      _ <- producer.send(usersTopic.name(), "john", "First=John,Last=Doe,Email=john.doe@gmail.com")
-      _ <- producer.send(userPurchasesTopic.name(), "john", "Apples and Bananas (1)")
-    } yield ()
+    val updateUserTasks = Seq(
+      Task(logger info "\nExample 3 - update to user\n"),
+      producer.send(usersTopic.name(), "john", "First=Johnny,Last=Doe,Email=johnny.doe@gmail.com"),
+      producer.send(userPurchasesTopic.name(), "john", "Oranges (3)")
+    )
+
+    val purchaseForUserLaterTasks = Seq(
+      Task(logger info "\nExample 4 - non existing user then user\n"),
+      producer.send(userPurchasesTopic.name(), "stephane", "Computer (4)"),
+      producer.send(usersTopic.name(), "stephane", "First=Stephane,Last=Maarek,GitHub=simplesteph"),
+      producer.send(userPurchasesTopic.name(), "stephane", "Books (4)"),
+      producer.send(usersTopic.name(), "stephane", null) // Delete for cleanup
+    )
+
+    val createUserAndDeleteTasks = Seq(
+      Task(logger info "\nExample 5 - user then delete then data\n"),
+      producer.send(usersTopic.name(), "alice", "First=Alice"),
+      producer.send(usersTopic.name(), "alice", null), // The delete record
+      producer.send(userPurchasesTopic.name(), "alice", "Apache Kafka Series (5)")
+    )
+
+    val pause = Seq(Task(TimeUnit.SECONDS.sleep(10)))
+
+    val tasks = Task.sequence(newUserTasks ++ pause ++ nonExistingUserTasks ++ pause ++ updateUserTasks ++ pause ++ purchaseForUserLaterTasks ++ pause ++ createUserAndDeleteTasks ++ pause)
+
+    tasks.runAsync {
+      case Left(t) => logger.error("Issue publishing to Kafka", t)
+      case Right(rs) => logger.info(s"Successful publications to Kafka: ${rs.mkString("; ")}")
+    }
   }
 
+  /**
+    * Consumer of output topic left join
+    * <pre>
+    *   kafka-console-consumer --bootstrap-server localhost:9092 \
+    *     --from-beginning \
+    *     --topic user-purchases-enriched-left-join \
+    *     --formatter kafka.tools.DefaultMessageFormatter \
+    *     --property print.key=true \
+    *     --property print.value=true \
+    *     --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+    *     --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+    * </pre>
+    *
+    * Consumer of output topic inner join
+    * <pre>
+    *   kafka-console-consumer --bootstrap-server localhost:9092 \
+    *     --from-beginning \
+    *     --topic user-purchases-enriched-inner-join \
+    *     --formatter kafka.tools.DefaultMessageFormatter \
+    *     --property print.key=true \
+    *     --property print.value=true \
+    *     --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+    *     --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+    * </pre>
+    *
+    * @param bootstrapServers List[String]
+    * @param usersTopic NewTopic
+    * @param userPurchasesTopic NewTopic
+    */
   def consumerUserPurchases(bootstrapServers: List[String], usersTopic: NewTopic, userPurchasesTopic: NewTopic): Unit = {
     val props = Map(
       StreamsConfig.APPLICATION_ID_CONFIG -> "user-purchases",
@@ -119,7 +156,8 @@ object JoinApp extends App with KafkaAdmin with LazyLogger {
       (userPurchase, user) => s"Purchase = $userPurchase, User = [$user]"
     )
 
-    userPurchasesEnrichedInnerJoin.to("user-purchases-enriched-inner-join")
+    val userPurchasesEnrichedInnerJoinTopic: NewTopic = createTopic("user-purchases-enriched-inner-join", numberOfPartitions = 1, replicationFactor = 1)
+    userPurchasesEnrichedInnerJoin to userPurchasesEnrichedInnerJoinTopic.name()
 
     // We want to enrich that stream using a Left Join
     val userPurchasesEnrichedLeftJoin: KStream[String, String] = userPurchases.leftJoin(users)(
@@ -133,7 +171,8 @@ object JoinApp extends App with KafkaAdmin with LazyLogger {
       }
     )
 
-    userPurchasesEnrichedLeftJoin.to("user-purchases-enriched-left-join")
+    val userPurchasesEnrichedLeftJoinTopic: NewTopic = createTopic("user-purchases-enriched-left-join", numberOfPartitions = 1, replicationFactor = 1)
+    userPurchasesEnrichedLeftJoin to userPurchasesEnrichedLeftJoinTopic.name()
 
     val streams = new KafkaStreams(builder.build(), props)
     streams.cleanUp() // Just for dev (not prod)

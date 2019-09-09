@@ -12,7 +12,7 @@ object Dependencies {
     ).flatten
 
   lazy val backwards: Seq[ModuleID] = {
-    val version = "1.0.26"
+    val version = "1.0.28"
 
     Seq(
       "com.github.backwards-limited" % "scala-backwards" % version
