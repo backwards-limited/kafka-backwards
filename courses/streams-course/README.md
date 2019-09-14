@@ -13,3 +13,4 @@ Note that this module is within a multi-module project and that there is only on
 - [KStream and KTable](docs/kstream-and-ktable.md)
 - [Exactly Once](docs/exactly-once.md)
 - [Joins](docs/joins.md)
+- [Testing](docs/testing.md)

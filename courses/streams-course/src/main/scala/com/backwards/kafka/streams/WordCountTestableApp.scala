@@ -2,14 +2,14 @@ package com.backwards.kafka.streams
 
 import scala.concurrent.duration._
 import scala.language.postfixOps
-import wvlet.log.LazyLogger
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.streams.scala.ImplicitConversions._
 import org.apache.kafka.streams.scala.Serdes._
 import org.apache.kafka.streams.scala.StreamsBuilder
 import org.apache.kafka.streams.scala.kstream.{KStream, KTable}
-import org.apache.kafka.streams.{KafkaStreams, StreamsConfig}
+import org.apache.kafka.streams.{KafkaStreams, StreamsConfig, Topology}
 import com.backwards.collection.MapOps._
+import com.backwards.kafka.streams.TopologyLoggable._
 import com.backwards.time.DurationOps._
 
 /**
@@ -56,7 +56,7 @@ import com.backwards.time.DurationOps._
   *   - Either:
   *   - In Intellij, click the green run/arrow button in the margin of this app
   *   - or on the command line
-  *   - sbt "; project streams-course; runMain com.backwards.kafka.streams.WordCountApp"
+  *   - sbt "; project streams-course; runMain com.backwards.kafka.streams.WordCountTestableApp"
   * 5. Using a "kafka console producer" publish messages onto the input topic
   *   - kafka-console-producer --broker-list localhost:9092 --topic word-count-input
   *   - >Kafka kafka streams streaming
@@ -85,31 +85,35 @@ import com.backwards.time.DurationOps._
   *   - java -jar courses/streams-course/target/scala-2.12/streams-course-0.1.0-SNAPSHOT.jar
   *   - java -jar courses/streams-course/target/scala-2.12/streams-course-0.1.0-SNAPSHOT.jar
   */
-object WordCountApp extends App with LazyLogger {
+object WordCountTestableApp extends App {
+  lazy val topology: Topology = {
+    val builder = new StreamsBuilder
+
+    val wordCountStream: KStream[String, String] = builder.stream[String, String]("word-count-input")
+
+    val wordCounts: KTable[String, Long] = wordCountStream
+      .mapValues(_.toLowerCase)
+      .flatMapValues(_.split(" "))
+      .selectKey((_, word) => word)
+      .groupByKey
+      .count
+
+    wordCounts.toStream.to("word-count-output")
+
+    val topology = builder.build()
+    scribe info topology
+    topology
+  }
+
   val props = Map(
     StreamsConfig.APPLICATION_ID_CONFIG -> "word-count",
     StreamsConfig.BOOTSTRAP_SERVERS_CONFIG -> "localhost:9092",
     ConsumerConfig.AUTO_OFFSET_RESET_CONFIG -> "earliest"
   )
 
-  val builder = new StreamsBuilder
-
-  val wordCountStream: KStream[String, String] = builder.stream[String, String]("word-count-input")
-
-  val wordCounts: KTable[String, Long] = wordCountStream
-    .mapValues(_.toLowerCase)
-    .flatMapValues(_.split(" "))
-    .selectKey((_, word) => word)
-    .groupByKey
-    .count
-
-  wordCounts.toStream.to("word-count-output")
-
-  val streams: KafkaStreams = new KafkaStreams(builder.build(), props)
+  val streams: KafkaStreams = new KafkaStreams(topology, props)
   streams.cleanUp() // Just for dev (not prod)
   streams.start()
-
-  logger info streams
 
   // Add shutdown hook to respond to SIGTERM and gracefully close Kafka Streams
   sys ShutdownHookThread streams.close(10 seconds)

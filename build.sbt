@@ -58,19 +58,20 @@ def project(id: String, base: File): Project =
     .settings(inConfig(IT)(Defaults.testSettings))
     .settings(Defaults.itSettings)
     .settings(
+      ThisBuild / turbo := true,
       resolvers ++= Seq(
         Resolver.sonatypeRepo("releases"),
         Resolver.bintrayRepo("cakesolutions", "maven"),
         "jitpack" at "https://jitpack.io",
         "Confluent Platform Maven" at "http://packages.confluent.io/maven/"
       ),
-      scalaVersion := BuildProperties("scala.version"),
+      // scalaVersion := BuildProperties("scala.version"),
       sbtVersion := BuildProperties("sbt.version"),
       version := "0.1.0-SNAPSHOT",
       organization := "com.backwards",
       name := id,
       autoStartServer := false,
-      addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.10"),
+      addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.10.3"),
       addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full),
       libraryDependencies ++= dependencies,
       excludeDependencies ++= Seq("org.slf4j" % "slf4j-log4j12"),

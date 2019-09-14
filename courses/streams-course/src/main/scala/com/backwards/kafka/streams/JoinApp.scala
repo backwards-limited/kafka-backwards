@@ -96,7 +96,9 @@ object JoinApp extends App with KafkaAdmin with LazyLogger {
 
     val pause = Seq(Task(TimeUnit.SECONDS.sleep(10)))
 
-    val tasks = Task.sequence(newUserTasks ++ pause ++ nonExistingUserTasks ++ pause ++ updateUserTasks ++ pause ++ purchaseForUserLaterTasks ++ pause ++ createUserAndDeleteTasks ++ pause)
+    val tasks = Task.sequence(
+      newUserTasks ++ pause ++ nonExistingUserTasks ++ pause ++ updateUserTasks ++ pause ++ purchaseForUserLaterTasks ++ pause ++ createUserAndDeleteTasks ++ pause
+    )
 
     tasks.runAsync {
       case Left(t) => logger.error("Issue publishing to Kafka", t)
@@ -163,8 +165,8 @@ object JoinApp extends App with KafkaAdmin with LazyLogger {
     val userPurchasesEnrichedLeftJoin: KStream[String, String] = userPurchases.leftJoin(users)(
       (key, value) => key, // Map from the (key, value) of this stream to the key of the GlobalKTable
       (userPurchase, user) => {
-        // As this is a left join, userInfo can be null
-        println(s"===> User = $user")
+        // As this is a left join, user can be null
+        scribe info s"===> User = $user"
 
         if (user == null) s"Purchase = $userPurchase, User = null"
         else s"Purchase = $userPurchase, User = [$user]"

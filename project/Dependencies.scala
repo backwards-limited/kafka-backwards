@@ -4,7 +4,7 @@ object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
       backwards,
-      scalatest, testcontainers, scalatestContainers, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
+      scalatest, testcontainers, scalatestContainers, scribe, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
       avro4s, circe, json4s,
       cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, spark, sparkRestClient,
       twitter, elasticsearch, maxmindGioIp2,
@@ -27,15 +27,19 @@ object Dependencies {
   )
 
   lazy val testcontainers: Seq[ModuleID] = Seq(
-    "org.testcontainers" % "testcontainers" % "1.12.0" % "test, it"
+    "org.testcontainers" % "testcontainers" % "1.12.1" % "test, it"
   )
   
   lazy val scalatestContainers: Seq[ModuleID] = Seq(
-    "com.dimafeng" %% "testcontainers-scala" % "0.31.0" % "test, it"
+    "com.dimafeng" %% "testcontainers-scala" % "0.32.0" % "test, it"
+  )
+
+  lazy val scribe: Seq[ModuleID] = Seq(
+    "com.outr" %% "scribe" % "2.7.3"
   )
 
   lazy val airframe: Seq[ModuleID] = Seq(
-    "org.wvlet.airframe" %% "airframe-log" % "19.9.2"
+    "org.wvlet.airframe" %% "airframe-log" % "19.9.6"
   )
 
   lazy val logging: Seq[ModuleID] = Seq(
@@ -48,7 +52,7 @@ object Dependencies {
   )
 
   lazy val pureConfig: Seq[ModuleID] = {
-    val version = "0.11.1"
+    val version = "0.12.0"
 
     Seq(
       "com.github.pureconfig" %% "pureconfig",
@@ -69,7 +73,7 @@ object Dependencies {
   )
 
   lazy val circe: Seq[ModuleID] = {
-    val version = "0.11.1"
+    val version = "0.12.1"
 
     Seq(
       "io.circe" %% "circe-core",
@@ -93,7 +97,7 @@ object Dependencies {
   }
 
   lazy val cats: Seq[ModuleID] = {
-    val version = "1.6.1"
+    val version = "2.0.0"
 
     Seq(
       "org.typelevel" %% "cats-core"
@@ -106,7 +110,7 @@ object Dependencies {
   }
   
   lazy val monocle: Seq[ModuleID] = {
-    val version = "1.6.0"
+    val version = "2.0.0"
 
     Seq(
       "com.github.julien-truffaut" %% "monocle-core",
@@ -122,7 +126,7 @@ object Dependencies {
   )
   
   lazy val fs2: Seq[ModuleID] = {
-    val version = "1.0.5"
+    val version = "2.0.0"
     
     Seq(
       "co.fs2" %% "fs2-core",
@@ -212,6 +216,6 @@ object Dependencies {
   )
 
   lazy val lombok: Seq[ModuleID] = Seq(
-    "org.projectlombok" % "lombok" % "1.18.8" % "provided"
+    "org.projectlombok" % "lombok" % "1.18.10" % "provided"
   )
 }

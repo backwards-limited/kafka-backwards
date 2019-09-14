@@ -12,3 +12,13 @@ services:
       ADV_HOST: 127.0.0.1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
       EULA: https://dl.lenses.stream/d/?id=e4204acd-e620-4195-b673-f467f139ee1c
+
+#  cadvisor:
+#    image: google/cadvisor
+#    ports:
+#      - 8080:8080
+#    volumes:
+#      - /:/rootfs:ro
+#      - /var/run:/var/run:rw
+#      - /sys:/sys:ro
+#      - /var/lib/docker/:/var/lib/docker:ro
