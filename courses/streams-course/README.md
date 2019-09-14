@@ -1,6 +1,6 @@
 # Streams Course
 
-Using Backwards Kafka functionality and following [Kafka Streams Course](https://www.udemy.com/kkafka-streams).
+Using Backwards Kafka functionality and following [Kafka Streams Course](https://www.udemy.com/kafka-streams).
 
 Note that this module is within a multi-module project and that there is only one top level build (build.sbt). And to follow along, make sure you have the correct setup by following the root [setup](../../docs/)
 
