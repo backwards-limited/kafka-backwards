@@ -14,6 +14,8 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
 
 - [Kafka Streams](https://www.udemy.com/kafka-streams)
 
+- [Kafka Cluster Setup and Administration](https://www.udemy.com/kafka-cluster-setup)
+
 ## Table of Contents
 
 - [Setup](docs/setup.md)
@@ -37,3 +39,5 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
   - [Building Streaming Applications using Kafka Scala](courses/streaming-kafka-course/README.md)
   
   - [Kafka Streams](courses/streams-course/README.md)
+  
+  - [Kafka Cluster Setup and Administration](courses/kafka-cluster-setup-and-admin-course)

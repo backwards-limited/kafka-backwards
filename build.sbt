@@ -5,7 +5,7 @@ import sbt._
 lazy val IT = config("it") extend Test
 
 lazy val root = project("kafka-backwards", file("."))
-  .aggregate(kafka, `beginners-course`, `connect-course`, `streams-course`, `streaming-course`)
+  .aggregate(kafka, `beginners-course`, `connect-course`, `streams-course`, `kafka-cluster-setup-and-admin-course`, `streaming-course`)
   .settings(description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses")
   .settings(docker := (docker in `streams-course`).value)
 
@@ -42,6 +42,11 @@ lazy val `streams-course` = project("streams-course", file("courses/streams-cour
       tag = Some("latest"))
     )
   )
+
+lazy val `kafka-cluster-setup-and-admin-course` = project("kafka-cluster-setup-and-admin-course", file("courses/kafka-cluster-setup-and-admin-course"))
+  .dependsOn(kafka % "compile->compile;test->test;it->it")
+  .settings(description := "Kafka Cluster Setup and Administration Course - Apache Kafka Series")
+  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
 
 lazy val `streaming-course` = project("streaming-kafka-course", file("courses/streaming-kafka-course"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
