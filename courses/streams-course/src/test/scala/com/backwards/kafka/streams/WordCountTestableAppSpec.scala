@@ -67,5 +67,28 @@ class WordCountTestableAppSpec extends AnyWordSpec with MustMatchers {
 
       topologyTestDriver.readOutput("word-count-output", new StringDeserializer, new LongDeserializer) mustBe null
     }
+
+    "have valid topology again" in withTopologyTestDriver { topologyTestDriver =>
+      val consumerRecordFactory = new ConsumerRecordFactory[String, String](new StringSerializer, new StringSerializer)
+
+      topologyTestDriver.pipeInput(consumerRecordFactory.create("word-count-input", null, "kafka Kafka KAFKA"))
+
+      OutputVerifier.compareKeyValue(
+        topologyTestDriver.readOutput("word-count-output", new StringDeserializer, new LongDeserializer),
+        "kafka", Long.box(1)
+      )
+
+      OutputVerifier.compareKeyValue(
+        topologyTestDriver.readOutput("word-count-output", new StringDeserializer, new LongDeserializer),
+        "kafka", Long.box(2)
+      )
+
+      OutputVerifier.compareKeyValue(
+        topologyTestDriver.readOutput("word-count-output", new StringDeserializer, new LongDeserializer),
+        "kafka", Long.box(3)
+      )
+
+      topologyTestDriver.readOutput("word-count-output", new StringDeserializer, new LongDeserializer) mustBe null
+    }
   }
 }
