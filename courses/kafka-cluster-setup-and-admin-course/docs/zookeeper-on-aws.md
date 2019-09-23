@@ -12,3 +12,4 @@ With an AWS account, let's go through the following steps:
 
 - [Setup EC2 instance](zookeeper-on-aws-ec2-instance.md)
 - [SSH onto our servers](zookeeper-on-aws-ssh.md)
+- [Single Zookeeper machine setup](single-zookeeper-machine-setup.md)
