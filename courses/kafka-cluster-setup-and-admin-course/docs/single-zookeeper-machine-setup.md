@@ -250,3 +250,94 @@ ubuntu@ip-172-31-9-1:~/kafka$ cat logs/zookeeper.out
 ...
 ```
 
+## Using Zookeeper CLI
+
+```bash
+ubuntu@ip-172-31-9-1:~/kafka$ sudo service zookeeper start
+
+ubuntu@ip-172-31-9-1:~/kafka$ nc -vz localhost 2181
+```
+
+```bash
+ubuntu@ip-172-31-9-1:~/kafka$ bin/zookeeper-shell.sh localhost:2181
+```
+
+Inside the shell we can type **help**:
+
+```bash
+help
+ZooKeeper -server host:port cmd args
+	stat path [watch]
+	set path data [version]
+	ls path [watch]
+	delquota [-n|-b] path
+	ls2 path [watch]
+	setAcl path acl
+	setquota -n|-b val path
+	history
+	redo cmdno
+	printwatches on|off
+	delete path [version]
+	sync path
+	listquota path
+	rmr path
+	get path [watch]
+	create [-s] [-e] path data acl
+	addauth scheme auth
+	quit
+	getAcl path
+	close
+	connect host:port
+```
+
+Continue inside the shell:
+
+```bash
+create /my-node "foo"
+Created /my-node
+
+ls /
+[zookeeper, my-node]
+
+get /my-node
+foo
+cZxid = 0x4
+ctime = Tue Sep 24 21:35:37 UTC 2019
+mZxid = 0x4
+mtime = Tue Sep 24 21:35:37 UTC 2019
+pZxid = 0x4
+cversion = 0
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 3
+numChildren = 0
+
+create /my-node/deeper-node "bar"
+Created /my-node/deeper-node
+
+ls /
+[zookeeper, my-node]
+ls /my-node
+[deeper-node]
+
+get /my-node/deeper-node
+bar
+cZxid = 0x5
+...
+
+rmr /my-node
+
+# Create a watcher
+create /node-to-watch ""
+get /node-to-watch true
+set /node-to-watch "has-changed"
+WATCHER::
+
+WatchedEvent state:SyncConnected type:NodeDataChanged path:/node-to-watch
+cZxid = 0x8
+...
+
+rmr /node-to-watch
+```
+
