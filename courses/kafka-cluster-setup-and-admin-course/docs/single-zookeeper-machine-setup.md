@@ -199,6 +199,8 @@ esac
 exit 0
 ```
 
+Ctrl-O and Ctrl-X.
+
 ```bash
 ubuntu@ip-172-31-9-1:~/kafka$ sudo chmod +x /etc/init.d/zookeeper
 
