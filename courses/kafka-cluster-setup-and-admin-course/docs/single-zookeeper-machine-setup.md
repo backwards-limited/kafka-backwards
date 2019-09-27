@@ -63,6 +63,13 @@ ubuntu@ip-172-31-9-1:~$ echo "172.31.9.1 kafka1
 172.31.35.20 zookeeper3" | sudo tee --append /etc/hosts
 ```
 
+So our Zookeeper instances equate to:
+
+| zookeeper1 | zookeeper2    | zookeeper3   |
+| ---------- | ------------- | ------------ |
+| Server 1   | Server 2      | Server 3     |
+| 172.31.9.1 | 172.31.19.230 | 172.31.35.20 |
+
 ```bash
 ubuntu@ip-172-31-9-1:~$ ping kafka1
 PING kafka1 (172.31.9.1) 56(84) bytes of data.

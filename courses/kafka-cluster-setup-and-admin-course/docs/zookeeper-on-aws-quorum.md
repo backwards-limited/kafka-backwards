@@ -227,6 +227,4 @@ And on some other instance run:
 ```bash
 get /my-node
 some data
-...
 ```
-

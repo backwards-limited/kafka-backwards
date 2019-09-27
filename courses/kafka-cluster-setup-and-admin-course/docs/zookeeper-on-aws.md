@@ -14,3 +14,4 @@ With an AWS account, let's go through the following steps:
 - [SSH onto our servers](zookeeper-on-aws-ssh.md)
 - [Single Zookeeper machine setup](single-zookeeper-machine-setup.md)
 - [Zookeeper Quorum Setup](zookeeper-on-aws-quorum.md)
+- [Zookeeper 4 letter words](zookeeper-4-letter-words.md)
