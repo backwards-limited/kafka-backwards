@@ -6,11 +6,12 @@ import scala.concurrent.duration._
 import scala.language.postfixOps
 import cats.data.NonEmptyList
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import com.backwards.twitter.simple.TwitterBroker
 import com.danielasfregola.twitter4s.entities.Tweet
 
-class TwitterBrokerSpec extends WordSpec with MustMatchers with ScalaFutures {
+class TwitterBrokerSpec extends AnyWordSpec with Matchers with ScalaFutures {
   override implicit def patienceConfig: PatienceConfig = PatienceConfig(10 seconds, 2 seconds)
 
   "Twitter broker" should {

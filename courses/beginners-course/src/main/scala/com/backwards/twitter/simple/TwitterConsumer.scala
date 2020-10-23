@@ -9,11 +9,10 @@ import org.apache.kafka.clients.consumer.ConsumerConfig._
 import com.backwards.kafka
 import com.backwards.kafka.Consumer
 import com.backwards.kafka.serde.Serdes
-import com.backwards.logging.Logging
 import com.backwards.twitter.TweetSerde.TweetDeserializer
 import com.danielasfregola.twitter4s.entities.Tweet
 
-class TwitterConsumer[F[_]: Applicative](topic: String) extends Serdes with Logging {
+class TwitterConsumer[F[_]: Applicative](topic: String) extends Serdes {
   implicit val tweetDeserializer: TweetDeserializer = new TweetDeserializer
 
   val consumer: Consumer[F, String, Tweet] =
@@ -34,10 +33,10 @@ class TwitterConsumer[F[_]: Applicative](topic: String) extends Serdes with Logg
   def doConsume(run: F[Seq[(String, Tweet)]] => Seq[(String, Tweet)])(callback: Seq[(String, Tweet)] => Unit): Unit = {
     val tweeted: Seq[(String, Tweet)] => Unit = tweets =>
       if (tweets.isEmpty) {
-        info("No available tweets at this moment in time.....")
+        scribe info "No available tweets at this moment in time....."
       } else {
         val numberOfTweets = if (tweets.size == 1) "1 Tweet" else s"${tweets.size} Tweets"
-        info(s"Consumed $numberOfTweets: ${tweets.map(_._2.id).mkString(", ")}")
+        scribe info s"Consumed $numberOfTweets: ${tweets.map(_._2.id).mkString(", ")}"
 
         callback(tweets.map {
           // We don't want to use the "key" set by Kafka consumer, but to use the Tweet ID as the key
@@ -48,7 +47,7 @@ class TwitterConsumer[F[_]: Applicative](topic: String) extends Serdes with Logg
     @tailrec
     def go(): Unit = {
       tweeted(run(consume))
-      info("Commiting offset synchronously manually")
+      scribe info "Commiting offset synchronously manually"
       consumer.underlying.commitSync()
       TimeUnit.SECONDS.sleep(10)
       go()

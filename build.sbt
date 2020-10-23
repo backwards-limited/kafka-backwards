@@ -2,12 +2,9 @@ import BuildProperties._
 import Dependencies._
 import sbt._
 
-lazy val IT = config("it") extend Test
-
 lazy val root = project("kafka-backwards", file("."))
-  .aggregate(kafka, `beginners-course`, `connect-course`, `streams-course`, `kafka-cluster-setup-and-admin-course`, `streaming-course`)
+  .aggregate(kafka, `beginners-course`, `master-realtime-stream-processing`)
   .settings(description := "Backwards Kafka module aggregation - Kafka functionality includes example usage in various courses")
-  .settings(docker := (docker in `streams-course`).value)
 
 lazy val kafka = project("kafka", file("kafka"))
   .settings(description := "Backwards Kafka functionality includes example usage in various courses")
@@ -18,42 +15,10 @@ lazy val `beginners-course` = project("beginners-course", file("courses/beginner
   .settings(description := "Beginners Course - Apache Kafka Series")
   .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
 
-lazy val `connect-course` = project("connect-course", file("courses/connect-course"))
-  .dependsOn(kafka % "compile->compile;test->test;it->it")
-  .settings(description := "Connect Course - Apache Kafka Series")
-  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
+lazy val `master-realtime-stream-processing` = project("master-realtime-stream-processing", file("courses/master-realtime-stream-processing"))
+  .settings(description := "Realtime Stream Processing Master Class Course")
 
-lazy val `streams-course` = project("streams-course", file("courses/streams-course"))
-  .dependsOn(kafka % "compile->compile;test->test;it->it")
-  .settings(description := "Streams Course - Apache Kafka Series")
-  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
-  .settings(
-    dockerfile in docker := {
-      //val appDir: File = classpath.files
-      val targetDir = "/app"
-
-      new Dockerfile {
-        from("busybox")
-        //copy(classpath, targetDir)
-      }
-    },
-    imageNames in docker := Seq(ImageName(
-      repository = name.value.toLowerCase,
-      tag = Some("latest"))
-    )
-  )
-
-lazy val `kafka-cluster-setup-and-admin-course` = project("kafka-cluster-setup-and-admin-course", file("courses/kafka-cluster-setup-and-admin-course"))
-  .dependsOn(kafka % "compile->compile;test->test;it->it")
-  .settings(description := "Kafka Cluster Setup and Administration Course - Apache Kafka Series")
-  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
-
-lazy val `streaming-course` = project("streaming-kafka-course", file("courses/streaming-kafka-course"))
-  .dependsOn(kafka % "compile->compile;test->test;it->it")
-  .settings(description := "Kafka Streaming Course")
-  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
-  .settings(mainClass in assembly := Some("com.backwards.kafka.streams.WordCountApp")
-)
+lazy val IT = config("it") extend Test
 
 // TODO - Somehow reuse from module "scala-backwards"
 def project(id: String, base: File): Project =
@@ -64,25 +29,19 @@ def project(id: String, base: File): Project =
     .settings(Defaults.itSettings)
     .settings(
       ThisBuild / turbo := true,
-      resolvers ++= Seq(
-        Resolver.sonatypeRepo("releases"),
-        Resolver.bintrayRepo("cakesolutions", "maven"),
-        "jitpack" at "https://jitpack.io",
-        "Confluent Platform Maven" at "http://packages.confluent.io/maven/"
-      ),
-      // scalaVersion := BuildProperties("scala.version"),
+      scalaVersion := BuildProperties("scala.version"),
       sbtVersion := BuildProperties("sbt.version"),
       version := "0.1.0-SNAPSHOT",
       organization := "com.backwards",
       name := id,
-      autoStartServer := false,
-      addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.10.3"),
-      addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full),
+      resolvers += "jitpack" at "https://jitpack.io",
+      addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full),
+      addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
       libraryDependencies ++= dependencies,
       excludeDependencies ++= Seq("org.slf4j" % "slf4j-log4j12"),
       fork := true,
       javaOptions in IT ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
-      scalacOptions ++= Seq("-Ypartial-unification"),
+      scalacOptions ++= Seq(),
       assemblyJarName in assembly := s"$id-${version.value}.jar",
       test in assembly := {},
       assemblyMergeStrategy in assembly := {

@@ -1,6 +1,6 @@
 package com.backwards.twitter
 
-import java.util.Date
+import java.time.Instant
 import scala.collection.JavaConverters._
 import scala.concurrent.duration._
 import scala.language.postfixOps
@@ -11,7 +11,8 @@ import io.lemonlabs.uri.Uri
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.apache.kafka.common.errors.TimeoutException
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import com.backwards.config.BootstrapConfig
 import com.backwards.docker.DockerCompose.ServiceName
 import com.backwards.docker.{DockerCompose, DockerComposeFixture}
@@ -20,7 +21,7 @@ import com.backwards.transform.Transform
 import com.backwards.twitter.simple.TwitterProducer
 import com.danielasfregola.twitter4s.entities.Tweet
 
-class TwitterProducerSpec extends WordSpec with MustMatchers with ScalaFutures with Transform with DockerComposeFixture {
+class TwitterProducerSpec extends AnyWordSpec with Matchers with ScalaFutures with Transform with DockerComposeFixture {
   override implicit def patienceConfig: PatienceConfig = PatienceConfig(10 seconds, 2 seconds)
 
   val dockerCompose: DockerCompose =
@@ -31,7 +32,7 @@ class TwitterProducerSpec extends WordSpec with MustMatchers with ScalaFutures w
   implicit lazy val config: KafkaConfig = KafkaConfig(BootstrapConfig(Seq(Uri.parse(s"http://localhost:$kafkaPort"))))
 
   val topic = "topic"
-  val tweet = Tweet(created_at = new Date, id = 6, id_str = "blah", source = "blahblah", text = "something")
+  val tweet: Tweet = Tweet(created_at = Instant.now, id = 6, id_str = "blah", source = "blahblah", text = "something")
 
   "Twitter producer" should {
     "be correctly configured" in {

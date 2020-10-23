@@ -3,56 +3,31 @@ import sbt._
 object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
-      backwards,
-      scalatest, testcontainers, scalatestContainers, scribe, airframe, logging, pprint, pureConfig, betterFiles, apacheCommons,
+      scalatest, scalatestContainers, scribe, pprint, pureConfig, log4Cats, logback,
+      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, betterFiles,
+      twitter, elasticsearch, apacheCommons,
       avro4s, circe, json4s,
-      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, spark, sparkRestClient,
-      twitter, elasticsearch, maxmindGioIp2,
-      lombok // To prevent weird issue: java.lang.ClassNotFoundException: com.sun.tools.javac.code.TypeTags
+      scalaBackwards
     ).flatten
 
-  lazy val backwards: Seq[ModuleID] = {
-    val version = "1.0.28"
-
-    Seq(
-      "com.github.backwards-limited" % "scala-backwards" % version
-    ) ++ Seq(
-      "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "tests",
-      "com.github.backwards-limited" % "scala-backwards" % version % "test, it" classifier "it"
-    )
-  }
-
   lazy val scalatest: Seq[ModuleID] = Seq(
-    "org.scalatest" %% "scalatest" % "3.0.8" % "test, it"
-  )
-
-  lazy val testcontainers: Seq[ModuleID] = Seq(
-    "org.testcontainers" % "testcontainers" % "1.12.1" % "test, it"
+    "org.scalatest" %% "scalatest" % "3.2.2" % "test, it"
   )
   
   lazy val scalatestContainers: Seq[ModuleID] = Seq(
-    "com.dimafeng" %% "testcontainers-scala" % "0.32.0" % "test, it"
+    "com.dimafeng" %% "testcontainers-scala" % "0.38.4" % "test, it"
   )
 
   lazy val scribe: Seq[ModuleID] = Seq(
-    "com.outr" %% "scribe" % "2.7.3"
-  )
-
-  lazy val airframe: Seq[ModuleID] = Seq(
-    "org.wvlet.airframe" %% "airframe-log" % "19.9.6"
-  )
-
-  lazy val logging: Seq[ModuleID] = Seq(
-    "org.slf4j" % "log4j-over-slf4j" % "1.7.28",
-    "ch.qos.logback" % "logback-classic" % "1.2.3"
+    "com.outr" %% "scribe" % "2.8.1"
   )
 
   lazy val pprint: Seq[ModuleID] = Seq(
-    "com.lihaoyi" %% "pprint" % "0.5.5" % "test, it"
+    "com.lihaoyi" %% "pprint" % "0.6.0" % "test, it"
   )
 
   lazy val pureConfig: Seq[ModuleID] = {
-    val version = "0.12.0"
+    val version = "0.14.0"
 
     Seq(
       "com.github.pureconfig" %% "pureconfig",
@@ -61,34 +36,46 @@ object Dependencies {
   }
 
   lazy val betterFiles: Seq[ModuleID] = Seq(
-    "com.github.pathikrit" %% "better-files" % "3.8.0"
+    "com.github.pathikrit" %% "better-files" % "3.9.1"
   )
 
+  lazy val twitter: Seq[ModuleID] = Seq(
+    "com.danielasfregola" %% "twitter4s" % "7.0",
+    "com.twitter" % "hbc-core" % "2.2.0"
+  )
+
+  lazy val elasticsearch: Seq[ModuleID] = {
+    val group = "com.sksamuel.elastic4s"
+    val version = "6.7.8"
+
+    Seq(
+      "elastic4s-core", "elastic4s-http", "elastic4s-http-streams"
+    ).map(group %% _ % version) ++ Seq(
+      "elastic4s-testkit", "elastic4s-embedded"
+    ).map(group %% _ % version % "test, it")
+  }
+
   lazy val apacheCommons: Seq[ModuleID] = Seq(
-    "org.apache.commons" % "commons-lang3" % "3.9"
+    "org.apache.commons" % "commons-lang3" % "3.11"
   )
 
   lazy val avro4s: Seq[ModuleID] = Seq(
-    "com.sksamuel.avro4s" %% "avro4s-core" % "3.0.1"
+    "com.sksamuel.avro4s" %% "avro4s-core" % "4.0.0"
   )
 
   lazy val circe: Seq[ModuleID] = {
-    val version = "0.12.1"
+    val group = "io.circe"
+    val version = "0.13.0"
 
     Seq(
-      "io.circe" %% "circe-core",
-      "io.circe" %% "circe-generic",
-      "io.circe" %% "circe-generic-extras",
-      "io.circe" %% "circe-parser",
-      "io.circe" %% "circe-refined"
-    ).map(_ % version) ++ Seq(
-      "io.circe" %% "circe-testing",
-      "io.circe" %% "circe-literal"
-    ).map(_ % version % "test, it")
+      "circe-core", "circe-generic", "circe-generic-extras", "circe-parser", "circe-refined"
+    ).map(group %% _ % version) ++ Seq(
+      "circe-testing", "circe-literal"
+    ).map(group %% _ % version % "test, it")
   }
 
   lazy val json4s: Seq[ModuleID] = {
-    val version = "3.6.7"
+    val version = "3.6.10"
       
     Seq(
       "org.json4s" %% "json4s-jackson",
@@ -96,29 +83,39 @@ object Dependencies {
     ).map(_ % version)
   }
 
-  lazy val cats: Seq[ModuleID] = {
-    val version = "2.0.0"
+  lazy val log4Cats: Seq[ModuleID] = {
+    val group = "io.chrisdavenport"
+    val version = "1.1.1"
 
     Seq(
-      "org.typelevel" %% "cats-core"
-    ).map(_ % version) ++ Seq(
-      "org.typelevel" %% "cats-effect" % "1.4.0"
-    ) ++ Seq(
-      "org.typelevel" %% "cats-laws",
-      "org.typelevel" %% "cats-testkit"
-    ).map(_ % version % "test, it")
+      "log4cats-core", "log4cats-slf4j"
+    ).map(group %% _ % version)
+  }
+
+  lazy val logback: Seq[ModuleID] = Seq(
+    "ch.qos.logback" % "logback-classic" % "1.2.3"
+  )
+
+  lazy val cats: Seq[ModuleID] = {
+    val group = "org.typelevel"
+    val version = "2.2.0"
+
+    Seq(
+      "cats-core", "cats-effect"
+    ).map(group %% _ % version) ++ Seq(
+      "cats-laws", "cats-testkit"
+    ).map(group %% _ % version % "test, it")
   }
   
   lazy val monocle: Seq[ModuleID] = {
-    val version = "2.0.0"
+    val group = "com.github.julien-truffaut"
+    val version = "2.1.0"
 
     Seq(
-      "com.github.julien-truffaut" %% "monocle-core",
-      "com.github.julien-truffaut" %% "monocle-macro",
-      "com.github.julien-truffaut" %% "monocle-generic"
-    ).map(_ % version) ++ Seq(
-      "com.github.julien-truffaut" %% "monocle-law"
-    ).map(_ % version % "test, it")
+      "monocle-core", "monocle-macro", "monocle-generic"
+    ).map(group %% _ % version) ++ Seq(
+      "monocle-law"
+    ).map(group %% _ % version % "test, it")
   }
 
   lazy val shapeless: Seq[ModuleID] = Seq(
@@ -126,33 +123,27 @@ object Dependencies {
   )
   
   lazy val fs2: Seq[ModuleID] = {
-    val version = "2.0.0"
+    val group = "co.fs2"
+    val version = "2.4.4"
     
     Seq(
-      "co.fs2" %% "fs2-core",
-      "co.fs2" %% "fs2-io",
-      "co.fs2" %% "fs2-reactive-streams"
-    ).map(_ % version)
+      "fs2-core", "fs2-io", "fs2-reactive-streams"
+    ).map(group %% _ % version)
   }
 
   lazy val http4s: Seq[ModuleID] = {
-    val version = "0.20.10"
+    val group = "org.http4s"
+    val version = "0.21.7"
 
     Seq(
-      "org.http4s" %% "http4s-core",
-      "org.http4s" %% "http4s-dsl",
-      "org.http4s" %% "http4s-blaze-server",
-      "org.http4s" %% "http4s-blaze-client",
-      "org.http4s" %% "http4s-client",
-      "org.http4s" %% "http4s-circe"
-    ).map(_ % version) ++ Seq(
-      "org.http4s" %% "http4s-testing",
-      "org.http4s" %% "http4s-dsl"
-    ).map(_ % version % "test, it")
+      "http4s-core", "http4s-dsl", "http4s-blaze-server", "http4s-blaze-client", "http4s-client", "http4s-circe"
+    ).map(group %% _ % version) ++ Seq(
+      "http4s-testing", "http4s-dsl"
+    ).map(group %% _ % version % "test, it")
   }
 
   lazy val sttp: Seq[ModuleID] = {
-    val version = "1.6.6"
+    val version = "1.7.2"
 
     Seq(
       "com.softwaremill.sttp" %% "core",
@@ -161,11 +152,11 @@ object Dependencies {
   }
 
   lazy val scalaUri: Seq[ModuleID] = Seq(
-    "io.lemonlabs" %% "scala-uri" % "1.5.1"
+    "io.lemonlabs" %% "scala-uri" % "2.3.1"
   )
 
   lazy val kafka: Seq[ModuleID] = {
-    val version = "2.3.0"
+    val version = "2.6.0"
     
     Seq(
       "org.apache.kafka" % "kafka-clients",
@@ -177,45 +168,18 @@ object Dependencies {
   }
 
   lazy val monixKafka: Seq[ModuleID] = Seq(
-    "io.monix" %% "monix-kafka-1x" % "1.0.0-RC4"
-  )
-  
-  lazy val spark: Seq[ModuleID] = {
-    val version = "2.4.2"
-    
-    Seq(
-      "org.apache.spark" %% "spark-core",
-      "org.apache.spark" %% "spark-streaming"
-    ).map(_ % version)
-  }
-  
-  lazy val sparkRestClient: Seq[ModuleID] = Seq(
-    "com.github.ywilkof" % "spark-jobs-rest-client" % "1.3.9"
+    "io.monix" %% "monix-kafka-1x" % "1.0.0-RC6"
   )
 
-  lazy val twitter: Seq[ModuleID] = Seq(
-    "com.danielasfregola" %% "twitter4s" % "5.5",
-    "com.twitter" % "hbc-core" % "2.2.0"
-  )
-
-  lazy val elasticsearch: Seq[ModuleID] = {
-    val version = "6.7.1"
+  lazy val scalaBackwards: Seq[ModuleID] = {
+    val group = "com.github.backwards-limited"
+    val version = "1.0.29"
 
     Seq(
-      "com.sksamuel.elastic4s" %% "elastic4s-core",
-      "com.sksamuel.elastic4s" %% "elastic4s-http",
-      "com.sksamuel.elastic4s" %% "elastic4s-http-streams"
-    ).map(_ % version) ++ Seq(
-      "com.sksamuel.elastic4s" %% "elastic4s-testkit",
-      "com.sksamuel.elastic4s" %% "elastic4s-embedded"
-    ).map(_ % version % "test, it")
+      group % "scala-backwards" % version
+    ) ++ Seq(
+      group % "scala-backwards" % version % "test, it" classifier "tests",
+      group % "scala-backwards" % version % "test, it" classifier "it"
+    )
   }
-
-  lazy val maxmindGioIp2: Seq[ModuleID] = Seq(
-    "com.maxmind.geoip2" % "geoip2" % "2.12.0"
-  )
-
-  lazy val lombok: Seq[ModuleID] = Seq(
-    "org.projectlombok" % "lombok" % "1.18.10" % "provided"
-  )
 }

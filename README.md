@@ -16,6 +16,8 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
 
 - [Kafka Cluster Setup and Administration](https://www.udemy.com/kafka-cluster-setup)
 
+- [Apache Kafka Realtime Stream Processing Master Class](https://learning.oreilly.com/videos/apache-kafka/9781800209343/)
+
 ## Table of Contents
 
 - [Setup](docs/setup.md)
@@ -41,3 +43,5 @@ Example usage included while covering "beginner" to "advanced" Kafka courses inc
   - [Kafka Streams](courses/streams-course/README.md)
   
   - [Kafka Cluster Setup and Administration](courses/kafka-cluster-setup-and-admin-course)
+  
+  - [Apache Kafka Realtime Stream Processing Master Class](courses/master-realtime-stream-processing/README.md)

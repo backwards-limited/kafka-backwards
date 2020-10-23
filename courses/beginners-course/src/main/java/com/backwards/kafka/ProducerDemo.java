@@ -2,20 +2,19 @@ package com.backwards.kafka;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import scala.collection.Seq;
+import scala.collection.immutable.Seq;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.backwards.config.BootstrapConfig;
-import com.backwards.kafka.KafkaConfig;
 import io.lemonlabs.uri.Uri;
 import io.lemonlabs.uri.Uri$;
 import static java.util.Collections.singletonList;
 import static org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG;
 import static org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG;
-import static scala.collection.JavaConverters.asScalaBuffer;
+import static scala.jdk.CollectionConverters.ListHasAsScala;
 
 public class ProducerDemo {
     private static final Logger logger = LoggerFactory.getLogger(ProducerDemo.class);
@@ -27,9 +26,9 @@ public class ProducerDemo {
     }
 
     private static KafkaConfig config() throws URISyntaxException {
-        Seq<Uri> bootStrapServers = asScalaBuffer(singletonList(Uri$.MODULE$.apply(new URI("http://127.0.0.1:9092")))).toSeq();
+        Seq<Uri> bootstrapServers = ListHasAsScala(singletonList(Uri$.MODULE$.apply(new URI("http://127.0.0.1:9092")))).asScala().toSeq();
 
-        return KafkaConfig.apply(new BootstrapConfig(bootStrapServers))
+        return KafkaConfig.apply(new BootstrapConfig(bootstrapServers))
                 .add(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName())
                 .add(VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
     }

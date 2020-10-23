@@ -4,7 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
-import scala.collection.Seq;
+import scala.collection.immutable.Seq;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -13,12 +13,11 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.backwards.config.BootstrapConfig;
-import com.backwards.kafka.KafkaConfig;
 import io.lemonlabs.uri.Uri;
 import io.lemonlabs.uri.Uri$;
 import static java.util.Collections.singletonList;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
-import static scala.collection.JavaConverters.asScalaBuffer;
+import static scala.jdk.CollectionConverters.ListHasAsScala;
 
 public class ConsumerDemo {
     private static final Logger logger = LoggerFactory.getLogger(ConsumerDemo.class);
@@ -42,9 +41,9 @@ public class ConsumerDemo {
     }
 
     private static KafkaConfig config() throws URISyntaxException {
-        Seq<Uri> bootStrapServers = asScalaBuffer(singletonList(Uri$.MODULE$.apply(new URI("http://127.0.0.1:9092")))).toSeq();
+        Seq<Uri> bootstrapServers = ListHasAsScala(singletonList(Uri$.MODULE$.apply(new URI("http://127.0.0.1:9092")))).asScala().toSeq();
 
-        return KafkaConfig.apply(new BootstrapConfig(bootStrapServers))
+        return KafkaConfig.apply(new BootstrapConfig(bootstrapServers))
                 .add(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
                 .add(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
                 .add(GROUP_ID_CONFIG, "my-sixth-application")

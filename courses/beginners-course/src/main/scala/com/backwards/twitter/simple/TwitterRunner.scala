@@ -41,5 +41,5 @@ object TwitterRunner extends AppBackwards with Json {
 
   twitterConsumer.doConsume(_.unsafeRunSync)(tweeted)
 
-  info("... and I'm spent!")
+  scribe info "... and I'm spent!"
 }

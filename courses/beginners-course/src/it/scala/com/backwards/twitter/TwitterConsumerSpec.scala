@@ -1,6 +1,6 @@
 package com.backwards.twitter
 
-import java.util.Date
+import java.time.Instant
 import java.{lang, util}
 import scala.collection.JavaConverters._
 import scala.concurrent.duration._
@@ -12,7 +12,8 @@ import io.lemonlabs.uri.Uri
 import org.apache.kafka.clients.consumer.{ConsumerRecord, MockConsumer, OffsetResetStrategy}
 import org.apache.kafka.common.TopicPartition
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import com.backwards.config.BootstrapConfig
 import com.backwards.docker.DockerCompose.ServiceName
 import com.backwards.docker.{DockerCompose, DockerComposeFixture}
@@ -21,7 +22,7 @@ import com.backwards.transform.Transform
 import com.backwards.twitter.simple.TwitterConsumer
 import com.danielasfregola.twitter4s.entities.Tweet
 
-class TwitterConsumerSpec extends WordSpec with MustMatchers with ScalaFutures with Transform with DockerComposeFixture {
+class TwitterConsumerSpec extends AnyWordSpec with Matchers with ScalaFutures with Transform with DockerComposeFixture {
   override implicit def patienceConfig: PatienceConfig = PatienceConfig(10 seconds, 2 seconds)
 
   val dockerCompose: DockerCompose =
@@ -33,7 +34,7 @@ class TwitterConsumerSpec extends WordSpec with MustMatchers with ScalaFutures w
 
   trait Context {
     val topic = "topic"
-    val tweet = Tweet(created_at = new Date, id = 6, id_str = "blah", source = "blahblah", text = "something")
+    val tweet: Tweet = Tweet(created_at = Instant.now, id = 6, id_str = "blah", source = "blahblah", text = "something")
 
     val topicPartition = new TopicPartition(topic, 0)
 

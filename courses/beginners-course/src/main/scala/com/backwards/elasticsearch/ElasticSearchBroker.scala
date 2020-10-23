@@ -9,7 +9,6 @@ import org.apache.http.impl.nio.client.HttpAsyncClientBuilder
 import org.elasticsearch.client.{RestClient, RestClientBuilder}
 import org.json4s.Writer
 import org.json4s.jackson.JsonMethods._
-import com.backwards.logging.Logging
 import com.sksamuel.elastic4s.IndexAndType
 import com.sksamuel.elastic4s.http.ElasticDsl._
 import com.sksamuel.elastic4s.http.index.CreateIndexResponse
@@ -19,7 +18,7 @@ import com.sksamuel.elastic4s.indexes.IndexRequest
 /**
   * For simplicity/demonstration we block on calls to the underlying Elasticsearch client.
   */
-class ElasticSearchBroker extends Logging {
+class ElasticSearchBroker {
   val httpClientConfigCallback: RestClientBuilder.HttpClientConfigCallback = (httpClientBuilder: HttpAsyncClientBuilder) => {
     val credentialsProvider = new BasicCredentialsProvider
     credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(config.credentials.user, config.credentials.password))
@@ -40,7 +39,7 @@ class ElasticSearchBroker extends Logging {
   }
 
   def index(name: String): Future[Response[CreateIndexResponse]] = {
-    info(s"Creating index: $name")
+    scribe info s"Creating index: $name"
 
     client.execute {
       createIndex("twitter")
@@ -53,7 +52,7 @@ class ElasticSearchBroker extends Logging {
         indexRequest(indexAndType)(key -> value)
       ).await
 
-      info(s"Elasticsearch response = ${response.result.id}")
+      scribe info s"Elasticsearch response = ${response.result.id}"
     }
 
   def documentBulk[V: Writer](indexAndType: IndexAndType)(xs: Seq[(String, V)]): Unit = {
@@ -61,7 +60,7 @@ class ElasticSearchBroker extends Logging {
       bulk(xs map indexRequest(indexAndType))
     ).await
 
-    info(s"Elasticsearch response = ${response.result.items.map(_.id).mkString(", ")}")
+    scribe info s"Elasticsearch response = ${response.result.items.map(_.id).mkString(", ")}"
   }
 
   def indexRequest[V: Writer](indexAndType: IndexAndType)(keyValue: (String, V)): IndexRequest = keyValue match {
