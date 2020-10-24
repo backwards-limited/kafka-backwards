@@ -1,4 +1,4 @@
-# Streaming Introduction
+# Transactions
 
 ![Implementing transactions](images/implementing-transactions.png)
 

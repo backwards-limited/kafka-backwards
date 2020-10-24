@@ -7,10 +7,7 @@ import cats.effect.{ExitCode, IO, IOApp, Resource}
 import cats.implicits.{catsSyntaxApplicativeId, catsSyntaxEitherId}
 import io.chrisdavenport.log4cats.Logger
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
-import pureconfig.ConfigSource
-import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord, RecordMetadata}
-import org.apache.kafka.common.serialization.{IntegerSerializer, StringSerializer}
-import com.backwards.collection._
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
 
 /**
   * [[sbt master-realtime-stream-processing/run]]
@@ -18,17 +15,7 @@ import com.backwards.collection._
   * A multi-threaded Kafka Producer that sends data from a list of files to a Kafka topic such that independent threads stream each file.
   * E.g. 3 files therefore 3 threads.
   */
-object MultiThreadedProducer extends IOApp {
-  lazy val defaultProducerProperties: Properties = {
-    val props = new Properties
-    props.put(ProducerConfig.CLIENT_ID_CONFIG, "multi-threaded-producer")
-    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094")
-    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, classOf[IntegerSerializer].getName)
-    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
-
-    props
-  }
-
+object MultiThreadedProducerApp extends IOApp {
   def run(args: List[String]): IO[ExitCode] = {
     for {
       implicit0(logger: Logger[IO]) <- Slf4jLogger.create[IO]
@@ -38,14 +25,6 @@ object MultiThreadedProducer extends IOApp {
       sources = List(IO(Source.fromResource("temp.csv")), IO(Source.fromResource("temp2.csv")))
       result <- program(producerProperties, sources).redeemWith(programFailure(logger), programSuccess(logger))
     } yield result
-  }
-
-  def producerProperties(implicit Logger: Logger[IO]): IO[Properties] = IO(ConfigSource.default.at("multi-threaded-producer").load[Map[String, String]]).flatMap {
-    case Right(producerConfig) =>
-      IO(toProperties(producerConfig))
-
-    case Left(configReaderFailures) =>
-      Logger.error(s"Defaulting simple producer config since failed to load simple producer config: $configReaderFailures") *> IO(defaultProducerProperties)
   }
 
   def program(producerProperties: Properties, sources: List[IO[Source]])(implicit Logger: Logger[IO]): IO[Unit] = {
