@@ -38,21 +38,19 @@ object PointOfSaleSimulatorApp extends IOApp {
   }
 
   def use(producer: KafkaProducer[String, Invoice])(implicit logger: Logger[IO]): IO[List[Any]] = {
+    val invoice = Invoice("id", "invoice-number") // TODO
+
     def send: IO[Unit] = {
-      val invoice = Invoice("id", "invoice-number")
-      println(s"sending: $invoice")
-
-      IO(producer.send(new ProducerRecord("pos-topic", invoice.id, invoice))).flatMap(_ => IO.sleep(5 seconds)).flatMap(_ => send)
-
-
-      /*IO.async[Unit] { cb =>
-        val invoice = Invoice("id", "invoice-number")
-
-        producer.send(
-          new ProducerRecord("simple-producer-topic", invoice.id, invoice),
-          (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb(().asRight))(_.asLeft)
-        )
-      }.flatMap(_ => send)*/
+      IO.asyncF[Unit] { cb =>
+        logger.info(s"Sending $invoice").flatMap { _ =>
+          IO {
+            producer.send(
+              new ProducerRecord("pos-topic", invoice.id, invoice),
+              (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb(().asRight))(_.asLeft)
+            )
+          }
+        }
+      }.flatMap(_ => IO.sleep(5 seconds)).flatMap(_ => send)
     }
 
     send.start.replicateA(5).flatMap(_.traverse(_.join))
