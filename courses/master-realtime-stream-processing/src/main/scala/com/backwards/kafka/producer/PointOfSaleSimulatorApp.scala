@@ -2,12 +2,14 @@ package com.backwards.kafka.producer
 
 import java.util.concurrent.TimeUnit
 import scala.annotation.tailrec
+import scala.concurrent.duration.DurationInt
+import scala.language.postfixOps
 import cats.effect.{ExitCode, Fiber, IO, IOApp}
 import cats.implicits._
 import io.chrisdavenport.log4cats.Logger
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import io.github.azhur.kafkaserdecirce.CirceSupport.toSerializer
-import org.apache.kafka.clients.producer.KafkaProducer
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
 import io.circe.generic.auto._
 
 /**
@@ -29,7 +31,6 @@ object PointOfSaleSimulatorApp extends IOApp {
       implicit0(logger: Logger[IO]) <- Slf4jLogger.create[IO]
       _ = logger.info("Program bootstrapped...")
       producerProperties <- producerProperties
-      //x <- IO(new KafkaProducer[Int, String](producerProperties)).bracket(use)(release)
       x <- IO(Kafka.circe.producer[String, Invoice](producerProperties)).bracket(use)(release)
     } yield x
 
@@ -37,14 +38,24 @@ object PointOfSaleSimulatorApp extends IOApp {
   }
 
   def use(producer: KafkaProducer[String, Invoice])(implicit logger: Logger[IO]): IO[List[Any]] = {
-    @tailrec
-    def send: Any = {
-      TimeUnit.SECONDS.sleep(5)
-      println(Thread.currentThread().getName)
-      send
+    def send: IO[Unit] = {
+      val invoice = Invoice("id", "invoice-number")
+      println(s"sending: $invoice")
+
+      IO(producer.send(new ProducerRecord("pos-topic", invoice.id, invoice))).flatMap(_ => IO.sleep(5 seconds)).flatMap(_ => send)
+
+
+      /*IO.async[Unit] { cb =>
+        val invoice = Invoice("id", "invoice-number")
+
+        producer.send(
+          new ProducerRecord("simple-producer-topic", invoice.id, invoice),
+          (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb(().asRight))(_.asLeft)
+        )
+      }.flatMap(_ => send)*/
     }
 
-    IO(send).start.replicateA(5).flatMap(_.traverse(_.join))
+    send.start.replicateA(5).flatMap(_.traverse(_.join))
   }
 
   def release(producer: KafkaProducer[String, Invoice])(implicit logger: Logger[IO]): IO[Unit] =
