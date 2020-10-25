@@ -4,7 +4,7 @@ object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
       scalatest, scalatestContainers, scribe, pprint, pureConfig, log4Cats, logback,
-      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, betterFiles,
+      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, circeKafka, betterFiles,
       twitter, elasticsearch, apacheCommons,
       avro4s, circe, json4s,
       scalaBackwards
@@ -169,6 +169,10 @@ object Dependencies {
 
   lazy val monixKafka: Seq[ModuleID] = Seq(
     "io.monix" %% "monix-kafka-1x" % "1.0.0-RC6"
+  )
+
+  lazy val circeKafka: Seq[ModuleID] = Seq(
+    "io.github.azhur" %% "kafka-serde-circe" % "0.5.0"
   )
 
   lazy val scalaBackwards: Seq[ModuleID] = {
