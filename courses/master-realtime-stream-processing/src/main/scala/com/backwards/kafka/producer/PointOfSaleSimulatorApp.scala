@@ -42,13 +42,11 @@ object PointOfSaleSimulatorApp extends IOApp {
 
     def send: IO[Unit] = {
       IO.asyncF[Unit] { cb =>
-        logger.info(s"Sending $invoice").flatMap { _ =>
-          IO {
-            producer.send(
-              new ProducerRecord("pos-topic", invoice.id, invoice),
-              (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb(().asRight))(_.asLeft)
-            )
-          }
+        logger.info(s"Sending $invoice").map { _ =>
+          producer.send(
+            new ProducerRecord("pos-topic", invoice.id, invoice),
+            (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb(().asRight))(_.asLeft)
+          )
         }
       }.flatMap(_ => IO.sleep(5 seconds)).flatMap(_ => send)
     }
