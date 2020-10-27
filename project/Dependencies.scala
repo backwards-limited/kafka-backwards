@@ -4,9 +4,10 @@ object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
       scalatest, scalatestContainers, scribe, pprint, pureConfig, log4Cats, logback,
-      cats, monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, circeKafka, betterFiles,
+      cats, catsEffectTime,
+      monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, circeKafka, betterFiles,
       twitter, elasticsearch, apacheCommons,
-      avro4s, circe, json4s,
+      tagging, avro4s, circe, json4s,
       scalaBackwards
     ).flatten
 
@@ -59,6 +60,10 @@ object Dependencies {
     "org.apache.commons" % "commons-lang3" % "3.11"
   )
 
+  lazy val tagging: Seq[ModuleID] = Seq(
+    "com.softwaremill.common" %% "tagging" % "2.2.1"
+  )
+
   lazy val avro4s: Seq[ModuleID] = Seq(
     "com.sksamuel.avro4s" %% "avro4s-core" % "4.0.0"
   )
@@ -106,6 +111,10 @@ object Dependencies {
       "cats-laws", "cats-testkit"
     ).map(group %% _ % version % "test, it")
   }
+
+  lazy val catsEffectTime: Seq[ModuleID] = Seq(
+    "io.chrisdavenport" %% "cats-effect-time" % "0.1.2"
+  )
   
   lazy val monocle: Seq[ModuleID] = {
     val group = "com.github.julien-truffaut"

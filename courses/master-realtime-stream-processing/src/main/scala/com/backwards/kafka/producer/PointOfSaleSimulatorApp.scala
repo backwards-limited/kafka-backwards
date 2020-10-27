@@ -1,16 +1,21 @@
 package com.backwards.kafka.producer
 
-import java.util.concurrent.TimeUnit
-import scala.annotation.tailrec
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
-import cats.effect.{ExitCode, Fiber, IO, IOApp}
+import cats.effect.{ExitCode, IO, IOApp}
 import cats.implicits._
+import eu.timepit.refined.refineMV
+import io.chrisdavenport.cats.effect.time.JavaTime
 import io.chrisdavenport.log4cats.Logger
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
-import io.github.azhur.kafkaserdecirce.CirceSupport.toSerializer
-import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
 import io.circe.generic.auto._
+import ValueClassCodec._
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
+import com.backwards.kafka.producer.Invoice._
+import eu.timepit.refined.auto._
+import io.circe.refined._
+
+//import com.backwards.kafka.producer.InvoiceCodec._
 
 /**
   * Multithreaded event producer
@@ -38,16 +43,17 @@ object PointOfSaleSimulatorApp extends IOApp {
   }
 
   def use(producer: KafkaProducer[String, Invoice])(implicit logger: Logger[IO]): IO[List[Any]] = {
-    val invoice = Invoice("id", "invoice-number") // TODO
-
     def send: IO[Unit] = {
       IO.asyncF[Unit] { cb =>
-        logger.info(s"Sending $invoice").map { _ =>
+        for {
+          instant <- JavaTime[IO].getInstant
+          invoice = Invoice(InvoiceId("id"), InvoiceNumber("invoice-number"), instant, InvoiceStoreId("store-id"))
+          _ <- logger.info(s"Sending $invoice")
+        } yield
           producer.send(
-            new ProducerRecord("pos-topic", invoice.id, invoice),
+            new ProducerRecord("pos-topic", invoice.id.value, invoice),
             (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb(().asRight))(_.asLeft)
           )
-        }
       }.flatMap(_ => IO.sleep(5 seconds)).flatMap(_ => send)
     }
 
@@ -57,5 +63,3 @@ object PointOfSaleSimulatorApp extends IOApp {
   def release(producer: KafkaProducer[String, Invoice])(implicit logger: Logger[IO]): IO[Unit] =
     logger.info("Closing Kafka Producer").map(_ => producer.close())
 }
-
-final case class Invoice(id: String, number: String)
