@@ -4,18 +4,12 @@ import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 import cats.effect.{ExitCode, IO, IOApp}
 import cats.implicits._
-import eu.timepit.refined.refineMV
 import io.chrisdavenport.cats.effect.time.JavaTime
 import io.chrisdavenport.log4cats.Logger
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
-import io.circe.generic.auto._
-import ValueClassCodec._
+import io.circe.generic.AutoDerivation
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
 import com.backwards.kafka.producer.Invoice._
-import eu.timepit.refined.auto._
-import io.circe.refined._
-
-//import com.backwards.kafka.producer.InvoiceCodec._
 
 /**
   * Multithreaded event producer
@@ -30,7 +24,7 @@ import io.circe.refined._
   *   - number of producer threads
   *   - produce speed
   */
-object PointOfSaleSimulatorApp extends IOApp {
+object PointOfSaleSimulatorApp extends IOApp with ValueClassCodec with AutoDerivation {
   def run(args: List[String]): IO[ExitCode] = {
     val v = for {
       implicit0(logger: Logger[IO]) <- Slf4jLogger.create[IO]

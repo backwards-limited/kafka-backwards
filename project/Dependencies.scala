@@ -7,7 +7,7 @@ object Dependencies {
       cats, catsEffectTime,
       monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, circeKafka, betterFiles,
       twitter, elasticsearch, apacheCommons,
-      tagging, avro4s, circe, json4s,
+      newtype, tagging, avro4s, circe, json4s,
       scalaBackwards
     ).flatten
 
@@ -58,6 +58,10 @@ object Dependencies {
 
   lazy val apacheCommons: Seq[ModuleID] = Seq(
     "org.apache.commons" % "commons-lang3" % "3.11"
+  )
+
+  lazy val newtype: Seq[ModuleID] = Seq(
+    "io.estatico" %% "newtype" % "0.4.4"
   )
 
   lazy val tagging: Seq[ModuleID] = Seq(
