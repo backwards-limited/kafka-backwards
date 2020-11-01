@@ -24,6 +24,8 @@ import com.monovore.decline.effect._
   *   - topic name
   *   - number of producer threads
   *   - produce speed
+  *
+  * [[./run.sh master-realtime-stream-processing --invoice-count=1]]
   */
 object PointOfSaleSimulatorApp extends CommandIOApp(name = "PoS", header = "Run Point of Sales issuing invoices") with ValueClassCodec with AutoDerivation {
   lazy val invoiceCount: Opts[Int] =
