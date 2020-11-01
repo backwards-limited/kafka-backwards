@@ -9,7 +9,6 @@ import io.chrisdavenport.log4cats.Logger
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import io.circe.generic.AutoDerivation
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
-import com.backwards.kafka.producer.Invoice._
 
 /**
   * Multithreaded event producer

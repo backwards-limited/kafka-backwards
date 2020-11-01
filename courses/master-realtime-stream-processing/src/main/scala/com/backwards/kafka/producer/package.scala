@@ -20,7 +20,7 @@ package object producer {
   }
 
   def producerProperties(implicit Logger: Logger[IO]): IO[Properties] =
-    IO(ConfigSource.default.at("producer").load[Map[String, String]]).flatMap {
+    IO(ConfigSource.default.at("producer").load[Map[String, String]]) flatMap {
       case Right(producerConfig) =>
         IO(toProperties(producerConfig))
 
