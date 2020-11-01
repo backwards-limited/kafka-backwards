@@ -2,13 +2,15 @@ package com.backwards.kafka.producer
 
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
-import cats.effect.{ExitCode, IO, IOApp}
+import cats.effect.{ExitCode, IO}
 import cats.implicits._
 import io.chrisdavenport.cats.effect.time.JavaTime
 import io.chrisdavenport.log4cats.Logger
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import io.circe.generic.AutoDerivation
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
+import com.monovore.decline._
+import com.monovore.decline.effect._
 
 /**
   * Multithreaded event producer
@@ -23,21 +25,26 @@ import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordM
   *   - number of producer threads
   *   - produce speed
   */
-object PointOfSaleSimulatorApp extends IOApp with ValueClassCodec with AutoDerivation {
-  def run(args: List[String]): IO[ExitCode] = {
-    val v = for {
-      implicit0(logger: Logger[IO]) <- Slf4jLogger.create[IO]
-      _ = logger.info("Program bootstrapped...")
-      producerProperties <- producerProperties
-      x <- IO(Kafka.circe.producer[String, Invoice](producerProperties)).bracket(use)(release)
-    } yield x
+object PointOfSaleSimulatorApp extends CommandIOApp(name = "PoS", header = "Run Point of Sales issuing invoices") with ValueClassCodec with AutoDerivation {
+  lazy val invoiceCount: Opts[Int] =
+    Opts.option[Int]("invoice-count", help = "Number of invoices").withDefault(3)
 
-    v.redeem(t => ExitCode.Error, ls => ExitCode.Success)
+  override def main: Opts[IO[ExitCode]] = {
+    invoiceCount map { invoiceCount =>
+      val program = for {
+        implicit0(logger: Logger[IO]) <- Slf4jLogger.create[IO]
+        _ = logger.info("Program bootstrapped...")
+        producerProperties <- producerProperties
+        _ <- IO(Kafka.circe.producer[String, Invoice](producerProperties)).bracket(use(invoiceCount))(release)
+      } yield ()
+
+      program.redeemWith(t => IO(t.printStackTrace()) *> IO(ExitCode.Error), _ => IO(ExitCode.Success))
+    }
   }
 
-  def use(producer: KafkaProducer[String, Invoice])(implicit logger: Logger[IO]): IO[List[Any]] = {
-    def send: IO[Unit] = {
-      IO.asyncF[Unit] { cb =>
+  def use(invoiceCount: Int = 3)(producer: KafkaProducer[String, Invoice])(implicit logger: Logger[IO]): IO[Unit] = {
+    def send(invoiceCount: Int): IO[Unit] =
+      IO.asyncF[Int] { cb =>
         for {
           instant <- JavaTime[IO].getInstant
           invoice = Invoice(InvoiceId("id"), InvoiceNumber("invoice-number"), instant, InvoiceStoreId("store-id"))
@@ -45,12 +52,13 @@ object PointOfSaleSimulatorApp extends IOApp with ValueClassCodec with AutoDeriv
         } yield
           producer.send(
             new ProducerRecord("pos-topic", invoice.id.value, invoice),
-            (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb(().asRight))(_.asLeft)
+            (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb((invoiceCount - 1).asRight))(_.asLeft)
           )
-      }.flatMap(_ => IO.sleep(5 seconds)).flatMap(_ => send)
-    }
+      } flatMap { invoiceCount =>
+        IO.whenA(invoiceCount > 0)(IO.sleep(5 seconds) *> send(invoiceCount))
+      }
 
-    send.start.replicateA(5).flatMap(_.traverse(_.join))
+    send(invoiceCount).start.replicateA(5).flatMap(_.traverse(_.join)) *> IO.unit
   }
 
   def release(producer: KafkaProducer[String, Invoice])(implicit logger: Logger[IO]): IO[Unit] =

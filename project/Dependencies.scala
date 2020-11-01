@@ -5,7 +5,7 @@ object Dependencies {
     Seq(
       scalatest, scalatestContainers, scribe, pprint, pureConfig, log4Cats, logback,
       cats, catsEffectTime,
-      monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, circeKafka, betterFiles,
+      monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, circeKafka, betterFiles, decline,
       twitter, elasticsearch, apacheCommons,
       newtype, tagging, avro4s, circe, json4s,
       scalaBackwards
@@ -39,6 +39,15 @@ object Dependencies {
   lazy val betterFiles: Seq[ModuleID] = Seq(
     "com.github.pathikrit" %% "better-files" % "3.9.1"
   )
+
+  lazy val decline: Seq[ModuleID] = {
+    val group = "com.monovore"
+    val version = "1.3.0"
+
+    Seq(
+      "decline", "decline-effect"
+    ).map(group %% _ % version)
+  }
 
   lazy val twitter: Seq[ModuleID] = Seq(
     "com.danielasfregola" %% "twitter4s" % "7.0",
