@@ -5,7 +5,7 @@ object Dependencies {
     Seq(
       scalatest, scalatestContainers, scribe, pprint, pureConfig, log4Cats, logback,
       cats, catsEffectTime,
-      monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, circeKafka, betterFiles, decline,
+      monocle, shapeless, fs2, http4s, sttp, scalaUri, kafka, monixKafka, kafkaSerde, betterFiles, decline,
       twitter, elasticsearch, apacheCommons,
       newtype, tagging, avro4s, circe, json4s,
       scalaBackwards
@@ -165,12 +165,12 @@ object Dependencies {
   }
 
   lazy val sttp: Seq[ModuleID] = {
+    val group = "com.softwaremill.sttp"
     val version = "1.7.2"
 
     Seq(
-      "com.softwaremill.sttp" %% "core",
-      "com.softwaremill.sttp" %% "circe"
-    ).map(_ % version)
+      "core", "circe"
+    ).map(group %% _ % version)
   }
 
   lazy val scalaUri: Seq[ModuleID] = Seq(
@@ -178,14 +178,15 @@ object Dependencies {
   )
 
   lazy val kafka: Seq[ModuleID] = {
+    val group = "org.apache.kafka"
     val version = "2.6.0"
     
     Seq(
-      "org.apache.kafka" % "kafka-clients",
-      "org.apache.kafka" % "kafka-streams",
-      "org.apache.kafka" %% "kafka-streams-scala"
+      group % "kafka-clients",
+      group % "kafka-streams",
+      group %% "kafka-streams-scala"
     ).map(_ % version) ++ Seq(
-      "org.apache.kafka" % "kafka-streams-test-utils"
+      group % "kafka-streams-test-utils"
     ).map(_ % version % "test, it")
   }
 
@@ -193,9 +194,14 @@ object Dependencies {
     "io.monix" %% "monix-kafka-1x" % "1.0.0-RC6"
   )
 
-  lazy val circeKafka: Seq[ModuleID] = Seq(
-    "io.github.azhur" %% "kafka-serde-circe" % "0.5.0"
-  )
+  lazy val kafkaSerde: Seq[ModuleID] = {
+    val group = "io.github.azhur"
+    val version = "0.5.0"
+
+    Seq(
+      "kafka-serde-circe", "kafka-serde-avro4s"
+    ).map(group %% _ % version)
+  }
 
   lazy val scalaBackwards: Seq[ModuleID] = {
     val group = "com.github.backwards-limited"

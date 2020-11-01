@@ -40,7 +40,10 @@ object PointOfSaleSimulatorApp extends CommandIOApp(name = "PoS", header = "Run 
         _ <- IO(Kafka.circe.producer[String, Invoice](producerProperties)).bracket(use(invoiceCount))(release)
       } yield ()
 
-      program.redeemWith(t => IO(t.printStackTrace()) *> IO(ExitCode.Error), _ => IO(ExitCode.Success))
+      program.redeemWith(
+        t => IO(t.printStackTrace()) *> IO(ExitCode.Error),
+        _ => IO(ExitCode.Success)
+      )
     }
   }
 
@@ -54,7 +57,7 @@ object PointOfSaleSimulatorApp extends CommandIOApp(name = "PoS", header = "Run 
         } yield
           producer.send(
             new ProducerRecord("pos-topic", invoice.id.value, invoice),
-            (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb((invoiceCount - 1).asRight))(_.asLeft)
+            (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb((invoiceCount - 1).asRight))(t => cb(t.asLeft))
           )
       } flatMap { invoiceCount =>
         IO.whenA(invoiceCount > 0)(IO.sleep(5 seconds) *> send(invoiceCount))

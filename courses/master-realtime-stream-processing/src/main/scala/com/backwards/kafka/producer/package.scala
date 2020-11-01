@@ -13,6 +13,8 @@ package object producer {
     val props = new Properties
     props.put(ProducerConfig.CLIENT_ID_CONFIG, "producer")
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094")
+
+    // TODO - Remove the following
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, classOf[IntegerSerializer].getName)
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer].getName)
 

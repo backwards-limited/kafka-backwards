@@ -15,3 +15,7 @@ Note that this module is within a multi-module project and that there is only on
 - [Producers](docs/producers.md)
 
 - [Transactions](docs/transactions.md)
+
+- [Sync and Async](docs/sync-and-async.md)
+
+- [Avro](docs/avro.md)
