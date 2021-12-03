@@ -5,8 +5,8 @@ import scala.concurrent.Promise
 import scala.io.Source
 import cats.effect.{ExitCode, IO, IOApp, Resource}
 import cats.implicits.{catsSyntaxApplicativeId, catsSyntaxEitherId}
-import io.chrisdavenport.log4cats.Logger
-import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
+import org.typelevel.log4cats.Logger
+import org.typelevel.log4cats.slf4j.Slf4jLogger
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
 
 /**

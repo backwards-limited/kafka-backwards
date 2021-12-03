@@ -3,8 +3,8 @@ package com.backwards.kafka.producer
 import java.util.Properties
 import cats.effect.{ExitCode, IO, IOApp}
 import cats.implicits.{catsSyntaxApplicativeId, catsSyntaxEitherId}
-import io.chrisdavenport.log4cats.Logger
-import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
+import org.typelevel.log4cats.Logger
+import org.typelevel.log4cats.slf4j.Slf4jLogger
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
 
 /**
@@ -25,20 +25,20 @@ object SimpleProducerApp extends IOApp {
       if (i >= 100) {
         IO.unit
       } else {
-        IO.async[Unit] { cb =>
+        IO.async_[Unit](cb =>
           producer.send(
             new ProducerRecord("simple-producer-topic", i, s"Simple Message-$i"),
             (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb(().asRight))(_.asLeft)
           )
-        } *> send(i + 1)(producer)
+        ) >> send(i + 1)(producer)
       }
 
     IO(new KafkaProducer[Int, String](producerProperties)).bracket(send(0))(_.close().pure[IO])
   }
 
   def programSuccess(logger: Logger[IO]): Unit => IO[ExitCode] =
-    _ => logger.info("Program success").map(_ => ExitCode.Success)
+    _ => logger.info("Program success").as(ExitCode.Success)
 
   def programFailure(logger: Logger[IO]): Throwable => IO[ExitCode] =
-    t => logger.error(t)("Program failure").map(_ => ExitCode.Error)
+    t => logger.error(t)("Program failure").as(ExitCode.Error)
 }

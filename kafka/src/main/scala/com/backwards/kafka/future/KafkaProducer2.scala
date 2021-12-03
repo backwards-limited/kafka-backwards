@@ -3,7 +3,6 @@ package com.backwards.kafka.future
 import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.concurrent.ExecutionContext
 import cats.Monad
-import cats.effect.{ExitCase, Sync}
 import org.apache.kafka.clients.producer.{Callback, RecordMetadata, KafkaProducer => KafkaProducerUnderlying}
 import org.apache.kafka.common.serialization.Serializer
 import com.backwards.Or

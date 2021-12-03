@@ -1,0 +1,3100 @@
+{
+    "version": "1.4.0",
+    "project": {
+        "name": "beginners-course",
+        "directory": "/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course",
+        "workspaceDir": "/Users/davidainslie/workspace/backwards/kafka-backwards",
+        "sources": [
+            "/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course/src/main/scala",
+            "/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course/src/main/scala-2.13",
+            "/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course/src/main/scala-2",
+            "/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course/src/main/java",
+            "/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course/target/scala-2.13/src_managed/main"
+        ],
+        "dependencies": [
+            "kafka"
+        ],
+        "classpath": [
+            "/Users/davidainslie/workspace/backwards/kafka-backwards/.bloop/kafka/scala-2.13/classes",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.3/scala-library-2.13.3.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/scribe_2.13/2.8.1/scribe_2.13-2.8.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig_2.13/0.14.0/pureconfig_2.13-0.14.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-http4s_2.13/0.14.0/pureconfig-http4s_2.13-0.14.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/log4cats-core_2.13/1.1.1/log4cats-core_2.13-1.1.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/log4cats-slf4j_2.13/1.1.1/log4cats-slf4j_2.13-1.1.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-core_2.13/2.2.0/cats-core_2.13-2.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-effect_2.13/2.2.0/cats-effect_2.13-2.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/cats-effect-time_2.13/0.1.2/cats-effect-time_2.13-0.1.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/julien-truffaut/monocle-core_2.13/2.1.0/monocle-core_2.13-2.1.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/julien-truffaut/monocle-macro_2.13/2.1.0/monocle-macro_2.13-2.1.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/julien-truffaut/monocle-generic_2.13/2.1.0/monocle-generic_2.13-2.1.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/chuusai/shapeless_2.13/2.3.3/shapeless_2.13-2.3.3.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/co/fs2/fs2-core_2.13/2.4.4/fs2-core_2.13-2.4.4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/co/fs2/fs2-io_2.13/2.4.4/fs2-io_2.13-2.4.4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/co/fs2/fs2-reactive-streams_2.13/2.4.4/fs2-reactive-streams_2.13-2.4.4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-core_2.13/1.0.0-M4/http4s-core_2.13-1.0.0-M4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-dsl_2.13/1.0.0-M4/http4s-dsl_2.13-1.0.0-M4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-blaze-server_2.13/1.0.0-M4/http4s-blaze-server_2.13-1.0.0-M4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-blaze-client_2.13/1.0.0-M4/http4s-blaze-client_2.13-1.0.0-M4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-client_2.13/1.0.0-M4/http4s-client_2.13-1.0.0-M4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-circe_2.13/1.0.0-M4/http4s-circe_2.13-1.0.0-M4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/sttp/core_2.13/1.7.2/core_2.13-1.7.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/sttp/circe_2.13/1.7.2/circe_2.13-1.7.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/lemonlabs/scala-uri_2.13/2.3.1/scala-uri_2.13-2.3.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/kafka-clients/2.6.0/kafka-clients-2.6.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/kafka-streams/2.6.0/kafka-streams-2.6.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/kafka-streams-scala_2.13/2.6.0/kafka-streams-scala_2.13-2.6.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-kafka-1x_2.13/1.0.0-RC6/monix-kafka-1x_2.13-1.0.0-RC6.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/github/azhur/kafka-serde-circe_2.13/0.5.0/kafka-serde-circe_2.13-0.5.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/github/azhur/kafka-serde-avro4s_2.13/0.5.0/kafka-serde-avro4s_2.13-0.5.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pathikrit/better-files_2.13/3.9.1/better-files_2.13-3.9.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/monovore/decline_2.13/1.3.0/decline_2.13-1.3.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/monovore/decline-effect_2.13/1.3.0/decline-effect_2.13-1.3.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/danielasfregola/twitter4s_2.13/7.0/twitter4s_2.13-7.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/twitter/hbc-core/2.2.0/hbc-core-2.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/elastic4s/elastic4s-core_2.13/6.7.8/elastic4s-core_2.13-6.7.8.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/elastic4s/elastic4s-http_2.13/6.7.8/elastic4s-http_2.13-6.7.8.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/elastic4s/elastic4s-http-streams_2.13/6.7.8/elastic4s-http-streams_2.13-6.7.8.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/estatico/newtype_2.13/0.4.4/newtype_2.13-0.4.4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/common/tagging_2.13/2.2.1/tagging_2.13-2.2.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/avro4s/avro4s-core_2.13/4.0.0/avro4s-core_2.13-4.0.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-core_2.13/0.13.0/circe-core_2.13-0.13.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-generic_2.13/0.13.0/circe-generic_2.13-0.13.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-generic-extras_2.13/0.13.0/circe-generic-extras_2.13-0.13.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-parser_2.13/0.13.0/circe-parser_2.13-0.13.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-refined_2.13/0.13.0/circe-refined_2.13-0.13.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-jackson_2.13/3.6.10/json4s-jackson_2.13-3.6.10.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-ext_2.13/3.6.10/json4s-ext_2.13-3.6.10.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/jitpack.io/com/github/backwards-limited/scala-backwards/1.0.29/scala-backwards-1.0.29.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/scribe-macros_2.13/2.8.1/scribe-macros_2.13-2.8.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/perfolation_2.13/1.2.0/perfolation_2.13-1.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-core_2.13/0.14.0/pureconfig-core_2.13-0.14.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-generic_2.13/0.14.0/pureconfig-generic_2.13-0.14.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.3/scala-reflect-2.13.3.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-kernel_2.13/2.2.0/cats-kernel_2.13-2.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-free_2.13/2.2.0/cats-free_2.13-2.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scodec/scodec-bits_2.13/1.1.18/scodec-bits_2.13-1.1.18.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/case-insensitive_2.13/0.3.0/case-insensitive_2.13-0.3.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/log4s/log4s_2.13/1.8.2/log4s_2.13-1.8.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/parboiled_2.13/2.0.1/parboiled_2.13-2.0.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/vault_2.13/2.0.0/vault_2.13-2.0.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-blaze-core_2.13/1.0.0-M4/http4s-blaze-core_2.13-1.0.0-M4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-server_2.13/1.0.0-M4/http4s-server_2.13-1.0.0-M4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-jawn_2.13/1.0.0-M4/http4s-jawn_2.13-1.0.0-M4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-jawn_2.13/0.13.0/circe-jawn_2.13-0.13.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/sttp/json-common_2.13/1.7.2/json-common_2.13-1.7.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/parboiled/parboiled_2.13/2.2.0/parboiled_2.13-2.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/luben/zstd-jni/1.4.4-7/zstd-jni-1.4.4-7.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/lz4/lz4-java/1.7.1/lz4-java-1.7.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.7.3/snappy-java-1.1.7.3.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/connect-json/2.6.0/connect-json-2.6.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/rocksdb/rocksdbjni/5.18.4/rocksdbjni-5.18.4.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-collection-compat_2.13/2.2.0/scala-collection-compat_2.13-2.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-reactive_2.13/3.2.2/monix-reactive_2.13-3.2.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/scala-logging/scala-logging_2.13/3.9.2/scala-logging_2.13-3.9.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/config/1.4.0/config-1.4.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.7.30/log4j-over-slf4j-1.7.30.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/avro4s/avro4s-kafka_2.13/3.1.1/avro4s-kafka_2.13-3.1.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.13/2.6.8/akka-actor_2.13-2.6.8.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-stream_2.13/2.6.8/akka-stream_2.13-2.6.8.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-http_2.13/10.2.0/akka-http_2.13-10.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/de/heikoseeberger/akka-http-json4s_2.13/1.34.0/akka-http-json4s_2.13-1.34.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-native_2.13/3.6.9/json4s-native_2.13-3.6.9.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/twitter/joauth/6.0.2/joauth-6.0.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/exts/exts_2.13/1.61.1/exts_2.13-1.61.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/joda-time/joda-time/2.10.6/joda-time-2.10.6.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.10.2/jackson-core-2.10.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.10.2/jackson-databind-2.10.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-scala_2.13/2.10.0/jackson-module-scala_2.13-2.10.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/elasticsearch/client/elasticsearch-rest-client/6.7.2/elasticsearch-rest-client-6.7.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.3/scala-compiler-2.13.3.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/avro/avro/1.9.2/avro-1.9.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/propensive/magnolia_2.13/0.16.0/magnolia_2.13-0.16.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-numbers_2.13/0.13.0/circe-numbers_2.13-0.13.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined_2.13/0.9.16/refined_2.13-0.9.16.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-core_2.13/3.6.10/json4s-core_2.13-3.6.10.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/joda/joda-convert/2.2.1/joda-convert-2.2.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/alexarchambault/scalacheck-shapeless_1.14_2.13/1.2.5/scalacheck-shapeless_1.14_2.13-1.2.5.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/pprint_2.13/0.6.0/pprint_2.13-0.6.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/mouse_2.13/0.25/mouse_2.13-0.25.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/simulacrum_2.13/1.0.0/simulacrum_2.13-1.0.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined-pureconfig_2.13/0.9.16/refined-pureconfig_2.13-0.9.16.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined-cats_2.13/0.9.16/refined-cats_2.13-0.9.16.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-core_2.13/0.4.1/meow-mtl-core_2.13-0.4.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-effects_2.13/0.4.1/meow-mtl-effects_2.13-0.4.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-monix_2.13/0.4.1/meow-mtl-monix_2.13-0.4.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix_2.13/3.2.2/monix_2.13-3.2.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-kafka-11_2.13/1.0.0-RC6/monix-kafka-11_2.13-1.0.0-RC6.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.13/1.1.2/scala-parser-combinators_2.13-1.1.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-macros_2.13/0.14.0/pureconfig-macros_2.13-0.14.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-generic-base_2.13/0.14.0/pureconfig-generic-base_2.13-0.14.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/unique_2.13/2.0.0/unique_2.13-2.0.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/blaze-http_2.13/0.14.13/blaze-http_2.13-0.14.13.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/jawn-fs2_2.13/1.0.0/jawn-fs2_2.13-1.0.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/jawn-parser_2.13/1.0.0/jawn-parser_2.13-1.0.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/connect-api/2.6.0/connect-api-2.6.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.10.2/jackson-datatype-jdk8-2.10.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-execution_2.13/3.2.2/monix-execution_2.13-3.2.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-eval_2.13/3.2.2/monix-eval_2.13-3.2.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-java8-compat_2.13/0.9.0/scala-java8-compat_2.13-0.9.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-protobuf-v3_2.13/2.6.8/akka-protobuf-v3_2.13-2.6.8.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/ssl-config-core_2.13/0.4.1/ssl-config-core_2.13-0.4.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-http-core_2.13/10.2.0/akka-http-core_2.13-10.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.4.5/httpcore-4.4.5.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/commons-codec/commons-codec/1.10/commons-codec-1.10.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.10.2/jackson-annotations-2.10.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-paranamer/2.10.0/jackson-module-paranamer-2.10.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpasyncclient/4.1.2/httpasyncclient-4.1.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpcore-nio/4.4.5/httpcore-nio-4.4.5.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/jline/jline/3.15.0/jline-3.15.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-compress/1.19/commons-compress-1.19.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/propensive/mercator_2.13/0.2.1/mercator_2.13-0.2.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.13/1.3.0/scala-xml_2.13-1.3.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-ast_2.13/3.6.10/json4s-ast_2.13-3.6.10.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-scalap_2.13/3.6.10/json4s-scalap_2.13-3.6.10.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.8/paranamer-2.8.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalacheck/scalacheck_2.13/1.14.3/scalacheck_2.13-1.14.3.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/fansi_2.13/0.2.9/fansi_2.13-0.2.9.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.13/0.2.1/sourcecode_2.13-0.2.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-mtl-core_2.13/0.7.1/cats-mtl-core_2.13-0.7.1.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-catnap_2.13/3.2.2/monix-catnap_2.13-3.2.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-tail_2.13/3.2.2/monix-tail_2.13-3.2.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-java_2.13/3.2.2/monix-java_2.13-3.2.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/blaze-core_2.13/0.14.13/blaze-core_2.13-0.14.13.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/twitter/hpack/1.0.2/hpack-1.0.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/eclipse/jetty/alpn/alpn-api/1.1.3.v20160715/alpn-api-1.1.3.v20160715.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/implicitbox_2.13/0.2.0/implicitbox_2.13-0.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/jctools/jctools-core/2.1.2/jctools-core-2.1.2.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-parsing_2.13/10.2.0/akka-parsing_2.13-10.2.0.jar",
+            "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar"
+        ],
+        "out": "/Users/davidainslie/workspace/backwards/kafka-backwards/.bloop/beginners-course",
+        "classesDir": "/Users/davidainslie/workspace/backwards/kafka-backwards/.bloop/beginners-course/scala-2.13/classes",
+        "resources": [
+            "/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course/src/main/resources",
+            "/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course/target/scala-2.13/resource_managed/main"
+        ],
+        "scala": {
+            "organization": "org.scala-lang",
+            "name": "scala-compiler",
+            "version": "2.13.3",
+            "options": [
+                "-Xplugin:/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/kind-projector_2.13.3/0.11.0/kind-projector_2.13.3-0.11.0.jar",
+                "-Xplugin:/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/better-monadic-for_2.13/0.3.1/better-monadic-for_2.13-0.3.1.jar"
+            ],
+            "jars": [
+                "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.3/scala-compiler-2.13.3.jar",
+                "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.3/scala-library-2.13.3.jar",
+                "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.3/scala-reflect-2.13.3.jar",
+                "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/jline/jline/3.15.0/jline-3.15.0.jar",
+                "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1.jar"
+            ],
+            "analysis": "/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course/target/streams/compile/bloopAnalysisOut/_global/streams/inc_compile_2.13.zip",
+            "setup": {
+                "order": "mixed",
+                "addLibraryToBootClasspath": true,
+                "addCompilerToClasspath": false,
+                "addExtraJarsToClasspath": false,
+                "manageBootClasspath": true,
+                "filterLibraryFromClasspath": true
+            }
+        },
+        "java": {
+            "options": [
+                
+            ]
+        },
+        "test": {
+            "frameworks": [
+                {
+                    "names": [
+                        "org.scalacheck.ScalaCheckFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "org.specs2.runner.Specs2Framework",
+                        "org.specs2.runner.SpecsFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "org.specs.runner.SpecsFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "org.scalatest.tools.Framework",
+                        "org.scalatest.tools.ScalaTestFramework"
+                    ]
+                },
+                {
+                    "names": [
+                        "com.novocode.junit.JUnitFramework"
+                    ]
+                }
+            ],
+            "options": {
+                "excludes": [
+                    
+                ],
+                "arguments": [
+                    
+                ]
+            }
+        },
+        "platform": {
+            "name": "jvm",
+            "config": {
+                "home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home/jre",
+                "options": [
+                    "-Duser.dir=/Users/davidainslie/workspace/backwards/kafka-backwards/courses/beginners-course"
+                ]
+            },
+            "mainClass": [
+                
+            ]
+        },
+        "resolution": {
+            "modules": [
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-library",
+                    "version": "2.13.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-library",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.3/scala-library-2.13.3.jar"
+                        },
+                        {
+                            "name": "scala-library",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.3/scala-library-2.13.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.outr",
+                    "name": "scribe_2.13",
+                    "version": "2.8.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scribe_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/scribe_2.13/2.8.1/scribe_2.13-2.8.1.jar"
+                        },
+                        {
+                            "name": "scribe_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/scribe_2.13/2.8.1/scribe_2.13-2.8.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.pureconfig",
+                    "name": "pureconfig_2.13",
+                    "version": "0.14.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "pureconfig_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig_2.13/0.14.0/pureconfig_2.13-0.14.0.jar"
+                        },
+                        {
+                            "name": "pureconfig_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig_2.13/0.14.0/pureconfig_2.13-0.14.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.pureconfig",
+                    "name": "pureconfig-http4s_2.13",
+                    "version": "0.14.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "pureconfig-http4s_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-http4s_2.13/0.14.0/pureconfig-http4s_2.13-0.14.0.jar"
+                        },
+                        {
+                            "name": "pureconfig-http4s_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-http4s_2.13/0.14.0/pureconfig-http4s_2.13-0.14.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.chrisdavenport",
+                    "name": "log4cats-core_2.13",
+                    "version": "1.1.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "log4cats-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/log4cats-core_2.13/1.1.1/log4cats-core_2.13-1.1.1.jar"
+                        },
+                        {
+                            "name": "log4cats-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/log4cats-core_2.13/1.1.1/log4cats-core_2.13-1.1.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.chrisdavenport",
+                    "name": "log4cats-slf4j_2.13",
+                    "version": "1.1.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "log4cats-slf4j_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/log4cats-slf4j_2.13/1.1.1/log4cats-slf4j_2.13-1.1.1.jar"
+                        },
+                        {
+                            "name": "log4cats-slf4j_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/log4cats-slf4j_2.13/1.1.1/log4cats-slf4j_2.13-1.1.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "ch.qos.logback",
+                    "name": "logback-classic",
+                    "version": "1.2.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "logback-classic",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar"
+                        },
+                        {
+                            "name": "logback-classic",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.typelevel",
+                    "name": "cats-core_2.13",
+                    "version": "2.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "cats-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-core_2.13/2.2.0/cats-core_2.13-2.2.0.jar"
+                        },
+                        {
+                            "name": "cats-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-core_2.13/2.2.0/cats-core_2.13-2.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.typelevel",
+                    "name": "cats-effect_2.13",
+                    "version": "2.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "cats-effect_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-effect_2.13/2.2.0/cats-effect_2.13-2.2.0.jar"
+                        },
+                        {
+                            "name": "cats-effect_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-effect_2.13/2.2.0/cats-effect_2.13-2.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.chrisdavenport",
+                    "name": "cats-effect-time_2.13",
+                    "version": "0.1.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "cats-effect-time_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/cats-effect-time_2.13/0.1.2/cats-effect-time_2.13-0.1.2.jar"
+                        },
+                        {
+                            "name": "cats-effect-time_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/cats-effect-time_2.13/0.1.2/cats-effect-time_2.13-0.1.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.julien-truffaut",
+                    "name": "monocle-core_2.13",
+                    "version": "2.1.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monocle-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/julien-truffaut/monocle-core_2.13/2.1.0/monocle-core_2.13-2.1.0.jar"
+                        },
+                        {
+                            "name": "monocle-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/julien-truffaut/monocle-core_2.13/2.1.0/monocle-core_2.13-2.1.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.julien-truffaut",
+                    "name": "monocle-macro_2.13",
+                    "version": "2.1.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monocle-macro_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/julien-truffaut/monocle-macro_2.13/2.1.0/monocle-macro_2.13-2.1.0.jar"
+                        },
+                        {
+                            "name": "monocle-macro_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/julien-truffaut/monocle-macro_2.13/2.1.0/monocle-macro_2.13-2.1.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.julien-truffaut",
+                    "name": "monocle-generic_2.13",
+                    "version": "2.1.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monocle-generic_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/julien-truffaut/monocle-generic_2.13/2.1.0/monocle-generic_2.13-2.1.0.jar"
+                        },
+                        {
+                            "name": "monocle-generic_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/julien-truffaut/monocle-generic_2.13/2.1.0/monocle-generic_2.13-2.1.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.chuusai",
+                    "name": "shapeless_2.13",
+                    "version": "2.3.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "shapeless_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/chuusai/shapeless_2.13/2.3.3/shapeless_2.13-2.3.3.jar"
+                        },
+                        {
+                            "name": "shapeless_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/chuusai/shapeless_2.13/2.3.3/shapeless_2.13-2.3.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "co.fs2",
+                    "name": "fs2-core_2.13",
+                    "version": "2.4.4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "fs2-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/co/fs2/fs2-core_2.13/2.4.4/fs2-core_2.13-2.4.4.jar"
+                        },
+                        {
+                            "name": "fs2-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/co/fs2/fs2-core_2.13/2.4.4/fs2-core_2.13-2.4.4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "co.fs2",
+                    "name": "fs2-io_2.13",
+                    "version": "2.4.4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "fs2-io_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/co/fs2/fs2-io_2.13/2.4.4/fs2-io_2.13-2.4.4.jar"
+                        },
+                        {
+                            "name": "fs2-io_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/co/fs2/fs2-io_2.13/2.4.4/fs2-io_2.13-2.4.4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "co.fs2",
+                    "name": "fs2-reactive-streams_2.13",
+                    "version": "2.4.4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "fs2-reactive-streams_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/co/fs2/fs2-reactive-streams_2.13/2.4.4/fs2-reactive-streams_2.13-2.4.4.jar"
+                        },
+                        {
+                            "name": "fs2-reactive-streams_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/co/fs2/fs2-reactive-streams_2.13/2.4.4/fs2-reactive-streams_2.13-2.4.4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "http4s-core_2.13",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "http4s-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-core_2.13/1.0.0-M4/http4s-core_2.13-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "http4s-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-core_2.13/1.0.0-M4/http4s-core_2.13-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "http4s-dsl_2.13",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "http4s-dsl_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-dsl_2.13/1.0.0-M4/http4s-dsl_2.13-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "http4s-dsl_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-dsl_2.13/1.0.0-M4/http4s-dsl_2.13-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "http4s-blaze-server_2.13",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "http4s-blaze-server_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-blaze-server_2.13/1.0.0-M4/http4s-blaze-server_2.13-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "http4s-blaze-server_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-blaze-server_2.13/1.0.0-M4/http4s-blaze-server_2.13-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "http4s-blaze-client_2.13",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "http4s-blaze-client_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-blaze-client_2.13/1.0.0-M4/http4s-blaze-client_2.13-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "http4s-blaze-client_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-blaze-client_2.13/1.0.0-M4/http4s-blaze-client_2.13-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "http4s-client_2.13",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "http4s-client_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-client_2.13/1.0.0-M4/http4s-client_2.13-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "http4s-client_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-client_2.13/1.0.0-M4/http4s-client_2.13-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "http4s-circe_2.13",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "http4s-circe_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-circe_2.13/1.0.0-M4/http4s-circe_2.13-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "http4s-circe_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-circe_2.13/1.0.0-M4/http4s-circe_2.13-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.softwaremill.sttp",
+                    "name": "core_2.13",
+                    "version": "1.7.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/sttp/core_2.13/1.7.2/core_2.13-1.7.2.jar"
+                        },
+                        {
+                            "name": "core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/sttp/core_2.13/1.7.2/core_2.13-1.7.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.softwaremill.sttp",
+                    "name": "circe_2.13",
+                    "version": "1.7.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "circe_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/sttp/circe_2.13/1.7.2/circe_2.13-1.7.2.jar"
+                        },
+                        {
+                            "name": "circe_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/sttp/circe_2.13/1.7.2/circe_2.13-1.7.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.lemonlabs",
+                    "name": "scala-uri_2.13",
+                    "version": "2.3.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-uri_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/lemonlabs/scala-uri_2.13/2.3.1/scala-uri_2.13-2.3.1.jar"
+                        },
+                        {
+                            "name": "scala-uri_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/lemonlabs/scala-uri_2.13/2.3.1/scala-uri_2.13-2.3.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.kafka",
+                    "name": "kafka-clients",
+                    "version": "2.6.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "kafka-clients",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/kafka-clients/2.6.0/kafka-clients-2.6.0.jar"
+                        },
+                        {
+                            "name": "kafka-clients",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/kafka-clients/2.6.0/kafka-clients-2.6.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.kafka",
+                    "name": "kafka-streams",
+                    "version": "2.6.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "kafka-streams",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/kafka-streams/2.6.0/kafka-streams-2.6.0.jar"
+                        },
+                        {
+                            "name": "kafka-streams",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/kafka-streams/2.6.0/kafka-streams-2.6.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.kafka",
+                    "name": "kafka-streams-scala_2.13",
+                    "version": "2.6.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "kafka-streams-scala_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/kafka-streams-scala_2.13/2.6.0/kafka-streams-scala_2.13-2.6.0.jar"
+                        },
+                        {
+                            "name": "kafka-streams-scala_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/kafka-streams-scala_2.13/2.6.0/kafka-streams-scala_2.13-2.6.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "monix-kafka-1x_2.13",
+                    "version": "1.0.0-RC6",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monix-kafka-1x_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-kafka-1x_2.13/1.0.0-RC6/monix-kafka-1x_2.13-1.0.0-RC6.jar"
+                        },
+                        {
+                            "name": "monix-kafka-1x_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-kafka-1x_2.13/1.0.0-RC6/monix-kafka-1x_2.13-1.0.0-RC6-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.github.azhur",
+                    "name": "kafka-serde-circe_2.13",
+                    "version": "0.5.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "kafka-serde-circe_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/github/azhur/kafka-serde-circe_2.13/0.5.0/kafka-serde-circe_2.13-0.5.0.jar"
+                        },
+                        {
+                            "name": "kafka-serde-circe_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/github/azhur/kafka-serde-circe_2.13/0.5.0/kafka-serde-circe_2.13-0.5.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.github.azhur",
+                    "name": "kafka-serde-avro4s_2.13",
+                    "version": "0.5.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "kafka-serde-avro4s_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/github/azhur/kafka-serde-avro4s_2.13/0.5.0/kafka-serde-avro4s_2.13-0.5.0.jar"
+                        },
+                        {
+                            "name": "kafka-serde-avro4s_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/github/azhur/kafka-serde-avro4s_2.13/0.5.0/kafka-serde-avro4s_2.13-0.5.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.pathikrit",
+                    "name": "better-files_2.13",
+                    "version": "3.9.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "better-files_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pathikrit/better-files_2.13/3.9.1/better-files_2.13-3.9.1.jar"
+                        },
+                        {
+                            "name": "better-files_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pathikrit/better-files_2.13/3.9.1/better-files_2.13-3.9.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.monovore",
+                    "name": "decline_2.13",
+                    "version": "1.3.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "decline_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/monovore/decline_2.13/1.3.0/decline_2.13-1.3.0.jar"
+                        },
+                        {
+                            "name": "decline_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/monovore/decline_2.13/1.3.0/decline_2.13-1.3.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.monovore",
+                    "name": "decline-effect_2.13",
+                    "version": "1.3.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "decline-effect_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/monovore/decline-effect_2.13/1.3.0/decline-effect_2.13-1.3.0.jar"
+                        },
+                        {
+                            "name": "decline-effect_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/monovore/decline-effect_2.13/1.3.0/decline-effect_2.13-1.3.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.danielasfregola",
+                    "name": "twitter4s_2.13",
+                    "version": "7.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "twitter4s_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/danielasfregola/twitter4s_2.13/7.0/twitter4s_2.13-7.0.jar"
+                        },
+                        {
+                            "name": "twitter4s_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/danielasfregola/twitter4s_2.13/7.0/twitter4s_2.13-7.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.twitter",
+                    "name": "hbc-core",
+                    "version": "2.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "hbc-core",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/twitter/hbc-core/2.2.0/hbc-core-2.2.0.jar"
+                        },
+                        {
+                            "name": "hbc-core",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/twitter/hbc-core/2.2.0/hbc-core-2.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.sksamuel.elastic4s",
+                    "name": "elastic4s-core_2.13",
+                    "version": "6.7.8",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "elastic4s-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/elastic4s/elastic4s-core_2.13/6.7.8/elastic4s-core_2.13-6.7.8.jar"
+                        },
+                        {
+                            "name": "elastic4s-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/elastic4s/elastic4s-core_2.13/6.7.8/elastic4s-core_2.13-6.7.8-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.sksamuel.elastic4s",
+                    "name": "elastic4s-http_2.13",
+                    "version": "6.7.8",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "elastic4s-http_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/elastic4s/elastic4s-http_2.13/6.7.8/elastic4s-http_2.13-6.7.8.jar"
+                        },
+                        {
+                            "name": "elastic4s-http_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/elastic4s/elastic4s-http_2.13/6.7.8/elastic4s-http_2.13-6.7.8-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.sksamuel.elastic4s",
+                    "name": "elastic4s-http-streams_2.13",
+                    "version": "6.7.8",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "elastic4s-http-streams_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/elastic4s/elastic4s-http-streams_2.13/6.7.8/elastic4s-http-streams_2.13-6.7.8.jar"
+                        },
+                        {
+                            "name": "elastic4s-http-streams_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/elastic4s/elastic4s-http-streams_2.13/6.7.8/elastic4s-http-streams_2.13-6.7.8-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.commons",
+                    "name": "commons-lang3",
+                    "version": "3.11",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "commons-lang3",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar"
+                        },
+                        {
+                            "name": "commons-lang3",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.estatico",
+                    "name": "newtype_2.13",
+                    "version": "0.4.4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "newtype_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/estatico/newtype_2.13/0.4.4/newtype_2.13-0.4.4.jar"
+                        },
+                        {
+                            "name": "newtype_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/estatico/newtype_2.13/0.4.4/newtype_2.13-0.4.4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.softwaremill.common",
+                    "name": "tagging_2.13",
+                    "version": "2.2.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "tagging_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/common/tagging_2.13/2.2.1/tagging_2.13-2.2.1.jar"
+                        },
+                        {
+                            "name": "tagging_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/common/tagging_2.13/2.2.1/tagging_2.13-2.2.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.sksamuel.avro4s",
+                    "name": "avro4s-core_2.13",
+                    "version": "4.0.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "avro4s-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/avro4s/avro4s-core_2.13/4.0.0/avro4s-core_2.13-4.0.0.jar"
+                        },
+                        {
+                            "name": "avro4s-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/avro4s/avro4s-core_2.13/4.0.0/avro4s-core_2.13-4.0.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.circe",
+                    "name": "circe-core_2.13",
+                    "version": "0.13.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "circe-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-core_2.13/0.13.0/circe-core_2.13-0.13.0.jar"
+                        },
+                        {
+                            "name": "circe-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-core_2.13/0.13.0/circe-core_2.13-0.13.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.circe",
+                    "name": "circe-generic_2.13",
+                    "version": "0.13.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "circe-generic_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-generic_2.13/0.13.0/circe-generic_2.13-0.13.0.jar"
+                        },
+                        {
+                            "name": "circe-generic_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-generic_2.13/0.13.0/circe-generic_2.13-0.13.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.circe",
+                    "name": "circe-generic-extras_2.13",
+                    "version": "0.13.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "circe-generic-extras_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-generic-extras_2.13/0.13.0/circe-generic-extras_2.13-0.13.0.jar"
+                        },
+                        {
+                            "name": "circe-generic-extras_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-generic-extras_2.13/0.13.0/circe-generic-extras_2.13-0.13.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.circe",
+                    "name": "circe-parser_2.13",
+                    "version": "0.13.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "circe-parser_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-parser_2.13/0.13.0/circe-parser_2.13-0.13.0.jar"
+                        },
+                        {
+                            "name": "circe-parser_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-parser_2.13/0.13.0/circe-parser_2.13-0.13.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.circe",
+                    "name": "circe-refined_2.13",
+                    "version": "0.13.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "circe-refined_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-refined_2.13/0.13.0/circe-refined_2.13-0.13.0.jar"
+                        },
+                        {
+                            "name": "circe-refined_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-refined_2.13/0.13.0/circe-refined_2.13-0.13.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.json4s",
+                    "name": "json4s-jackson_2.13",
+                    "version": "3.6.10",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "json4s-jackson_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-jackson_2.13/3.6.10/json4s-jackson_2.13-3.6.10.jar"
+                        },
+                        {
+                            "name": "json4s-jackson_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-jackson_2.13/3.6.10/json4s-jackson_2.13-3.6.10-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.json4s",
+                    "name": "json4s-ext_2.13",
+                    "version": "3.6.10",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "json4s-ext_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-ext_2.13/3.6.10/json4s-ext_2.13-3.6.10.jar"
+                        },
+                        {
+                            "name": "json4s-ext_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-ext_2.13/3.6.10/json4s-ext_2.13-3.6.10-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.backwards-limited",
+                    "name": "scala-backwards",
+                    "version": "1.0.29",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-backwards",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "18b163b3cee99311c5fd97e9c57456a339662848"
+                            },
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/jitpack.io/com/github/backwards-limited/scala-backwards/1.0.29/scala-backwards-1.0.29.jar"
+                        },
+                        {
+                            "name": "scala-backwards",
+                            "classifier": "sources",
+                            "checksum": {
+                                "type": "sha1",
+                                "digest": "677844e9ee92b3ac1f76f395a0aeda608f1436c7"
+                            },
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/jitpack.io/com/github/backwards-limited/scala-backwards/1.0.29/scala-backwards-1.0.29-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.outr",
+                    "name": "scribe-macros_2.13",
+                    "version": "2.8.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scribe-macros_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/scribe-macros_2.13/2.8.1/scribe-macros_2.13-2.8.1.jar"
+                        },
+                        {
+                            "name": "scribe-macros_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/scribe-macros_2.13/2.8.1/scribe-macros_2.13-2.8.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.outr",
+                    "name": "perfolation_2.13",
+                    "version": "1.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "perfolation_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/perfolation_2.13/1.2.0/perfolation_2.13-1.2.0.jar"
+                        },
+                        {
+                            "name": "perfolation_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/perfolation_2.13/1.2.0/perfolation_2.13-1.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.pureconfig",
+                    "name": "pureconfig-core_2.13",
+                    "version": "0.14.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "pureconfig-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-core_2.13/0.14.0/pureconfig-core_2.13-0.14.0.jar"
+                        },
+                        {
+                            "name": "pureconfig-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-core_2.13/0.14.0/pureconfig-core_2.13-0.14.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.pureconfig",
+                    "name": "pureconfig-generic_2.13",
+                    "version": "0.14.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "pureconfig-generic_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-generic_2.13/0.14.0/pureconfig-generic_2.13-0.14.0.jar"
+                        },
+                        {
+                            "name": "pureconfig-generic_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-generic_2.13/0.14.0/pureconfig-generic_2.13-0.14.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.slf4j",
+                    "name": "slf4j-api",
+                    "version": "1.7.30",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "slf4j-api",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar"
+                        },
+                        {
+                            "name": "slf4j-api",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-reflect",
+                    "version": "2.13.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-reflect",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.3/scala-reflect-2.13.3.jar"
+                        },
+                        {
+                            "name": "scala-reflect",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.3/scala-reflect-2.13.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "ch.qos.logback",
+                    "name": "logback-core",
+                    "version": "1.2.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "logback-core",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar"
+                        },
+                        {
+                            "name": "logback-core",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.typelevel",
+                    "name": "cats-kernel_2.13",
+                    "version": "2.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "cats-kernel_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-kernel_2.13/2.2.0/cats-kernel_2.13-2.2.0.jar"
+                        },
+                        {
+                            "name": "cats-kernel_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-kernel_2.13/2.2.0/cats-kernel_2.13-2.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.typelevel",
+                    "name": "cats-free_2.13",
+                    "version": "2.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "cats-free_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-free_2.13/2.2.0/cats-free_2.13-2.2.0.jar"
+                        },
+                        {
+                            "name": "cats-free_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-free_2.13/2.2.0/cats-free_2.13-2.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scodec",
+                    "name": "scodec-bits_2.13",
+                    "version": "1.1.18",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scodec-bits_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scodec/scodec-bits_2.13/1.1.18/scodec-bits_2.13-1.1.18.jar"
+                        },
+                        {
+                            "name": "scodec-bits_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scodec/scodec-bits_2.13/1.1.18/scodec-bits_2.13-1.1.18-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.reactivestreams",
+                    "name": "reactive-streams",
+                    "version": "1.0.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "reactive-streams",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar"
+                        },
+                        {
+                            "name": "reactive-streams",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.typelevel",
+                    "name": "case-insensitive_2.13",
+                    "version": "0.3.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "case-insensitive_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/case-insensitive_2.13/0.3.0/case-insensitive_2.13-0.3.0.jar"
+                        },
+                        {
+                            "name": "case-insensitive_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/case-insensitive_2.13/0.3.0/case-insensitive_2.13-0.3.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.log4s",
+                    "name": "log4s_2.13",
+                    "version": "1.8.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "log4s_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/log4s/log4s_2.13/1.8.2/log4s_2.13-1.8.2.jar"
+                        },
+                        {
+                            "name": "log4s_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/log4s/log4s_2.13/1.8.2/log4s_2.13-1.8.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "parboiled_2.13",
+                    "version": "2.0.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "parboiled_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/parboiled_2.13/2.0.1/parboiled_2.13-2.0.1.jar"
+                        },
+                        {
+                            "name": "parboiled_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/parboiled_2.13/2.0.1/parboiled_2.13-2.0.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.chrisdavenport",
+                    "name": "vault_2.13",
+                    "version": "2.0.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "vault_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/vault_2.13/2.0.0/vault_2.13-2.0.0.jar"
+                        },
+                        {
+                            "name": "vault_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/vault_2.13/2.0.0/vault_2.13-2.0.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "http4s-blaze-core_2.13",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "http4s-blaze-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-blaze-core_2.13/1.0.0-M4/http4s-blaze-core_2.13-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "http4s-blaze-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-blaze-core_2.13/1.0.0-M4/http4s-blaze-core_2.13-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "http4s-server_2.13",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "http4s-server_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-server_2.13/1.0.0-M4/http4s-server_2.13-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "http4s-server_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-server_2.13/1.0.0-M4/http4s-server_2.13-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "http4s-jawn_2.13",
+                    "version": "1.0.0-M4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "http4s-jawn_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-jawn_2.13/1.0.0-M4/http4s-jawn_2.13-1.0.0-M4.jar"
+                        },
+                        {
+                            "name": "http4s-jawn_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/http4s-jawn_2.13/1.0.0-M4/http4s-jawn_2.13-1.0.0-M4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.circe",
+                    "name": "circe-jawn_2.13",
+                    "version": "0.13.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "circe-jawn_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-jawn_2.13/0.13.0/circe-jawn_2.13-0.13.0.jar"
+                        },
+                        {
+                            "name": "circe-jawn_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-jawn_2.13/0.13.0/circe-jawn_2.13-0.13.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.softwaremill.sttp",
+                    "name": "json-common_2.13",
+                    "version": "1.7.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "json-common_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/sttp/json-common_2.13/1.7.2/json-common_2.13-1.7.2.jar"
+                        },
+                        {
+                            "name": "json-common_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/softwaremill/sttp/json-common_2.13/1.7.2/json-common_2.13-1.7.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.parboiled",
+                    "name": "parboiled_2.13",
+                    "version": "2.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "parboiled_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/parboiled/parboiled_2.13/2.2.0/parboiled_2.13-2.2.0.jar"
+                        },
+                        {
+                            "name": "parboiled_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/parboiled/parboiled_2.13/2.2.0/parboiled_2.13-2.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.luben",
+                    "name": "zstd-jni",
+                    "version": "1.4.4-7",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "zstd-jni",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/luben/zstd-jni/1.4.4-7/zstd-jni-1.4.4-7.jar"
+                        },
+                        {
+                            "name": "zstd-jni",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/luben/zstd-jni/1.4.4-7/zstd-jni-1.4.4-7-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.lz4",
+                    "name": "lz4-java",
+                    "version": "1.7.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "lz4-java",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/lz4/lz4-java/1.7.1/lz4-java-1.7.1.jar"
+                        },
+                        {
+                            "name": "lz4-java",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/lz4/lz4-java/1.7.1/lz4-java-1.7.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.xerial.snappy",
+                    "name": "snappy-java",
+                    "version": "1.1.7.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "snappy-java",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.7.3/snappy-java-1.1.7.3.jar"
+                        },
+                        {
+                            "name": "snappy-java",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.7.3/snappy-java-1.1.7.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.kafka",
+                    "name": "connect-json",
+                    "version": "2.6.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "connect-json",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/connect-json/2.6.0/connect-json-2.6.0.jar"
+                        },
+                        {
+                            "name": "connect-json",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/connect-json/2.6.0/connect-json-2.6.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.rocksdb",
+                    "name": "rocksdbjni",
+                    "version": "5.18.4",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "rocksdbjni",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/rocksdb/rocksdbjni/5.18.4/rocksdbjni-5.18.4.jar"
+                        },
+                        {
+                            "name": "rocksdbjni",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/rocksdb/rocksdbjni/5.18.4/rocksdbjni-5.18.4-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang.modules",
+                    "name": "scala-collection-compat_2.13",
+                    "version": "2.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-collection-compat_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-collection-compat_2.13/2.2.0/scala-collection-compat_2.13-2.2.0.jar"
+                        },
+                        {
+                            "name": "scala-collection-compat_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-collection-compat_2.13/2.2.0/scala-collection-compat_2.13-2.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "monix-reactive_2.13",
+                    "version": "3.2.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monix-reactive_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-reactive_2.13/3.2.2/monix-reactive_2.13-3.2.2.jar"
+                        },
+                        {
+                            "name": "monix-reactive_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-reactive_2.13/3.2.2/monix-reactive_2.13-3.2.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe.scala-logging",
+                    "name": "scala-logging_2.13",
+                    "version": "3.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-logging_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/scala-logging/scala-logging_2.13/3.9.2/scala-logging_2.13-3.9.2.jar"
+                        },
+                        {
+                            "name": "scala-logging_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/scala-logging/scala-logging_2.13/3.9.2/scala-logging_2.13-3.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe",
+                    "name": "config",
+                    "version": "1.4.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "config",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/config/1.4.0/config-1.4.0.jar"
+                        },
+                        {
+                            "name": "config",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/config/1.4.0/config-1.4.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.slf4j",
+                    "name": "log4j-over-slf4j",
+                    "version": "1.7.30",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "log4j-over-slf4j",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.7.30/log4j-over-slf4j-1.7.30.jar"
+                        },
+                        {
+                            "name": "log4j-over-slf4j",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.7.30/log4j-over-slf4j-1.7.30-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.sksamuel.avro4s",
+                    "name": "avro4s-kafka_2.13",
+                    "version": "3.1.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "avro4s-kafka_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/avro4s/avro4s-kafka_2.13/3.1.1/avro4s-kafka_2.13-3.1.1.jar"
+                        },
+                        {
+                            "name": "avro4s-kafka_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/avro4s/avro4s-kafka_2.13/3.1.1/avro4s-kafka_2.13-3.1.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe.akka",
+                    "name": "akka-actor_2.13",
+                    "version": "2.6.8",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "akka-actor_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.13/2.6.8/akka-actor_2.13-2.6.8.jar"
+                        },
+                        {
+                            "name": "akka-actor_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.13/2.6.8/akka-actor_2.13-2.6.8-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe.akka",
+                    "name": "akka-stream_2.13",
+                    "version": "2.6.8",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "akka-stream_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-stream_2.13/2.6.8/akka-stream_2.13-2.6.8.jar"
+                        },
+                        {
+                            "name": "akka-stream_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-stream_2.13/2.6.8/akka-stream_2.13-2.6.8-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe.akka",
+                    "name": "akka-http_2.13",
+                    "version": "10.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "akka-http_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-http_2.13/10.2.0/akka-http_2.13-10.2.0.jar"
+                        },
+                        {
+                            "name": "akka-http_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-http_2.13/10.2.0/akka-http_2.13-10.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "de.heikoseeberger",
+                    "name": "akka-http-json4s_2.13",
+                    "version": "1.34.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "akka-http-json4s_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/de/heikoseeberger/akka-http-json4s_2.13/1.34.0/akka-http-json4s_2.13-1.34.0.jar"
+                        },
+                        {
+                            "name": "akka-http-json4s_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/de/heikoseeberger/akka-http-json4s_2.13/1.34.0/akka-http-json4s_2.13-1.34.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.json4s",
+                    "name": "json4s-native_2.13",
+                    "version": "3.6.9",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "json4s-native_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-native_2.13/3.6.9/json4s-native_2.13-3.6.9.jar"
+                        },
+                        {
+                            "name": "json4s-native_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-native_2.13/3.6.9/json4s-native_2.13-3.6.9-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.httpcomponents",
+                    "name": "httpclient",
+                    "version": "4.5.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "httpclient",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2.jar"
+                        },
+                        {
+                            "name": "httpclient",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.google.guava",
+                    "name": "guava",
+                    "version": "15.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "guava",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar"
+                        },
+                        {
+                            "name": "guava",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.twitter",
+                    "name": "joauth",
+                    "version": "6.0.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "joauth",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/twitter/joauth/6.0.2/joauth-6.0.2.jar"
+                        },
+                        {
+                            "name": "joauth",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/twitter/joauth/6.0.2/joauth-6.0.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.google.code.findbugs",
+                    "name": "jsr305",
+                    "version": "1.3.9",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jsr305",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.sksamuel.exts",
+                    "name": "exts_2.13",
+                    "version": "1.61.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "exts_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/exts/exts_2.13/1.61.1/exts_2.13-1.61.1.jar"
+                        },
+                        {
+                            "name": "exts_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/sksamuel/exts/exts_2.13/1.61.1/exts_2.13-1.61.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "joda-time",
+                    "name": "joda-time",
+                    "version": "2.10.6",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "joda-time",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/joda-time/joda-time/2.10.6/joda-time-2.10.6.jar"
+                        },
+                        {
+                            "name": "joda-time",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/joda-time/joda-time/2.10.6/joda-time-2.10.6-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.fasterxml.jackson.core",
+                    "name": "jackson-core",
+                    "version": "2.10.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jackson-core",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.10.2/jackson-core-2.10.2.jar"
+                        },
+                        {
+                            "name": "jackson-core",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.10.2/jackson-core-2.10.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.fasterxml.jackson.core",
+                    "name": "jackson-databind",
+                    "version": "2.10.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jackson-databind",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.10.2/jackson-databind-2.10.2.jar"
+                        },
+                        {
+                            "name": "jackson-databind",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.10.2/jackson-databind-2.10.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.fasterxml.jackson.module",
+                    "name": "jackson-module-scala_2.13",
+                    "version": "2.10.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jackson-module-scala_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-scala_2.13/2.10.0/jackson-module-scala_2.13-2.10.0.jar"
+                        },
+                        {
+                            "name": "jackson-module-scala_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-scala_2.13/2.10.0/jackson-module-scala_2.13-2.10.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.elasticsearch.client",
+                    "name": "elasticsearch-rest-client",
+                    "version": "6.7.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "elasticsearch-rest-client",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/elasticsearch/client/elasticsearch-rest-client/6.7.2/elasticsearch-rest-client-6.7.2.jar"
+                        },
+                        {
+                            "name": "elasticsearch-rest-client",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/elasticsearch/client/elasticsearch-rest-client/6.7.2/elasticsearch-rest-client-6.7.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-compiler",
+                    "version": "2.13.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-compiler",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.3/scala-compiler-2.13.3.jar"
+                        },
+                        {
+                            "name": "scala-compiler",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.3/scala-compiler-2.13.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.avro",
+                    "name": "avro",
+                    "version": "1.9.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "avro",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/avro/avro/1.9.2/avro-1.9.2.jar"
+                        },
+                        {
+                            "name": "avro",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/avro/avro/1.9.2/avro-1.9.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.propensive",
+                    "name": "magnolia_2.13",
+                    "version": "0.16.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "magnolia_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/propensive/magnolia_2.13/0.16.0/magnolia_2.13-0.16.0.jar"
+                        },
+                        {
+                            "name": "magnolia_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/propensive/magnolia_2.13/0.16.0/magnolia_2.13-0.16.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.circe",
+                    "name": "circe-numbers_2.13",
+                    "version": "0.13.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "circe-numbers_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-numbers_2.13/0.13.0/circe-numbers_2.13-0.13.0.jar"
+                        },
+                        {
+                            "name": "circe-numbers_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/circe/circe-numbers_2.13/0.13.0/circe-numbers_2.13-0.13.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "eu.timepit",
+                    "name": "refined_2.13",
+                    "version": "0.9.16",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "refined_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined_2.13/0.9.16/refined_2.13-0.9.16.jar"
+                        },
+                        {
+                            "name": "refined_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined_2.13/0.9.16/refined_2.13-0.9.16-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.json4s",
+                    "name": "json4s-core_2.13",
+                    "version": "3.6.10",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "json4s-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-core_2.13/3.6.10/json4s-core_2.13-3.6.10.jar"
+                        },
+                        {
+                            "name": "json4s-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-core_2.13/3.6.10/json4s-core_2.13-3.6.10-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.joda",
+                    "name": "joda-convert",
+                    "version": "2.2.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "joda-convert",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/joda/joda-convert/2.2.1/joda-convert-2.2.1.jar"
+                        },
+                        {
+                            "name": "joda-convert",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/joda/joda-convert/2.2.1/joda-convert-2.2.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.alexarchambault",
+                    "name": "scalacheck-shapeless_1.14_2.13",
+                    "version": "1.2.5",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scalacheck-shapeless_1.14_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/alexarchambault/scalacheck-shapeless_1.14_2.13/1.2.5/scalacheck-shapeless_1.14_2.13-1.2.5.jar"
+                        },
+                        {
+                            "name": "scalacheck-shapeless_1.14_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/alexarchambault/scalacheck-shapeless_1.14_2.13/1.2.5/scalacheck-shapeless_1.14_2.13-1.2.5-sources.jar"
+                        },
+                        {
+                            "name": "scalacheck-shapeless_1.14_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/alexarchambault/scalacheck-shapeless_1.14_2.13/1.2.5/scalacheck-shapeless_1.14_2.13-1.2.5-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.lihaoyi",
+                    "name": "pprint_2.13",
+                    "version": "0.6.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "pprint_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/pprint_2.13/0.6.0/pprint_2.13-0.6.0.jar"
+                        },
+                        {
+                            "name": "pprint_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/pprint_2.13/0.6.0/pprint_2.13-0.6.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.typelevel",
+                    "name": "mouse_2.13",
+                    "version": "0.25",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "mouse_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/mouse_2.13/0.25/mouse_2.13-0.25.jar"
+                        },
+                        {
+                            "name": "mouse_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/mouse_2.13/0.25/mouse_2.13-0.25-sources.jar"
+                        },
+                        {
+                            "name": "mouse_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/mouse_2.13/0.25/mouse_2.13-0.25-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.typelevel",
+                    "name": "simulacrum_2.13",
+                    "version": "1.0.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "simulacrum_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/simulacrum_2.13/1.0.0/simulacrum_2.13-1.0.0.jar"
+                        },
+                        {
+                            "name": "simulacrum_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/simulacrum_2.13/1.0.0/simulacrum_2.13-1.0.0-sources.jar"
+                        },
+                        {
+                            "name": "simulacrum_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/simulacrum_2.13/1.0.0/simulacrum_2.13-1.0.0-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "eu.timepit",
+                    "name": "refined-pureconfig_2.13",
+                    "version": "0.9.16",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "refined-pureconfig_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined-pureconfig_2.13/0.9.16/refined-pureconfig_2.13-0.9.16.jar"
+                        },
+                        {
+                            "name": "refined-pureconfig_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined-pureconfig_2.13/0.9.16/refined-pureconfig_2.13-0.9.16-sources.jar"
+                        },
+                        {
+                            "name": "refined-pureconfig_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined-pureconfig_2.13/0.9.16/refined-pureconfig_2.13-0.9.16-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "eu.timepit",
+                    "name": "refined-cats_2.13",
+                    "version": "0.9.16",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "refined-cats_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined-cats_2.13/0.9.16/refined-cats_2.13-0.9.16.jar"
+                        },
+                        {
+                            "name": "refined-cats_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined-cats_2.13/0.9.16/refined-cats_2.13-0.9.16-sources.jar"
+                        },
+                        {
+                            "name": "refined-cats_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/eu/timepit/refined-cats_2.13/0.9.16/refined-cats_2.13-0.9.16-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.olegpy",
+                    "name": "meow-mtl-core_2.13",
+                    "version": "0.4.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "meow-mtl-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-core_2.13/0.4.1/meow-mtl-core_2.13-0.4.1.jar"
+                        },
+                        {
+                            "name": "meow-mtl-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-core_2.13/0.4.1/meow-mtl-core_2.13-0.4.1-sources.jar"
+                        },
+                        {
+                            "name": "meow-mtl-core_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-core_2.13/0.4.1/meow-mtl-core_2.13-0.4.1-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.olegpy",
+                    "name": "meow-mtl-effects_2.13",
+                    "version": "0.4.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "meow-mtl-effects_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-effects_2.13/0.4.1/meow-mtl-effects_2.13-0.4.1.jar"
+                        },
+                        {
+                            "name": "meow-mtl-effects_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-effects_2.13/0.4.1/meow-mtl-effects_2.13-0.4.1-sources.jar"
+                        },
+                        {
+                            "name": "meow-mtl-effects_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-effects_2.13/0.4.1/meow-mtl-effects_2.13-0.4.1-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.olegpy",
+                    "name": "meow-mtl-monix_2.13",
+                    "version": "0.4.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "meow-mtl-monix_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-monix_2.13/0.4.1/meow-mtl-monix_2.13-0.4.1.jar"
+                        },
+                        {
+                            "name": "meow-mtl-monix_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-monix_2.13/0.4.1/meow-mtl-monix_2.13-0.4.1-sources.jar"
+                        },
+                        {
+                            "name": "meow-mtl-monix_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/olegpy/meow-mtl-monix_2.13/0.4.1/meow-mtl-monix_2.13-0.4.1-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "monix_2.13",
+                    "version": "3.2.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monix_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix_2.13/3.2.2/monix_2.13-3.2.2.jar"
+                        },
+                        {
+                            "name": "monix_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix_2.13/3.2.2/monix_2.13-3.2.2-sources.jar"
+                        },
+                        {
+                            "name": "monix_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix_2.13/3.2.2/monix_2.13-3.2.2-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "monix-kafka-11_2.13",
+                    "version": "1.0.0-RC6",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monix-kafka-11_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-kafka-11_2.13/1.0.0-RC6/monix-kafka-11_2.13-1.0.0-RC6.jar"
+                        },
+                        {
+                            "name": "monix-kafka-11_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-kafka-11_2.13/1.0.0-RC6/monix-kafka-11_2.13-1.0.0-RC6-sources.jar"
+                        },
+                        {
+                            "name": "monix-kafka-11_2.13",
+                            "classifier": "javadoc",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-kafka-11_2.13/1.0.0-RC6/monix-kafka-11_2.13-1.0.0-RC6-javadoc.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang.modules",
+                    "name": "scala-parser-combinators_2.13",
+                    "version": "1.1.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-parser-combinators_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.13/1.1.2/scala-parser-combinators_2.13-1.1.2.jar"
+                        },
+                        {
+                            "name": "scala-parser-combinators_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.13/1.1.2/scala-parser-combinators_2.13-1.1.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.pureconfig",
+                    "name": "pureconfig-macros_2.13",
+                    "version": "0.14.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "pureconfig-macros_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-macros_2.13/0.14.0/pureconfig-macros_2.13-0.14.0.jar"
+                        },
+                        {
+                            "name": "pureconfig-macros_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-macros_2.13/0.14.0/pureconfig-macros_2.13-0.14.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.github.pureconfig",
+                    "name": "pureconfig-generic-base_2.13",
+                    "version": "0.14.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "pureconfig-generic-base_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-generic-base_2.13/0.14.0/pureconfig-generic-base_2.13-0.14.0.jar"
+                        },
+                        {
+                            "name": "pureconfig-generic-base_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/github/pureconfig/pureconfig-generic-base_2.13/0.14.0/pureconfig-generic-base_2.13-0.14.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.chrisdavenport",
+                    "name": "unique_2.13",
+                    "version": "2.0.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "unique_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/unique_2.13/2.0.0/unique_2.13-2.0.0.jar"
+                        },
+                        {
+                            "name": "unique_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/chrisdavenport/unique_2.13/2.0.0/unique_2.13-2.0.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "blaze-http_2.13",
+                    "version": "0.14.13",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "blaze-http_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/blaze-http_2.13/0.14.13/blaze-http_2.13-0.14.13.jar"
+                        },
+                        {
+                            "name": "blaze-http_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/blaze-http_2.13/0.14.13/blaze-http_2.13-0.14.13-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "jawn-fs2_2.13",
+                    "version": "1.0.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jawn-fs2_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/jawn-fs2_2.13/1.0.0/jawn-fs2_2.13-1.0.0.jar"
+                        },
+                        {
+                            "name": "jawn-fs2_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/jawn-fs2_2.13/1.0.0/jawn-fs2_2.13-1.0.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.typelevel",
+                    "name": "jawn-parser_2.13",
+                    "version": "1.0.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jawn-parser_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/jawn-parser_2.13/1.0.0/jawn-parser_2.13-1.0.0.jar"
+                        },
+                        {
+                            "name": "jawn-parser_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/jawn-parser_2.13/1.0.0/jawn-parser_2.13-1.0.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.kafka",
+                    "name": "connect-api",
+                    "version": "2.6.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "connect-api",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/connect-api/2.6.0/connect-api-2.6.0.jar"
+                        },
+                        {
+                            "name": "connect-api",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/kafka/connect-api/2.6.0/connect-api-2.6.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.fasterxml.jackson.datatype",
+                    "name": "jackson-datatype-jdk8",
+                    "version": "2.10.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jackson-datatype-jdk8",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.10.2/jackson-datatype-jdk8-2.10.2.jar"
+                        },
+                        {
+                            "name": "jackson-datatype-jdk8",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.10.2/jackson-datatype-jdk8-2.10.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "monix-execution_2.13",
+                    "version": "3.2.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monix-execution_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-execution_2.13/3.2.2/monix-execution_2.13-3.2.2.jar"
+                        },
+                        {
+                            "name": "monix-execution_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-execution_2.13/3.2.2/monix-execution_2.13-3.2.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "monix-eval_2.13",
+                    "version": "3.2.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monix-eval_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-eval_2.13/3.2.2/monix-eval_2.13-3.2.2.jar"
+                        },
+                        {
+                            "name": "monix-eval_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-eval_2.13/3.2.2/monix-eval_2.13-3.2.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang.modules",
+                    "name": "scala-java8-compat_2.13",
+                    "version": "0.9.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-java8-compat_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-java8-compat_2.13/0.9.0/scala-java8-compat_2.13-0.9.0.jar"
+                        },
+                        {
+                            "name": "scala-java8-compat_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-java8-compat_2.13/0.9.0/scala-java8-compat_2.13-0.9.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe.akka",
+                    "name": "akka-protobuf-v3_2.13",
+                    "version": "2.6.8",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "akka-protobuf-v3_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-protobuf-v3_2.13/2.6.8/akka-protobuf-v3_2.13-2.6.8.jar"
+                        },
+                        {
+                            "name": "akka-protobuf-v3_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-protobuf-v3_2.13/2.6.8/akka-protobuf-v3_2.13-2.6.8-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe",
+                    "name": "ssl-config-core_2.13",
+                    "version": "0.4.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "ssl-config-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/ssl-config-core_2.13/0.4.1/ssl-config-core_2.13-0.4.1.jar"
+                        },
+                        {
+                            "name": "ssl-config-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/ssl-config-core_2.13/0.4.1/ssl-config-core_2.13-0.4.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe.akka",
+                    "name": "akka-http-core_2.13",
+                    "version": "10.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "akka-http-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-http-core_2.13/10.2.0/akka-http-core_2.13-10.2.0.jar"
+                        },
+                        {
+                            "name": "akka-http-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-http-core_2.13/10.2.0/akka-http-core_2.13-10.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.httpcomponents",
+                    "name": "httpcore",
+                    "version": "4.4.5",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "httpcore",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.4.5/httpcore-4.4.5.jar"
+                        },
+                        {
+                            "name": "httpcore",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.4.5/httpcore-4.4.5-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "commons-logging",
+                    "name": "commons-logging",
+                    "version": "1.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "commons-logging",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"
+                        },
+                        {
+                            "name": "commons-logging",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "commons-codec",
+                    "name": "commons-codec",
+                    "version": "1.10",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "commons-codec",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/commons-codec/commons-codec/1.10/commons-codec-1.10.jar"
+                        },
+                        {
+                            "name": "commons-codec",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/commons-codec/commons-codec/1.10/commons-codec-1.10-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.fasterxml.jackson.core",
+                    "name": "jackson-annotations",
+                    "version": "2.10.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jackson-annotations",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.10.2/jackson-annotations-2.10.2.jar"
+                        },
+                        {
+                            "name": "jackson-annotations",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.10.2/jackson-annotations-2.10.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.fasterxml.jackson.module",
+                    "name": "jackson-module-paranamer",
+                    "version": "2.10.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jackson-module-paranamer",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-paranamer/2.10.0/jackson-module-paranamer-2.10.0.jar"
+                        },
+                        {
+                            "name": "jackson-module-paranamer",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-paranamer/2.10.0/jackson-module-paranamer-2.10.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.httpcomponents",
+                    "name": "httpasyncclient",
+                    "version": "4.1.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "httpasyncclient",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpasyncclient/4.1.2/httpasyncclient-4.1.2.jar"
+                        },
+                        {
+                            "name": "httpasyncclient",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpasyncclient/4.1.2/httpasyncclient-4.1.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.httpcomponents",
+                    "name": "httpcore-nio",
+                    "version": "4.4.5",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "httpcore-nio",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpcore-nio/4.4.5/httpcore-nio-4.4.5.jar"
+                        },
+                        {
+                            "name": "httpcore-nio",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpcore-nio/4.4.5/httpcore-nio-4.4.5-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.jline",
+                    "name": "jline",
+                    "version": "3.15.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jline",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/jline/jline/3.15.0/jline-3.15.0.jar"
+                        },
+                        {
+                            "name": "jline",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/jline/jline/3.15.0/jline-3.15.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "net.java.dev.jna",
+                    "name": "jna",
+                    "version": "5.3.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jna",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1.jar"
+                        },
+                        {
+                            "name": "jna",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.apache.commons",
+                    "name": "commons-compress",
+                    "version": "1.19",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "commons-compress",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-compress/1.19/commons-compress-1.19.jar"
+                        },
+                        {
+                            "name": "commons-compress",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-compress/1.19/commons-compress-1.19-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.propensive",
+                    "name": "mercator_2.13",
+                    "version": "0.2.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "mercator_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/propensive/mercator_2.13/0.2.1/mercator_2.13-0.2.1.jar"
+                        },
+                        {
+                            "name": "mercator_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/propensive/mercator_2.13/0.2.1/mercator_2.13-0.2.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang.modules",
+                    "name": "scala-xml_2.13",
+                    "version": "1.3.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scala-xml_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.13/1.3.0/scala-xml_2.13-1.3.0.jar"
+                        },
+                        {
+                            "name": "scala-xml_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.13/1.3.0/scala-xml_2.13-1.3.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.json4s",
+                    "name": "json4s-ast_2.13",
+                    "version": "3.6.10",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "json4s-ast_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-ast_2.13/3.6.10/json4s-ast_2.13-3.6.10.jar"
+                        },
+                        {
+                            "name": "json4s-ast_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-ast_2.13/3.6.10/json4s-ast_2.13-3.6.10-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.json4s",
+                    "name": "json4s-scalap_2.13",
+                    "version": "3.6.10",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "json4s-scalap_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-scalap_2.13/3.6.10/json4s-scalap_2.13-3.6.10.jar"
+                        },
+                        {
+                            "name": "json4s-scalap_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/json4s/json4s-scalap_2.13/3.6.10/json4s-scalap_2.13-3.6.10-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.thoughtworks.paranamer",
+                    "name": "paranamer",
+                    "version": "2.8",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "paranamer",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.8/paranamer-2.8.jar"
+                        },
+                        {
+                            "name": "paranamer",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.8/paranamer-2.8-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scalacheck",
+                    "name": "scalacheck_2.13",
+                    "version": "1.14.3",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "scalacheck_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalacheck/scalacheck_2.13/1.14.3/scalacheck_2.13-1.14.3.jar"
+                        },
+                        {
+                            "name": "scalacheck_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalacheck/scalacheck_2.13/1.14.3/scalacheck_2.13-1.14.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.lihaoyi",
+                    "name": "fansi_2.13",
+                    "version": "0.2.9",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "fansi_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/fansi_2.13/0.2.9/fansi_2.13-0.2.9.jar"
+                        },
+                        {
+                            "name": "fansi_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/fansi_2.13/0.2.9/fansi_2.13-0.2.9-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.lihaoyi",
+                    "name": "sourcecode_2.13",
+                    "version": "0.2.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "sourcecode_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.13/0.2.1/sourcecode_2.13-0.2.1.jar"
+                        },
+                        {
+                            "name": "sourcecode_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.13/0.2.1/sourcecode_2.13-0.2.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.typelevel",
+                    "name": "cats-mtl-core_2.13",
+                    "version": "0.7.1",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "cats-mtl-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-mtl-core_2.13/0.7.1/cats-mtl-core_2.13-0.7.1.jar"
+                        },
+                        {
+                            "name": "cats-mtl-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/typelevel/cats-mtl-core_2.13/0.7.1/cats-mtl-core_2.13-0.7.1-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "monix-catnap_2.13",
+                    "version": "3.2.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monix-catnap_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-catnap_2.13/3.2.2/monix-catnap_2.13-3.2.2.jar"
+                        },
+                        {
+                            "name": "monix-catnap_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-catnap_2.13/3.2.2/monix-catnap_2.13-3.2.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "monix-tail_2.13",
+                    "version": "3.2.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monix-tail_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-tail_2.13/3.2.2/monix-tail_2.13-3.2.2.jar"
+                        },
+                        {
+                            "name": "monix-tail_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-tail_2.13/3.2.2/monix-tail_2.13-3.2.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "monix-java_2.13",
+                    "version": "3.2.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "monix-java_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-java_2.13/3.2.2/monix-java_2.13-3.2.2.jar"
+                        },
+                        {
+                            "name": "monix-java_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/monix-java_2.13/3.2.2/monix-java_2.13-3.2.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.http4s",
+                    "name": "blaze-core_2.13",
+                    "version": "0.14.13",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "blaze-core_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/blaze-core_2.13/0.14.13/blaze-core_2.13-0.14.13.jar"
+                        },
+                        {
+                            "name": "blaze-core_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/http4s/blaze-core_2.13/0.14.13/blaze-core_2.13-0.14.13-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.twitter",
+                    "name": "hpack",
+                    "version": "1.0.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "hpack",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/twitter/hpack/1.0.2/hpack-1.0.2.jar"
+                        },
+                        {
+                            "name": "hpack",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/twitter/hpack/1.0.2/hpack-1.0.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.eclipse.jetty.alpn",
+                    "name": "alpn-api",
+                    "version": "1.1.3.v20160715",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "alpn-api",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/eclipse/jetty/alpn/alpn-api/1.1.3.v20160715/alpn-api-1.1.3.v20160715.jar"
+                        },
+                        {
+                            "name": "alpn-api",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/eclipse/jetty/alpn/alpn-api/1.1.3.v20160715/alpn-api-1.1.3.v20160715-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "io.monix",
+                    "name": "implicitbox_2.13",
+                    "version": "0.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "implicitbox_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/implicitbox_2.13/0.2.0/implicitbox_2.13-0.2.0.jar"
+                        },
+                        {
+                            "name": "implicitbox_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/io/monix/implicitbox_2.13/0.2.0/implicitbox_2.13-0.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.jctools",
+                    "name": "jctools-core",
+                    "version": "2.1.2",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "jctools-core",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/jctools/jctools-core/2.1.2/jctools-core-2.1.2.jar"
+                        },
+                        {
+                            "name": "jctools-core",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/jctools/jctools-core/2.1.2/jctools-core-2.1.2-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "com.typesafe.akka",
+                    "name": "akka-parsing_2.13",
+                    "version": "10.2.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "akka-parsing_2.13",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-parsing_2.13/10.2.0/akka-parsing_2.13-10.2.0.jar"
+                        },
+                        {
+                            "name": "akka-parsing_2.13",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/akka/akka-parsing_2.13/10.2.0/akka-parsing_2.13-10.2.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-sbt",
+                    "name": "test-interface",
+                    "version": "1.0",
+                    "configurations": "default",
+                    "artifacts": [
+                        {
+                            "name": "test-interface",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar"
+                        },
+                        {
+                            "name": "test-interface",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-sbt/test-interface/1.0/test-interface-1.0-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-compiler",
+                    "version": "2.13.3",
+                    "configurations": "optional",
+                    "artifacts": [
+                        {
+                            "name": "scala-compiler",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.3/scala-compiler-2.13.3.jar"
+                        },
+                        {
+                            "name": "scala-compiler",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.3/scala-compiler-2.13.3-sources.jar"
+                        }
+                    ]
+                },
+                {
+                    "organization": "org.scala-lang",
+                    "name": "scala-library",
+                    "version": "2.13.3",
+                    "configurations": "optional",
+                    "artifacts": [
+                        {
+                            "name": "scala-library",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.3/scala-library-2.13.3.jar"
+                        },
+                        {
+                            "name": "scala-library",
+                            "classifier": "sources",
+                            "path": "/Users/davidainslie/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.3/scala-library-2.13.3-sources.jar"
+                        }
+                    ]
+                }
+            ]
+        },
+        "tags": [
+            "library"
+        ]
+    }
+}

@@ -2,8 +2,8 @@ package com.backwards.kafka.producer
 
 import cats.effect.{ExitCode, IO, IOApp}
 import cats.implicits._
-import io.chrisdavenport.log4cats.Logger
-import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
+import org.typelevel.log4cats.Logger
+import org.typelevel.log4cats.slf4j.Slf4jLogger
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord, RecordMetadata}
 
 /**
@@ -29,9 +29,9 @@ object TransactionalSimpleProducerApp extends IOApp {
 
   def produce(producer: KafkaProducer[Int, String])(implicit logger: Logger[IO]): IO[Unit] = {
     def produceInTxn(id: Int): IO[Unit] =
-      IO(producer.beginTransaction()) *> produce(id, producer)
+      IO(producer.beginTransaction()) >> produce(id, producer)
 
-    IO(producer.initTransactions()) *> produceInTxn(1) *> IO(producer.commitTransaction()) *> produceInTxn(2) *> IO(producer.abortTransaction())
+    IO(producer.initTransactions()) >> produceInTxn(1) >> IO(producer.commitTransaction()) >> produceInTxn(2) >> IO(producer.abortTransaction())
   }
 
   def produce(id: Int, producer: KafkaProducer[Int, String])(implicit logger: Logger[IO]): IO[Unit] = {
@@ -39,12 +39,12 @@ object TransactionalSimpleProducerApp extends IOApp {
       if (i >= 2) {
         IO.unit
       } else {
-        def produce(topic: String): IO[Unit] = IO.async[Unit] { cb =>
+        def produce(topic: String): IO[Unit] = IO.async_[Unit](cb =>
           producer.send(
             new ProducerRecord(topic, i, s"Message-$id-$i: $topic"),
             (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb(().asRight))(_.asLeft)
           )
-        }
+        )
 
         List(produce("hello-producer-1"), produce("hello-producer-2")).parSequence *> send(i + 1)
       }
@@ -56,8 +56,8 @@ object TransactionalSimpleProducerApp extends IOApp {
     IO(producer.close())
 
   def programSuccess(logger: Logger[IO]): Unit => IO[ExitCode] =
-    _ => logger.info("Program success").map(_ => ExitCode.Success)
+    _ => logger.info("Program success").as(ExitCode.Success)
 
   def programFailure(logger: Logger[IO]): Throwable => IO[ExitCode] =
-    t => logger.error(t)("Program failure").map(_ => ExitCode.Error)
+    t => logger.error(t)("Program failure").as(ExitCode.Error)
 }

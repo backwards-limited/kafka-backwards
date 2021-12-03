@@ -8,6 +8,7 @@ import scala.language.postfixOps
 import better.files.{File, Resource}
 import cats.Id
 import cats.effect.IO
+import cats.effect.unsafe.implicits.global
 import io.lemonlabs.uri.Uri
 import org.apache.kafka.clients.consumer.{ConsumerRecord, MockConsumer, OffsetResetStrategy}
 import org.apache.kafka.common.TopicPartition

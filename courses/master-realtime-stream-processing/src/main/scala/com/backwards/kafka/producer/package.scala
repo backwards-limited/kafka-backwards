@@ -2,7 +2,7 @@ package com.backwards.kafka
 
 import java.util.Properties
 import cats.effect.IO
-import io.chrisdavenport.log4cats.Logger
+import org.typelevel.log4cats.Logger
 import pureconfig.ConfigSource
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.{IntegerSerializer, StringSerializer}

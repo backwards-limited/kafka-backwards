@@ -8,12 +8,12 @@ lazy val root = project("kafka-backwards", file("."))
 
 lazy val kafka = project("kafka", file("kafka"))
   .settings(description := "Backwards Kafka functionality includes example usage in various courses")
-  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
+  .settings(Test / javaOptions ++= Seq("-Dconfig.resource=application.test.conf"))
 
 lazy val `beginners-course` = project("beginners-course", file("courses/beginners-course"))
   .dependsOn(kafka % "compile->compile;test->test;it->it")
   .settings(description := "Beginners Course - Apache Kafka Series")
-  .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
+  .settings(Test / javaOptions ++= Seq("-Dconfig.resource=application.test.conf"))
 
 lazy val `master-realtime-stream-processing` = project("master-realtime-stream-processing", file("courses/master-realtime-stream-processing"))
   .settings(description := "Realtime Stream Processing Master Class Course")
@@ -28,6 +28,7 @@ def project(id: String, base: File): Project =
     .settings(inConfig(IT)(Defaults.testSettings))
     .settings(Defaults.itSettings)
     .settings(
+      ThisBuild / evictionErrorLevel := Level.Info,
       ThisBuild / turbo := true,
       scalaVersion := BuildProperties("scala.version"),
       sbtVersion := BuildProperties("sbt.version"),
@@ -35,38 +36,38 @@ def project(id: String, base: File): Project =
       organization := "com.backwards",
       name := id,
       resolvers += "jitpack" at "https://jitpack.io",
-      addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full),
+      addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.2" cross CrossVersion.full),
       addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
       libraryDependencies ++= dependencies,
       excludeDependencies ++= Seq("org.slf4j" % "slf4j-log4j12"),
       fork := true,
-      javaOptions in IT ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
+      IT / javaOptions ++= environment.map { case (key, value) => s"-D$key=$value" }.toSeq,
       scalacOptions ++= Seq(),
-      assemblyJarName in assembly := s"$id-${version.value}.jar",
-      test in assembly := {},
-      assemblyMergeStrategy in assembly := {
+      assembly / assemblyJarName := s"$id-${version.value}.jar",
+      assembly / test := {},
+      assembly / assemblyMergeStrategy := {
         case PathList("javax", xs @ _*)  => MergeStrategy.first
         case PathList("org", xs @ _*)  => MergeStrategy.first
         case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
         case PathList(ps @ _*) if ps.last endsWith "module-info.class" => MergeStrategy.first
         case "application.conf"  => MergeStrategy.concat
         case x =>
-          val oldStrategy = (assemblyMergeStrategy in assembly).value
+          val oldStrategy = (assembly / assemblyMergeStrategy).value
           oldStrategy(x)
       }
     )
     .settings(
       // To use 'dockerComposeTest' to run tests in the 'IntegrationTest' scope instead of the default 'Test' scope:
       // 1) Package the tests that exist in the IntegrationTest scope
-      testCasesPackageTask := (sbt.Keys.packageBin in IntegrationTest).value,
+      testCasesPackageTask := (IntegrationTest / packageBin).value,
       // 2) Specify the path to the IntegrationTest jar produced in Step 1
-      testCasesJar := artifactPath.in(IntegrationTest, packageBin).value.getAbsolutePath,
+      testCasesJar := (IntegrationTest /packageBin / artifactPath).value.getAbsolutePath,
       // 3) Include any IntegrationTest scoped resources on the classpath if they are used in the tests
       testDependenciesClasspath := {
-        val fullClasspathCompile = (fullClasspath in Compile).value
-        val classpathTestManaged = (managedClasspath in IntegrationTest).value
-        val classpathTestUnmanaged = (unmanagedClasspath in IntegrationTest).value
-        val testResources = (resources in IntegrationTest).value
+        val fullClasspathCompile = (Compile / fullClasspath).value
+        val classpathTestManaged = (IntegrationTest / managedClasspath).value
+        val classpathTestUnmanaged = (IntegrationTest / unmanagedClasspath).value
+        val testResources = (IntegrationTest / resources).value
         (fullClasspathCompile.files ++ classpathTestManaged.files ++ classpathTestUnmanaged.files ++ testResources).map(_.getAbsoluteFile).mkString(java.io.File.pathSeparator)
       },
       dockerImageCreationTask := docker.value

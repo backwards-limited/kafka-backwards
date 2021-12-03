@@ -5,8 +5,8 @@ import scala.language.postfixOps
 import cats.effect.{ExitCode, IO}
 import cats.implicits._
 import io.chrisdavenport.cats.effect.time.JavaTime
-import io.chrisdavenport.log4cats.Logger
-import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
+import org.typelevel.log4cats.Logger
+import org.typelevel.log4cats.slf4j.Slf4jLogger
 import io.circe.generic.AutoDerivation
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
 import com.monovore.decline._
@@ -48,8 +48,8 @@ object PointOfSaleSimulatorApp extends CommandIOApp(name = "PoS", header = "Run 
   }
 
   def use(invoiceCount: Int = 3)(producer: KafkaProducer[String, Invoice])(implicit logger: Logger[IO]): IO[Unit] = {
-    def send(invoiceCount: Int): IO[Unit] =
-      IO.asyncF[Int] { cb =>
+    def send(invoiceCount: Int): IO[Unit] = {
+      IO.async_[Int](cb =>
         for {
           instant <- JavaTime[IO].getInstant
           invoice = Invoice(InvoiceId("id"), InvoiceNumber("invoice-number"), instant, InvoiceStoreId("store-id"))
@@ -59,9 +59,10 @@ object PointOfSaleSimulatorApp extends CommandIOApp(name = "PoS", header = "Run 
             new ProducerRecord("pos-topic", invoice.id.value, invoice),
             (_: RecordMetadata, exception: Exception) => Option(exception).fold(cb((invoiceCount - 1).asRight))(t => cb(t.asLeft))
           )
-      } flatMap { invoiceCount =>
+      ).flatMap(invoiceCount =>
         IO.whenA(invoiceCount > 0)(IO.sleep(5 seconds) *> send(invoiceCount))
-      }
+      )
+    }
 
     send(invoiceCount).start.replicateA(5).flatMap(_.traverse(_.join)) *> IO.unit
   }

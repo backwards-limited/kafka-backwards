@@ -1,6 +1,5 @@
 package com.backwards.kafka
 
-import scala.language.higherKinds
 import cats.Monad
 import org.apache.kafka.clients.producer.ProducerConfig.{KEY_SERIALIZER_CLASS_CONFIG, VALUE_SERIALIZER_CLASS_CONFIG}
 import org.apache.kafka.clients.producer.{ProducerRecord, RecordMetadata}

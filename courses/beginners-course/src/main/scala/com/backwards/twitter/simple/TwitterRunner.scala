@@ -3,6 +3,7 @@ package com.backwards.twitter.simple
 import java.util.concurrent.TimeUnit
 import cats.data.NonEmptyList
 import cats.effect.IO
+import cats.effect.unsafe.implicits.global
 import cats.implicits._
 import com.backwards.AppBackwards
 import com.backwards.elasticsearch.ElasticSearchBroker
