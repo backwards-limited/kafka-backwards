@@ -1,9 +1,8 @@
-import scala.collection.immutable.LinearSeq
 import sbt._
 
 object Dependencies {
-  lazy val dependencies: LinearSeq[ModuleID] =
-    LinearSeq(
+  lazy val dependencies: Seq[ModuleID] =
+    List(
       scalatest, scalatestContainers, scribe, pprint, pureConfig, log4Cats, logback,
       cats, catsEffect, catsEffectTime,
       monocle, shapeless, fs2, scalaUri, kafka, monixKafka, kafkaSerde, betterFiles, decline,
@@ -12,183 +11,183 @@ object Dependencies {
       scalaBackwards
     ).flatten
 
-  lazy val scalatest: LinearSeq[ModuleID] =
-    LinearSeq("org.scalatest" %% "scalatest" % "3.2.10" % "test, it")
+  lazy val scalatest: Seq[ModuleID] =
+    List("org.scalatest" %% "scalatest" % "3.2.10" % "test, it")
 
-  lazy val scalatestContainers: LinearSeq[ModuleID] = {
+  lazy val scalatestContainers: Seq[ModuleID] = {
     val group = "com.dimafeng"
     val version = "1.0.0-alpha1"
 
-    LinearSeq(
+    List(
       "testcontainers-scala-scalatest", "testcontainers-scala-kafka", "testcontainers-scala-mysql", "testcontainers-scala-postgresql"
     ).map(group %% _ % version % "test, it" withSources() withJavadoc())
   }
 
-  lazy val scribe: LinearSeq[ModuleID] =
-    LinearSeq("com.outr" %% "scribe" % "3.6.3")
+  lazy val scribe: Seq[ModuleID] =
+    List("com.outr" %% "scribe" % "3.6.4")
 
-  lazy val pprint: LinearSeq[ModuleID] =
-    LinearSeq("com.lihaoyi" %% "pprint" % "0.6.6" % "test, it")
+  lazy val pprint: Seq[ModuleID] =
+    List("com.lihaoyi" %% "pprint" % "0.7.1" % "test, it")
 
-  lazy val pureConfig: LinearSeq[ModuleID] = {
+  lazy val pureConfig: Seq[ModuleID] = {
     val version = "0.17.1"
 
-    LinearSeq(
+    List(
       "com.github.pureconfig" %% "pureconfig",
       "com.github.pureconfig" %% "pureconfig-http4s"
     ).map(_ % version)
   }
 
-  lazy val betterFiles: LinearSeq[ModuleID] =
-    LinearSeq("com.github.pathikrit" %% "better-files" % "3.9.1")
+  lazy val betterFiles: Seq[ModuleID] =
+    List("com.github.pathikrit" %% "better-files" % "3.9.1")
 
-  lazy val decline: LinearSeq[ModuleID] = {
+  lazy val decline: Seq[ModuleID] = {
     val group = "com.monovore"
     val version = "2.2.0"
 
-    LinearSeq(
+    List(
       "decline", "decline-effect"
     ).map(group %% _ % version)
   }
 
-  lazy val twitter: LinearSeq[ModuleID] =
-    LinearSeq(
+  lazy val twitter: Seq[ModuleID] =
+    List(
       "com.danielasfregola" %% "twitter4s" % "7.0",
       "com.twitter" % "hbc-core" % "2.2.0"
     )
 
-  lazy val elasticsearch: LinearSeq[ModuleID] = {
+  lazy val elasticsearch: Seq[ModuleID] = {
     val group = "com.sksamuel.elastic4s"
     val version = "6.7.8"
 
-    LinearSeq(
+    List(
       "elastic4s-core", "elastic4s-http-streams", "elastic4s-http"
-    ).map(group %% _ % version) ++ LinearSeq(
+    ).map(group %% _ % version) ++ List(
       "elastic4s-testkit", "elastic4s-embedded"
     ).map(group %% _ % version % "test, it")
   }
 
-  lazy val apacheCommons: LinearSeq[ModuleID] =
-    LinearSeq("org.apache.commons" % "commons-lang3" % "3.12.0")
+  lazy val apacheCommons: Seq[ModuleID] =
+    List("org.apache.commons" % "commons-lang3" % "3.12.0")
 
-  lazy val newtype: LinearSeq[ModuleID] =
-    LinearSeq("io.estatico" %% "newtype" % "0.4.4")
+  lazy val newtype: Seq[ModuleID] =
+    List("io.estatico" %% "newtype" % "0.4.4")
 
-  lazy val tagging: LinearSeq[ModuleID] =
-    LinearSeq("com.softwaremill.common" %% "tagging" % "2.3.2")
+  lazy val tagging: Seq[ModuleID] =
+    List("com.softwaremill.common" %% "tagging" % "2.3.2")
 
-  lazy val avro4s: LinearSeq[ModuleID] =
-    LinearSeq("com.sksamuel.avro4s" %% "avro4s-core" % "4.0.11")
+  lazy val avro4s: Seq[ModuleID] =
+    List("com.sksamuel.avro4s" %% "avro4s-core" % "4.0.12")
 
-  lazy val circe: LinearSeq[ModuleID] = {
+  lazy val circe: Seq[ModuleID] = {
     val group = "io.circe"
     val version = "0.14.1"
 
-    LinearSeq(
+    List(
       "circe-core", "circe-generic", "circe-generic-extras", "circe-parser", "circe-refined"
-    ).map(group %% _ % version) ++ LinearSeq(
+    ).map(group %% _ % version) ++ List(
       "circe-testing", "circe-literal"
     ).map(group %% _ % version % "test, it")
   }
 
-  lazy val json4s: LinearSeq[ModuleID] = {
+  lazy val json4s: Seq[ModuleID] = {
     val version = "4.0.3"
-      
-    LinearSeq(
+
+    List(
       "org.json4s" %% "json4s-jackson",
       "org.json4s" %% "json4s-ext"
     ).map(_ % version)
   }
 
-  lazy val log4Cats: LinearSeq[ModuleID] = {
+  lazy val log4Cats: Seq[ModuleID] = {
     val group = "org.typelevel"
     val version = "2.1.1"
 
-    LinearSeq(
+    List(
       "log4cats-core", "log4cats-slf4j"
     ).map(group %% _ % version)
   }
 
-  lazy val logback: LinearSeq[ModuleID] =
-    LinearSeq("ch.qos.logback" % "logback-classic" % "1.2.7")
+  lazy val logback: Seq[ModuleID] =
+    List("ch.qos.logback" % "logback-classic" % "1.2.10")
 
-  lazy val cats: LinearSeq[ModuleID] = {
+  lazy val cats: Seq[ModuleID] = {
     val group = "org.typelevel"
     val version = "2.7.0"
 
-    LinearSeq(
+    List(
       "cats-core", "cats-free"
-    ).map(group %% _ % version withSources() withJavadoc()) ++ LinearSeq(
+    ).map(group %% _ % version withSources() withJavadoc()) ++ List(
       "cats-laws", "cats-testkit"
-    ).map(group %% _ % version % "test, it" withSources() withJavadoc()) ++ LinearSeq(
+    ).map(group %% _ % version % "test, it" withSources() withJavadoc()) ++ List(
       "cats-mtl"
     ).map(group %% _ % "1.2.1" withSources() withJavadoc())
   }
 
-  lazy val catsEffect: LinearSeq[ModuleID] =
-    LinearSeq("org.typelevel" %% "cats-effect" % "3.3.0")
+  lazy val catsEffect: Seq[ModuleID] =
+    List("org.typelevel" %% "cats-effect" % "3.3.0")
 
-  lazy val catsEffectTime: LinearSeq[ModuleID] =
-    LinearSeq("io.chrisdavenport" %% "cats-effect-time" % "0.2.0")
+  lazy val catsEffectTime: Seq[ModuleID] =
+    List("io.chrisdavenport" %% "cats-effect-time" % "0.2.0")
   
-  lazy val monocle: LinearSeq[ModuleID] = {
+  lazy val monocle: Seq[ModuleID] = {
     val group = "com.github.julien-truffaut"
     val version = "2.1.0"
 
-    LinearSeq(
+    List(
       "monocle-core", "monocle-macro", "monocle-generic"
-    ).map(group %% _ % version) ++ LinearSeq(
+    ).map(group %% _ % version) ++ List(
       "monocle-law"
     ).map(group %% _ % version % "test, it")
   }
 
-  lazy val shapeless: LinearSeq[ModuleID] =
-    LinearSeq("com.chuusai" %% "shapeless" % "2.3.7")
+  lazy val shapeless: Seq[ModuleID] =
+    List("com.chuusai" %% "shapeless" % "2.3.7")
   
-  lazy val fs2: LinearSeq[ModuleID] = {
+  lazy val fs2: Seq[ModuleID] = {
     val group = "co.fs2"
     val version = "3.2.2"
-    
-    LinearSeq(
+
+    List(
       "fs2-core", "fs2-io", "fs2-reactive-streams"
     ).map(group %% _ % version)
   }
 
-  lazy val scalaUri: LinearSeq[ModuleID] =
-    LinearSeq("io.lemonlabs" %% "scala-uri" % "3.6.0")
+  lazy val scalaUri: Seq[ModuleID] =
+    List("io.lemonlabs" %% "scala-uri" % "3.6.0")
 
-  lazy val kafka: LinearSeq[ModuleID] = {
+  lazy val kafka: Seq[ModuleID] = {
     val group = "org.apache.kafka"
     val version = "3.0.0"
-    
-    LinearSeq(
+
+    List(
       group % "kafka-clients",
       group % "kafka-streams",
       group %% "kafka-streams-scala"
-    ).map(_ % version) ++ LinearSeq(
+    ).map(_ % version) ++ List(
       group % "kafka-streams-test-utils"
     ).map(_ % version % "test, it")
   }
 
-  lazy val monixKafka: LinearSeq[ModuleID] =
-    LinearSeq("io.monix" %% "monix-kafka-1x" % "1.0.0-RC7")
+  lazy val monixKafka: Seq[ModuleID] =
+    List("io.monix" %% "monix-kafka-1x" % "1.0.0-RC7")
 
-  lazy val kafkaSerde: LinearSeq[ModuleID] = {
+  lazy val kafkaSerde: Seq[ModuleID] = {
     val group = "io.github.azhur"
     val version = "0.5.0"
 
-    LinearSeq(
+    List(
       "kafka-serde-circe", "kafka-serde-avro4s"
     ).map(group %% _ % version)
   }
 
-  lazy val scalaBackwards: LinearSeq[ModuleID] = {
+  lazy val scalaBackwards: Seq[ModuleID] = {
     val group = "com.github.backwards-limited.scala-backwards"
     val version = "1.1.8"
 
-    LinearSeq(
+    List(
       group % "main_2.13" % version
-    ) ++ LinearSeq(
+    ) ++ List(
       group % "main_2.13" % version % "test, it" classifier "tests",
       group % "main_2.13" % version % "test, it" classifier "it"
     )
